@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTRL home — Парфюмерия</title>
+<meta name="description" content="CTRL home — ароматы, созданные как инструменты настроения.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Prata&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header" id="header">
+  <div class="header-left">
+    <button class="menu-trigger" id="menuTrigger" aria-label="Открыть меню">
+      <span class="menu-ico"><span></span><span></span><span></span></span>
+      <span class="menu-trigger-text">Каталог</span>
+    </button>
+    <nav class="header-nav">
+      <a href="o-nas.html" class="rlink" data-text="О нас"><span class="roll">О нас</span></a>
+      <a href="kachestvo.html" class="rlink" data-text="Качество"><span class="roll">Качество</span></a>
+      <a href="soobshestvo.html" class="rlink" data-text="Сообщество"><span class="roll">Сообщество</span></a>
+    </nav>
+  </div>
+  <a class="logo" href="index.html">CTRL <span>home</span></a>
+  <div class="header-right">
+    <a href="#" class="hide-m rlink" data-text="Аккаунт"><span class="roll">Аккаунт</span></a>
+    <button class="cart-btn" id="cartOpen"><span class="rlink" data-text="Корзина"><span class="roll">Корзина</span></span><span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</header>
+
+<!-- БОКОВОЕ МЕНЮ (ШТОРКА) -->
+<div class="nav-overlay" id="navOverlay"></div>
+<aside class="nav-drawer" id="navDrawer" aria-label="Меню">
+  <div class="nav-drawer-head">
+    <a class="nav-drawer-logo" href="index.html">CTRL <span>home</span></a>
+    <button class="nav-close" id="navClose" aria-label="Закрыть">Закрыть</button>
+  </div>
+  <nav class="nav-drawer-body">
+    <a class="nav-link" href="catalog.html">Все ароматы</a>
+    <a class="nav-link" href="#">Новинки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Парфюмерия <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Спреи для тела <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Супер-ароматы <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Уход за телом <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Свечи <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Для стирки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Мерч и аксессуары</a>
+    <a class="nav-link" href="sobrat-nabor.html">Собрать свой набор <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Подарочные карты <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Распродажа <span class="nav-arrow">›</span></a>
+    <a class="nav-link nav-link--accent" href="o-nas.html">О нас <span class="nav-arrow">›</span></a>
+    <a class="nav-link nav-link--accent" href="soobshestvo.html">Сообщество <span class="nav-arrow">›</span></a>
+  </nav>
+  <div class="nav-drawer-foot">
+    <a href="#">Аккаунт</a>
+    <a href="#">Instagram</a>
+    <a href="#">Telegram</a>
+  </div>
+</aside>
+
+<!-- ХИРО -->
+<section class="hero">
+  <div class="hero-media">
+    <video src="videos/hero.mp4" autoplay muted loop playsinline></video>
+  </div>
+  <canvas id="heroBubbles"></canvas>
+</section>
+
+<!-- БЕГУЩАЯ СТРОКА -->
+<div class="marquee" aria-hidden="true">
+  <div class="marquee-track" id="marqueeTrack">
+    <span>CTRL home <i>•</i> Парфюмерия настроения <i>•</i> Сделано с любовью <i>•</i> Новая коллекция 2026 <i>•</i></span>
+  </div>
+</div>
+
+<!-- КОЛЛЕКЦИЯ -->
+<section class="section container" id="collection">
+  <h2 class="section-title reveal">Коллекция <em>/ 4 аромата</em></h2>
+  <div class="products">
+    <article class="product reveal" data-id="1">
+      <div class="product-img">
+        <img src="images/aromat-1.png" alt="CTRL № 1 — Рассвет" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/ctrl1/900/1200'">
+        <img class="img-alt" src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/ctrl1b/900/1200'">
+        <button class="product-add" data-add="1" aria-label="Выбрать">Выбрать</button>
+      </div>
+      <div class="product-info">
+        <div>
+          <div class="product-name">CTRL № 1 — Рассвет</div>
+          <div class="product-note">бергамот · нероли · белый чай</div>
+        </div>
+        <div class="product-price">6 900 ₽</div>
+      </div>
+    </article>
+    <article class="product reveal" data-delay="1" data-id="2">
+      <div class="product-img">
+        <img src="images/aromat-2.png" alt="CTRL № 2 — Полдень" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/ctrl2/900/1200'">
+        <img class="img-alt" src="https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/ctrl2b/900/1200'">
+        <button class="product-add" data-add="2" aria-label="Выбрать">Выбрать</button>
+      </div>
+      <div class="product-info">
+        <div>
+          <div class="product-name">CTRL № 2 — Полдень</div>
+          <div class="product-note">инжир · кедр · морская соль</div>
+        </div>
+        <div class="product-price">7 400 ₽</div>
+      </div>
+    </article>
+    <article class="product reveal" data-delay="2" data-id="3">
+      <div class="product-img">
+        <img src="images/aromat-3.png" alt="CTRL № 3 — Сумерки" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/ctrl3/900/1200'">
+        <img class="img-alt" src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/ctrl3b/900/1200'">
+        <button class="product-add" data-add="3" aria-label="Выбрать">Выбрать</button>
+      </div>
+      <div class="product-info">
+        <div>
+          <div class="product-name">CTRL № 3 — Сумерки</div>
+          <div class="product-note">ирис · сандал · амбра</div>
+        </div>
+        <div class="product-price">8 200 ₽</div>
+      </div>
+    </article>
+    <article class="product reveal" data-delay="3" data-id="4">
+      <div class="product-img">
+        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop" alt="CTRL № 4 — Полночь" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/ctrl4/900/1200'">
+        <img class="img-alt" src="https://images.unsplash.com/photo-1592842232655-e5d345cbc2d0?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/ctrl4b/900/1200'">
+        <button class="product-add" data-add="4" aria-label="Выбрать">Выбрать</button>
+      </div>
+      <div class="product-info">
+        <div>
+          <div class="product-name">CTRL № 4 — Полночь</div>
+          <div class="product-note">уд · ваниль · чёрный перец</div>
+        </div>
+        <div class="product-price">9 100 ₽</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ФИЛОСОФИЯ + ПУЗЫРЬ -->
+<section class="philosophy" id="philosophy">
+  <div class="container philosophy-grid">
+    <div>
+      <div class="philosophy-label reveal">Наша философия</div>
+      <h2 class="reveal" data-delay="1">Наши ароматы созданы как инструменты настроения</h2>
+      <div class="philosophy-points">
+        <p class="reveal" data-delay="1"><strong>СОЗДАЮТ</strong> атмосферу и задают тон дню</p>
+        <p class="reveal" data-delay="2"><strong>ВОЗВРАЩАЮТ</strong> к спокойствию и балансу</p>
+        <p class="reveal" data-delay="3"><strong>ПОДЧЁРКИВАЮТ</strong> вашу индивидуальность каждый день</p>
+      </div>
+      <a class="btn reveal" data-delay="3" href="#collection">Смотреть ароматы</a>
+    </div>
+    <div class="bubble-stage" id="bubbleStage">
+      <canvas id="bubbleCanvas"></canvas>
+      <div class="bubble-hint">Поднесите курсор к молекуле</div>
+    </div>
+  </div>
+</section>
+
+<!-- ПРОМО: КОЛЛЕКЦИЯ + КОНСТРУКТОР НАБОРА -->
+<section class="promo" id="promo">
+  <div class="promo-grid">
+    <!-- ЛЕВО: статичное фото -->
+    <a class="promo-card reveal" href="#collection">
+      <div class="promo-media">
+        <img src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=1200&q=75&auto=format&fit=crop" alt="Коллекция ароматов CTRL home" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/promoL/1200/900'">
+      </div>
+      <div class="promo-overlay">
+        <div class="promo-kicker">Коллекция CTRL home</div>
+        <h3 class="promo-title">Найдите свой аромат настроения</h3>
+        <span class="promo-btn">Смотреть ароматы</span>
+      </div>
+    </a>
+    <!-- ПРАВО: сменяющиеся кадры → конструктор набора -->
+    <a class="promo-card reveal" data-delay="1" href="sobrat-nabor.html" data-page="constructor">
+      <div class="promo-media promo-media--anim">
+        <img class="frame" src="https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=1200&q=75&auto=format&fit=crop" alt="" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/promoR1/1200/900'">
+        <img class="frame" src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=1200&q=75&auto=format&fit=crop" alt="" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/promoR2/1200/900'">
+        <img class="frame" src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=1200&q=75&auto=format&fit=crop" alt="" loading="lazy"
+             onerror="this.src='https://picsum.photos/seed/promoR3/1200/900'">
+      </div>
+      <div class="promo-overlay">
+        <div class="promo-kicker">Своими руками</div>
+        <h3 class="promo-title">Соберите свой набор ароматов</h3>
+        <span class="promo-btn">Собрать набор</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- БЕГУЩАЯ СТРОКА (слоган) -->
+<div class="marquee marquee--promo" aria-hidden="true">
+  <div class="marquee-track">
+    <span>чистый · честный · твой аромат <i>•</i> чистый · честный · твой аромат <i>•</i> чистый · честный · твой аромат <i>•</i> </span>
+  </div>
+</div>
+
+<!-- 4 ШАГА -->
+<section class="steps-wrap" id="steps">
+  <div class="steps-sticky">
+    <div class="steps-intro">
+      <div class="big-num">4</div>
+      <h2>шага вашего парфюмерного ритуала</h2>
+      <p>от первого вдоха до шлейфа, который остаётся в памяти.</p>
+      <div class="steps-progress" id="stepsProgress">
+        <i></i><i></i><i></i><i></i>
+      </div>
+    </div>
+    <div class="step-panels" id="stepPanels">
+      <div class="step active">
+        <div class="step-num">1/</div>
+        <h3>Знакомство</h3>
+        <h4>CTRL № 1 — Рассвет</h4>
+        <p>Начните утро с лёгких цитрусовых нот. Бергамот и нероли мягко будят чувства, а белый чай оставляет ощущение чистоты и свежести — как первый луч солнца в окне.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">2/</div>
+        <h3>Активность</h3>
+        <h4>CTRL № 2 — Полдень</h4>
+        <p>Аромат для середины дня: сочный инжир даёт энергию, кедр — уверенность, а морская соль освежает. Идеален для работы, встреч и городских прогулок.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">3/</div>
+        <h3>Замедление</h3>
+        <h4>CTRL № 3 — Сумерки</h4>
+        <p>Вечерний переход: пудровый ирис успокаивает, сандал согревает, амбра окутывает. Аромат-выдох после длинного дня, помогающий замедлиться.</p>
+      </div>
+      <div class="step">
+        <div class="step-num">4/</div>
+        <h3>Шлейф</h3>
+        <h4>CTRL № 4 — Полночь</h4>
+        <p>Глубокий и обволакивающий: уд и ваниль с искрой чёрного перца. Аромат особенных вечеров, который остаётся в памяти дольше, чем сама ночь.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">CTRL <span>home</span></div>
+      </div>
+      <div>
+        <h5>Навигация</h5>
+        <nav class="footer-nav">
+          <a href="#collection">Ароматы</a>
+          <a href="#philosophy">Философия</a>
+          <a href="#steps">Ритуал</a>
+          <a href="#">Доставка и возврат</a>
+        </nav>
+      </div>
+      <div>
+        <h5>Подпишитесь на новости</h5>
+        <form class="subscribe" id="subscribeForm" novalidate>
+          <input type="email" id="subscribeEmail" placeholder="ваш@email.ru" aria-label="Email">
+          <button type="submit">Отправить</button>
+        </form>
+        <div class="subscribe-msg" id="subscribeMsg"></div>
+        <h5 style="margin-top:2rem">Мы в соцсетях</h5>
+        <nav class="footer-nav">
+          <a href="#">Instagram</a>
+          <a href="#">Telegram</a>
+        </nav>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 CTRL home. Все права защищены.</div>
+      <div>Политика конфиденциальности · Оферта</div>
+    </div>
+  </div>
+</footer>
+
+<!-- КОРЗИНА -->
+<div class="cart-overlay" id="cartOverlay"></div>
+<aside class="cart-drawer" id="cartDrawer" aria-label="Корзина">
+  <div class="cart-head">
+    <h4>Корзина (<span id="cartHeadCount">0</span>)</h4>
+    <button class="cart-close" id="cartClose">Закрыть</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">Ваша корзина<br>пока пуста</div>
+  </div>
+  <div class="cart-foot">
+    <div class="cart-total"><span>Итого</span><span id="cartTotal">0 ₽</span></div>
+    <button class="checkout-btn">Оформить заказ</button>
+  </div>
+</aside>
+
+<script src="menu.js"></script>
+<script>
+/* ============ ДАННЫЕ ============ */
+const PRODUCTS = {
+  1:{name:'CTRL № 1 — Рассвет',price:6900,img:'images/aromat-1.png'},
+  2:{name:'CTRL № 2 — Полдень',price:7400,img:'images/aromat-2.png'},
+  3:{name:'CTRL № 3 — Сумерки',price:8200,img:'images/aromat-3.png'},
+  4:{name:'CTRL № 4 — Полночь',price:9100,img:'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=70&auto=format&fit=crop'}
+};
+const fmt = n => n.toLocaleString('ru-RU') + ' ₽';
+
+/* ============ ШАПКА ПРИ СКРОЛЛЕ ============ */
+const header = document.getElementById('header');
+let lastScrollState = false;
+function onScrollHeader(){
+  const s = window.scrollY > 40;
+  if(s !== lastScrollState){ header.classList.toggle('scrolled', s); lastScrollState = s; }
+}
+window.addEventListener('scroll', onScrollHeader, {passive:true});
+
+/* ============ МЕНЮ-ШТОРКА — в menu.js ============ */
+
+/* ============ REVEAL ПРИ СКРОЛЛЕ ============ */
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+},{threshold:.15});
+document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+
+/* ============ БЕГУЩАЯ СТРОКА (дублируем контент) ============ */
+document.querySelectorAll('.marquee-track').forEach(t => t.innerHTML += t.innerHTML);
+
+/* ============ КОРЗИНА ============ */
+const cart = [];
+const cartDrawer = document.getElementById('cartDrawer');
+const cartOverlay = document.getElementById('cartOverlay');
+const cartItemsEl = document.getElementById('cartItems');
+const cartCountEl = document.getElementById('cartCount');
+
+function openCart(){ cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); }
+function closeCart(){ cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); }
+document.getElementById('cartOpen').addEventListener('click', openCart);
+document.getElementById('cartClose').addEventListener('click', closeCart);
+cartOverlay.addEventListener('click', closeCart);
+
+function renderCart(){
+  document.getElementById('cartHeadCount').textContent = cart.length;
+  cartCountEl.textContent = cart.length;
+  cartCountEl.classList.add('bump');
+  setTimeout(() => cartCountEl.classList.remove('bump'), 300);
+  if(!cart.length){
+    cartItemsEl.innerHTML = '<div class="cart-empty">Ваша корзина<br>пока пуста</div>';
+    document.getElementById('cartTotal').textContent = fmt(0);
+    return;
+  }
+  cartItemsEl.innerHTML = cart.map((id,i) => {
+    const p = PRODUCTS[id];
+    return `<div class="cart-item">
+      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://picsum.photos/seed/ctrl${id}/300/380'">
+      <div><div class="cart-item-name">${p.name}</div><div class="cart-item-price">${fmt(p.price)}</div></div>
+      <button class="cart-remove" data-rm="${i}">Убрать</button>
+    </div>`;
+  }).join('');
+  document.getElementById('cartTotal').textContent = fmt(cart.reduce((s,id) => s + PRODUCTS[id].price, 0));
+  cartItemsEl.querySelectorAll('[data-rm]').forEach(b =>
+    b.addEventListener('click', () => { cart.splice(+b.dataset.rm,1); renderCart(); }));
+}
+document.querySelectorAll('[data-add]').forEach(b =>
+  b.addEventListener('click', () => { cart.push(+b.dataset.add); renderCart(); openCart(); }));
+
+/* ============ ПОДПИСКА ============ */
+document.getElementById('subscribeForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const email = document.getElementById('subscribeEmail').value.trim();
+  const msg = document.getElementById('subscribeMsg');
+  if(!/^\S+@\S+\.\S+$/.test(email)){ msg.textContent = 'Проверьте формат email'; return; }
+  msg.textContent = 'Спасибо! Вы подписаны.';
+  e.target.reset();
+});
+
+/* ============ 4 ШАГА: STICKY-СКРОЛЛ ============ */
+const stepsWrap = document.getElementById('steps');
+const steps = [...document.querySelectorAll('#stepPanels .step')];
+const progress = [...document.querySelectorAll('#stepsProgress i')];
+stepsWrap.style.height = (steps.length * 100) + 'vh';
+let stepsTicking = false;
+function updateSteps(){
+  const r = stepsWrap.getBoundingClientRect();
+  const total = r.height - window.innerHeight;
+  const p = Math.min(Math.max(-r.top / total, 0), .999);
+  const idx = Math.floor(p * steps.length);
+  steps.forEach((s,i) => s.classList.toggle('active', i === idx));
+  progress.forEach((b,i) => b.classList.toggle('done', i <= idx));
+  stepsTicking = false;
+}
+window.addEventListener('scroll', () => {
+  if(!stepsTicking){ requestAnimationFrame(updateSteps); stepsTicking = true; }
+},{passive:true});
+updateSteps();
+
+/* ============ ПУЗЫРИ В ХИРО (фоновые, медленные) ============ */
+(function(){
+  const cv = document.getElementById('heroBubbles');
+  const ctx = cv.getContext('2d');
+  let W,H,bubbles=[];
+  function resize(){
+    W = cv.width = cv.offsetWidth * devicePixelRatio;
+    H = cv.height = cv.offsetHeight * devicePixelRatio;
+  }
+  resize(); window.addEventListener('resize', resize);
+  for(let i=0;i<10;i++) bubbles.push({
+    x:Math.random(), y:Math.random()+0.3,
+    r:(6+Math.random()*16)*devicePixelRatio,
+    sp:(0.0004+Math.random()*0.0008), drift:Math.random()*Math.PI*2
+  });
+  function drawBubble(x,y,r,alpha){
+    ctx.save(); ctx.globalAlpha = alpha;
+    const g = ctx.createRadialGradient(x-r*.3,y-r*.3,r*.1,x,y,r);
+    g.addColorStop(0,'rgba(255,255,255,.65)');
+    g.addColorStop(.7,'rgba(255,255,255,.06)');
+    g.addColorStop(.92,'rgba(200,210,255,.25)');
+    g.addColorStop(1,'rgba(255,255,255,.45)');
+    ctx.fillStyle = g;
+    ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.fill();
+    ctx.restore();
+  }
+  function loop(t){
+    ctx.clearRect(0,0,W,H);
+    bubbles.forEach(b => {
+      b.y -= b.sp; b.drift += 0.01;
+      if(b.y*H < -40) b.y = 1.1;
+      drawBubble(b.x*W + Math.sin(b.drift)*14*devicePixelRatio, b.y*H, b.r, .5);
+    });
+    requestAnimationFrame(loop);
+  }
+  loop();
+})();
+
+/* ============ ЖИДКАЯ СТЕКЛЯННАЯ МОЛЕКУЛА АРОМАТА ============ */
+(function(){
+  const stage = document.getElementById('bubbleStage');
+  const cv = document.getElementById('bubbleCanvas');
+  const ctx = cv.getContext('2d');
+  const DPR = Math.min(devicePixelRatio, 2);
+  let W,H,CX,CY,R;
+  function resize(){
+    W = cv.width = stage.offsetWidth * DPR;
+    H = cv.height = stage.offsetHeight * DPR;
+    CX = W/2; CY = H/2;
+    R = Math.min(W,H) * 0.27;
+  }
+  resize(); window.addEventListener('resize', resize);
+
+  const mouse = {x:0, y:0, inside:false};
+  let pull = 0;            /* сила «магнита» 0..1, плавная */
+  let lastDir = 0;         /* направление к курсору */
+  stage.addEventListener('pointermove', e => {
+    const r = stage.getBoundingClientRect();
+    mouse.x = (e.clientX - r.left) * DPR;
+    mouse.y = (e.clientY - r.top) * DPR;
+    mouse.inside = true;
+  });
+  stage.addEventListener('pointerleave', () => {
+    mouse.inside = false;
+    if(pull > .15) spawnDroplet(lastDir);   /* капля отделяется в сторону курсора */
+  });
+
+  /* --- капельки-частицы аромата --- */
+  const droplets = [];
+  function spawnDroplet(dir){
+    droplets.push({
+      dir, dist:R*.9,                 /* расстояние от центра */
+      r:R*.16, phase:'bridge',        /* bridge → free */
+      vx:Math.cos(dir)*1.1*DPR, vy:Math.sin(dir)*1.1*DPR - .3*DPR,
+      life:1, wob:Math.random()*6
+    });
+  }
+
+  /* органический радиус контура: дыхание + морфинг + магнитное растяжение */
+  function blobRadius(a, t){
+    let r = R * (1
+      + .035*Math.sin(t*.0009)                       /* дыхание */
+      + .045*Math.sin(3*a + t*.0007)                 /* медленный морфинг */
+      + .03 *Math.sin(5*a - t*.0011)
+      + .018*Math.sin(8*a + t*.0016));
+    if(pull > .003){
+      let d = a - lastDir;
+      d = Math.atan2(Math.sin(d), Math.cos(d));      /* кратчайший угол */
+      r += R * .45 * pull * Math.exp(-(d*d)/.45);    /* вытягивание к курсору */
+    }
+    return r;
+  }
+
+  function drawBlob(t){
+    /* сила притяжения: ближе курсор — сильнее тянется */
+    let target = 0;
+    if(mouse.inside){
+      const dx = mouse.x-CX, dy = mouse.y-CY;
+      const dist = Math.hypot(dx,dy);
+      lastDir = Math.atan2(dy,dx);
+      target = Math.max(0, Math.min(1, 1.6 - dist/(R*2.2)));
+    }
+    pull += (target - pull) * .06;                   /* вязкая инерция */
+
+    const N = 140;
+    ctx.beginPath();
+    for(let i=0;i<=N;i++){
+      const a = i/N*Math.PI*2;
+      const r = blobRadius(a,t);
+      const x = CX + Math.cos(a)*r, y = CY + Math.sin(a)*r;
+      i ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
+    }
+    ctx.closePath();
+
+    /* тело: жидкое стекло с мягким внутренним свечением */
+    const body = ctx.createRadialGradient(CX-R*.25,CY-R*.3,R*.05,CX,CY,R*1.35);
+    body.addColorStop(0,'rgba(255,255,255,.75)');
+    body.addColorStop(.4,'rgba(250,247,240,.28)');
+    body.addColorStop(.75,'rgba(214,200,178,.18)');
+    body.addColorStop(1,'rgba(154,123,79,.10)');
+    ctx.fillStyle = body;
+    ctx.fill();
+
+    /* перламутровая кромка */
+    for(let i=0;i<2;i++){
+      const hue = (t*.02 + i*160) % 360;
+      ctx.strokeStyle = `hsla(${hue},45%,80%,${.4-.15*i})`;
+      ctx.lineWidth = (1.6-i*.6)*DPR;
+      ctx.stroke();
+    }
+
+    /* верхний блик */
+    ctx.save();
+    ctx.translate(CX-R*.32,CY-R*.4);
+    ctx.rotate(-.6);
+    const hl = ctx.createRadialGradient(0,0,0,0,0,R*.32);
+    hl.addColorStop(0,'rgba(255,255,255,.8)');
+    hl.addColorStop(1,'rgba(255,255,255,0)');
+    ctx.fillStyle = hl;
+    ctx.beginPath(); ctx.ellipse(0,0,R*.3,R*.13,0,0,7); ctx.fill();
+    ctx.restore();
+  }
+
+  function drawDroplets(t){
+    for(let i = droplets.length-1; i >= 0; i--){
+      const d = droplets[i];
+      const edge = blobRadius(d.dir, t);
+      if(d.phase === 'bridge'){
+        d.dist += 2.2*DPR;
+        const x = CX + Math.cos(d.dir)*d.dist, y = CY + Math.sin(d.dir)*d.dist;
+        /* тонкий жидкий мостик: сужающаяся цепочка капель */
+        const ex = CX + Math.cos(d.dir)*edge*.92, ey = CY + Math.sin(d.dir)*edge*.92;
+        for(let k=0;k<=6;k++){
+          const f = k/6;
+          const br = d.r * (1-f) * .45 + d.r * f * .2;
+          ctx.fillStyle = `rgba(245,240,230,${.5*(1-f*.5)})`;
+          ctx.beginPath();
+          ctx.arc(ex+(x-ex)*f, ey+(y-ey)*f, Math.max(br*(1 - Math.sin(f*Math.PI)*.65), .8*DPR), 0, 7);
+          ctx.fill();
+        }
+        d.x = x; d.y = y;
+        if(d.dist > edge + R*.55) d.phase = 'free';   /* мостик рвётся */
+      } else {
+        d.wob += .04;
+        d.x += d.vx + Math.sin(d.wob)*.4*DPR;
+        d.y += d.vy; d.vy -= .008*DPR;                /* лёгкий подъём — испарение */
+        d.life -= .006;
+        d.r *= .998;
+      }
+      if(d.life <= 0){ droplets.splice(i,1); continue; }
+      /* сама капля */
+      ctx.save();
+      ctx.globalAlpha = Math.min(d.life,1);
+      const g = ctx.createRadialGradient(d.x-d.r*.3,d.y-d.r*.3,d.r*.05,d.x,d.y,d.r);
+      g.addColorStop(0,'rgba(255,255,255,.85)');
+      g.addColorStop(.6,'rgba(248,243,234,.3)');
+      g.addColorStop(1,'rgba(200,185,160,.35)');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,7); ctx.fill();
+      ctx.restore();
+    }
+  }
+
+  function loop(t){
+    ctx.clearRect(0,0,W,H);
+    drawBlob(t);
+    drawDroplets(t);
+    requestAnimationFrame(loop);
+  }
+  loop(0);
+})();
+</script>
+</body>
+</html>

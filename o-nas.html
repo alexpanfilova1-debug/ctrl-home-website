@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>О нас — CTRL home</title>
+<meta name="description" content="CTRL home — российский бренд парфюмерии настроения. Наша история и философия.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Prata&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header" id="header">
+  <div class="header-left">
+    <button class="menu-trigger" id="menuTrigger" aria-label="Открыть меню">
+      <span class="menu-ico"><span></span><span></span><span></span></span>
+      <span class="menu-trigger-text">Каталог</span>
+    </button>
+    <nav class="header-nav">
+      <a href="o-nas.html" class="rlink" data-text="О нас"><span class="roll">О нас</span></a>
+      <a href="kachestvo.html" class="rlink" data-text="Качество"><span class="roll">Качество</span></a>
+      <a href="soobshestvo.html" class="rlink" data-text="Сообщество"><span class="roll">Сообщество</span></a>
+    </nav>
+  </div>
+  <a class="logo" href="index.html">CTRL <span>home</span></a>
+  <div class="header-right">
+    <a href="#" class="hide-m rlink" data-text="Аккаунт"><span class="roll">Аккаунт</span></a>
+    <button class="cart-btn" id="cartOpen"><span class="rlink" data-text="Корзина"><span class="roll">Корзина</span></span><span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</header>
+
+<!-- БОКОВОЕ МЕНЮ (ШТОРКА) -->
+<div class="nav-overlay" id="navOverlay"></div>
+<aside class="nav-drawer" id="navDrawer" aria-label="Меню">
+  <div class="nav-drawer-head">
+    <a class="nav-drawer-logo" href="index.html">CTRL <span>home</span></a>
+    <button class="nav-close" id="navClose" aria-label="Закрыть">Закрыть</button>
+  </div>
+  <nav class="nav-drawer-body">
+    <a class="nav-link" href="catalog.html">Все ароматы</a>
+    <a class="nav-link" href="#">Новинки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Парфюмерия <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Спреи для тела <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Супер-ароматы <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Уход за телом <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Свечи <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Для стирки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Мерч и аксессуары</a>
+    <a class="nav-link" href="sobrat-nabor.html">Собрать свой набор <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Подарочные карты <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="#">Распродажа <span class="nav-arrow">›</span></a>
+    <a class="nav-link nav-link--accent" href="o-nas.html">О нас <span class="nav-arrow">›</span></a>
+    <a class="nav-link nav-link--accent" href="soobshestvo.html">Сообщество <span class="nav-arrow">›</span></a>
+  </nav>
+  <div class="nav-drawer-foot">
+    <a href="#">Аккаунт</a>
+    <a href="#">Instagram</a>
+    <a href="#">Telegram</a>
+  </div>
+</aside>
+
+<!-- О НАС -->
+<section class="section container" style="padding-top:calc(var(--header-h) + 4rem)">
+  <div class="philosophy-label reveal">О нас</div>
+  <h1 class="section-title reveal" data-delay="1">CTRL <em>home</em> — парфюмерия настроения</h1>
+  <div style="max-width:62ch;display:flex;flex-direction:column;gap:1.4rem;color:var(--ink-soft);font-size:1.05rem">
+    <p class="reveal" data-delay="1">CTRL home создаёт ароматы как инструменты настроения. Каждый аромат — переключатель состояния: с ним проще вернуться к себе, задать тон дню или замедлиться вечером.</p>
+    <p class="reveal" data-delay="2">Мы верим, что аромат — не просто финальный штрих образа, а способ управлять своим состоянием. Поэтому наша коллекция построена вокруг четырёх настроений — от лёгкого «Рассвета» до глубокой «Полночи».</p>
+    <p class="reveal" data-delay="3">Мы работаем с продуманными композициями и качественными ингредиентами, чтобы каждый флакон становился маленьким ежедневным ритуалом, который остаётся с вами.</p>
+  </div>
+  <a class="btn reveal" data-delay="3" href="catalog.html" style="margin-top:3rem">Смотреть коллекцию</a>
+</section>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-logo">CTRL <span>home</span></div></div>
+      <div>
+        <h5>Навигация</h5>
+        <nav class="footer-nav">
+          <a href="catalog.html">Все ароматы</a>
+          <a href="sobrat-nabor.html">Собрать набор</a>
+          <a href="o-nas.html">О нас</a>
+          <a href="kachestvo.html">Качество</a>
+          <a href="soobshestvo.html">Сообщество</a>
+        </nav>
+      </div>
+      <div>
+        <h5>Подпишитесь на новости</h5>
+        <form class="subscribe" onsubmit="return false">
+          <input type="email" placeholder="ваш@email.ru" aria-label="Email">
+          <button type="submit">Отправить</button>
+        </form>
+        <div class="subscribe-msg"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 CTRL home. Все права защищены.</div>
+      <div>Политика конфиденциальности · Оферта</div>
+    </div>
+  </div>
+</footer>
+
+<script src="menu.js"></script>
+<script>
+  var h=document.getElementById('header');
+  if(h){var f=function(){h.classList.toggle('scrolled',window.scrollY>40);};window.addEventListener('scroll',f,{passive:true});f();}
+  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
+</script>
+</body>
+</html>
