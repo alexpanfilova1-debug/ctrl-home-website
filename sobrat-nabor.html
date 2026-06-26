@@ -7,8 +7,9 @@
 <meta name="description" content="Соберите персональный набор ароматов CTRL home под своё настроение.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Prata&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=10">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
 
@@ -27,7 +28,7 @@
   </div>
   <a class="logo" href="index.html">CTRL <span>home</span></a>
   <div class="header-right">
-    <a href="#" class="hide-m rlink" data-text="Аккаунт"><span class="roll">Аккаунт</span></a>
+    <a href="account.html" class="hide-m rlink" data-text="Аккаунт"><span class="roll">Аккаунт</span></a>
     <button class="cart-btn" id="cartOpen"><span class="rlink" data-text="Корзина"><span class="roll">Корзина</span></span><span class="cart-count" id="cartCount">0</span></button>
   </div>
 </header>
@@ -41,80 +42,102 @@
   </div>
   <nav class="nav-drawer-body">
     <a class="nav-link" href="catalog.html">Все ароматы</a>
-    <a class="nav-link" href="#">Новинки <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Парфюмерия <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Спреи для тела <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Супер-ароматы <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Уход за телом <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Свечи <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Для стирки <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Мерч и аксессуары</a>
+    <a class="nav-link" href="novinki.html">Новинки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="parfumeriya.html">Парфюмерия <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="sprei-dlya-tela.html">Спреи для тела <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="super-aromaty.html">Супер-ароматы <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="uhod-za-telom.html">Уход за телом <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="svechi.html">Свечи <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="dlya-stirki.html">Для стирки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="merch.html">Мерч и аксессуары</a>
     <a class="nav-link" href="sobrat-nabor.html">Собрать свой набор <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Подарочные карты <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Распродажа <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="podarochnye-karty.html">Подарочные карты <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="rasprodazha.html">Распродажа <span class="nav-arrow">›</span></a>
     <a class="nav-link nav-link--accent" href="o-nas.html">О нас <span class="nav-arrow">›</span></a>
     <a class="nav-link nav-link--accent" href="soobshestvo.html">Сообщество <span class="nav-arrow">›</span></a>
   </nav>
   <div class="nav-drawer-foot">
-    <a href="#">Аккаунт</a>
+    <a href="account.html">Аккаунт</a>
     <a href="#">Instagram</a>
     <a href="#">Telegram</a>
   </div>
 </aside>
 
 <!-- КОНСТРУКТОР НАБОРА -->
-<section class="section container" style="padding-top:calc(var(--header-h) + 4rem)">
-  <div class="philosophy-label reveal">Своими руками</div>
-  <h1 class="section-title reveal" data-delay="1">Соберите <em>свой набор</em></h1>
-  <p class="reveal" data-delay="1" style="max-width:52ch;color:var(--ink-soft);margin-bottom:3rem;font-size:1.05rem">Выберите ароматы под свои настроения — и мы соберём персональный набор CTRL home. Интерактивный конструктор скоро появится здесь, а пока выберите понравившиеся ароматы из коллекции.</p>
-  <div class="products">
-    <article class="product reveal" data-id="1">
-      <div class="product-img">
-        <img src="images/aromat-1.png" alt="CTRL № 1 — Рассвет" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl1/900/1200'">
-        <button class="product-add" data-add="1" aria-label="В набор">В набор</button>
+<main class="bundle-page bundle-page--compact">
+  <div class="container">
+    <section class="bundle-studio reveal" id="bundleBuilder" aria-label="Конструктор пробного набора">
+      <div class="bundle-studio-head">
+        <div class="bundle-title-block">
+          <div class="philosophy-label">Своими руками</div>
+          <h1>Соберите <em>свой sample pack</em></h1>
+          <p>Выберите 6 мини-ароматов CTRL home. Каждый выбранный аромат проявится в наборе слева, чтобы сборка была не “галочкой в списке”, а понятным визуальным действием.</p>
+        </div>
+        <div class="bundle-price-panel" aria-label="Стоимость набора">
+          <span>стоимость набора</span>
+          <strong>2 900 ₽</strong>
+          <small>6 мини-флаконов · 2 мл</small>
+        </div>
       </div>
-      <div class="product-info">
-        <div><div class="product-name">CTRL № 1 — Рассвет</div><div class="product-note">бергамот · нероли · белый чай</div></div>
-        <div class="product-price">6 900 ₽</div>
+
+      <div class="bundle-complete-bar" aria-live="polite">
+        <i id="bundleProgressBar"></i>
+        <span id="bundleProgressText">0% комплект</span>
       </div>
-    </article>
-    <article class="product reveal" data-delay="1" data-id="2">
-      <div class="product-img">
-        <img src="images/aromat-2.png" alt="CTRL № 2 — Полдень" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl2/900/1200'">
-        <button class="product-add" data-add="2" aria-label="В набор">В набор</button>
+
+      <div class="bundle-workbench">
+        <section class="bundle-visual-panel" aria-label="Ваш набор">
+          <div class="bundle-visual-top">
+            <div>
+              <div class="bundle-eyebrow">Ваш набор</div>
+              <h2>6 мест для ароматов</h2>
+            </div>
+            <strong id="bundleCountText">0/6</strong>
+          </div>
+          <ol class="bundle-vials" id="bundleSlots" aria-label="Выбранные ароматы"></ol>
+          <div class="bundle-actions">
+            <button class="bundle-main-btn" id="bundleAddBtn" type="button" disabled>Выберите 6 ароматов</button>
+            <button class="bundle-reset" id="bundleResetBtn" type="button">Очистить</button>
+          </div>
+          <div class="bundle-toast" id="bundleToast" role="status" aria-live="polite"></div>
+        </section>
+
+        <section class="bundle-picker" aria-label="Список ароматов">
+          <div class="bundle-picker-head">
+            <div>
+              <h2>Ароматы</h2>
+              <p>Список прокручивается. Добавляйте и убирайте позиции в один клик.</p>
+            </div>
+            <a href="#suggestedSets">Подборки</a>
+          </div>
+          <div class="sample-list" id="scentGrid"></div>
+        </section>
       </div>
-      <div class="product-info">
-        <div><div class="product-name">CTRL № 2 — Полдень</div><div class="product-note">инжир · кедр · морская соль</div></div>
-        <div class="product-price">7 400 ₽</div>
+    </section>
+
+    <section class="bundle-assist reveal" data-delay="2">
+      <div class="bundle-mini-section" id="suggestedSets">
+        <div class="section-headline">
+          <div>
+            <div class="philosophy-label">Подборки</div>
+            <h2>Готовые сценарии</h2>
+          </div>
+        </div>
+        <div class="set-grid" id="setGrid"></div>
       </div>
-    </article>
-    <article class="product reveal" data-delay="2" data-id="3">
-      <div class="product-img">
-        <img src="images/aromat-3.png" alt="CTRL № 3 — Сумерки" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl3/900/1200'">
-        <button class="product-add" data-add="3" aria-label="В набор">В набор</button>
+
+      <div class="bundle-mini-section">
+        <div class="section-headline">
+          <div>
+            <div class="philosophy-label">Наслаивание</div>
+            <h2>Пары для глубины</h2>
+          </div>
+        </div>
+        <div class="layering-grid" id="layeringGrid"></div>
       </div>
-      <div class="product-info">
-        <div><div class="product-name">CTRL № 3 — Сумерки</div><div class="product-note">ирис · сандал · амбра</div></div>
-        <div class="product-price">8 200 ₽</div>
-      </div>
-    </article>
-    <article class="product reveal" data-delay="3" data-id="4">
-      <div class="product-img">
-        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop" alt="CTRL № 4 — Полночь" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl4/900/1200'">
-        <button class="product-add" data-add="4" aria-label="В набор">В набор</button>
-      </div>
-      <div class="product-info">
-        <div><div class="product-name">CTRL № 4 — Полночь</div><div class="product-note">уд · ваниль · чёрный перец</div></div>
-        <div class="product-price">9 100 ₽</div>
-      </div>
-    </article>
+    </section>
   </div>
-  <a class="btn reveal" href="catalog.html" style="margin-top:3rem">Перейти в каталог</a>
-</section>
+</main>
 
 <!-- ФУТЕР -->
 <footer class="footer">
@@ -147,8 +170,271 @@
   </div>
 </footer>
 
-<script src="menu.js"></script>
+<script src="menu.js?v=6"></script>
 <script>
+  var SAMPLE_PACK_PRICE = 2900;
+  var SAMPLE_PACK_SIZE = 6;
+  var SAMPLE_PACK_KEY = 'ctrlHomeSamplePacks';
+  var CART_KEY = 'ctrlHomeCart';
+
+  var scents = [
+    { id: 'rassvet', name: 'CTRL № 1 — Рассвет', mood: 'чистое утро', note: 'бергамот · нероли · белый чай', tone: '#c9d8b7', badge: 'база' },
+    { id: 'polden', name: 'CTRL № 2 — Полдень', mood: 'свежий день', note: 'инжир · кедр · морская соль', tone: '#d7c08f' },
+    { id: 'sumerki', name: 'CTRL № 3 — Сумерки', mood: 'мягкий вечер', note: 'ирис · сандал · амбра', tone: '#b9a0d5', badge: 'хит' },
+    { id: 'polnoch', name: 'CTRL № 4 — Полночь', mood: 'шлейф', note: 'уд · ваниль · черный перец', tone: '#5f4a43' },
+    { id: 'era-rozy', name: 'Эра розы', mood: 'цветы без драмы', note: 'роза · личи · белый мускус', tone: '#f2a7b9', badge: 'новинка' },
+    { id: 'coco-shine', name: 'Коко-шайн', mood: 'теплая кожа', note: 'кокос · крем · солнечная амбра', tone: '#e6d7b8' },
+    { id: 'citrus', name: 'Цитрусовая фантазия', mood: 'энергия', note: 'мандарин · зеленый чай · ветивер', tone: '#f2b35d' },
+    { id: 'vanilla', name: 'Ванильный порок', mood: 'гурманика', note: 'ваниль · карамель · сухое дерево', tone: '#d39b65' },
+    { id: 'white-musk', name: 'Белый мускус', mood: 'чистая кожа', note: 'мускус · хлопок · прозрачная амбра', tone: '#ece8dc', badge: 'на каждый день' },
+    { id: 'sweet-smoke', name: 'Сладкий дым', mood: 'вечер', note: 'дымный чай · сахар · сандал', tone: '#8b5d55' },
+    { id: 'after-rain', name: 'После дождя', mood: 'свежая рубашка', note: 'озон · мокрая зелень · кедр', tone: '#9ab7bd' },
+    { id: 'night-rhythm', name: 'Ночной ритм', mood: 'поздний город', note: 'кофе · амбра · тонка', tone: '#6c596c' }
+  ];
+
+  var suggestedSets = [
+    { id: 'clean', title: 'Чистое утро', text: 'Свежесть, белая ткань, спокойная уверенность.', ids: ['rassvet', 'polden', 'citrus', 'white-musk', 'after-rain', 'era-rozy'] },
+    { id: 'date', title: 'Вечер без уведомлений', text: 'Теплее, глубже, заметнее. Но без тяжелого театра.', ids: ['sumerki', 'polnoch', 'vanilla', 'sweet-smoke', 'night-rhythm', 'coco-shine'] },
+    { id: 'best', title: 'Первое знакомство', text: 'Шесть разных характеров, чтобы быстро понять свой вектор.', ids: ['rassvet', 'polden', 'sumerki', 'polnoch', 'era-rozy', 'white-musk'] },
+    { id: 'sweet', title: 'Сладкий шлейф', text: 'Гурманские и телесные ароматы, когда хочется мягкой провокации.', ids: ['vanilla', 'sweet-smoke', 'coco-shine', 'night-rhythm', 'sumerki', 'era-rozy'] }
+  ];
+
+  var layeringPairs = [
+    { title: 'Чистая кожа + свет', ids: ['white-musk', 'rassvet'] },
+    { title: 'Сладкий дым без перегруза', ids: ['sweet-smoke', 'vanilla'] },
+    { title: 'Цветы после душа', ids: ['era-rozy', 'after-rain'] }
+  ];
+
+  var selected = [];
+  var lastAddedId = '';
+  var savedSignature = '';
+  var scentGrid = document.getElementById('scentGrid');
+  var setGrid = document.getElementById('setGrid');
+  var layeringGrid = document.getElementById('layeringGrid');
+  var slotsEl = document.getElementById('bundleSlots');
+  var countText = document.getElementById('bundleCountText');
+  var progressText = document.getElementById('bundleProgressText');
+  var progressBar = document.getElementById('bundleProgressBar');
+  var addButton = document.getElementById('bundleAddBtn');
+  var resetButton = document.getElementById('bundleResetBtn');
+  var toast = document.getElementById('bundleToast');
+
+  function money(n) {
+    return n.toLocaleString('ru-RU') + ' ₽';
+  }
+
+  function findScent(id) {
+    return scents.find(function (s) { return s.id === id; });
+  }
+
+  function readJson(key, fallback) {
+    try { return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback)); }
+    catch (e) { return fallback; }
+  }
+
+  function writeJson(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); }
+    catch (e) {}
+  }
+
+  function cartUnits() {
+    return readJson(CART_KEY, []).length + readJson(SAMPLE_PACK_KEY, []).length;
+  }
+
+  function syncHeaderCart() {
+    var count = document.getElementById('cartCount');
+    if (!count) return;
+    count.textContent = cartUnits();
+    count.classList.add('bump');
+    setTimeout(function () { count.classList.remove('bump'); }, 300);
+  }
+
+  function showToast(message) {
+    toast.textContent = message;
+    toast.classList.add('is-visible');
+    clearTimeout(showToast.timer);
+    showToast.timer = setTimeout(function () { toast.classList.remove('is-visible'); }, 2600);
+  }
+
+  function aromaWord(n) {
+    if (n === 1) return 'аромат';
+    if (n > 1 && n < 5) return 'аромата';
+    return 'ароматов';
+  }
+
+  function shortName(scent) {
+    return scent.name.indexOf('—') > -1 ? scent.name.split('—').pop().trim() : scent.name;
+  }
+
+  function renderScents() {
+    scentGrid.innerHTML = scents.map(function (s) {
+      var isSelected = selected.indexOf(s.id) > -1;
+      var isBlocked = selected.length >= SAMPLE_PACK_SIZE && !isSelected;
+      return '<article class="sample-row' + (isSelected ? ' selected' : '') + '" style="--tone:' + s.tone + '">' +
+        '<button class="sample-row-main" type="button" data-scent-id="' + s.id + '"' + (isBlocked ? ' disabled' : '') + '>' +
+          '<span class="sample-check" aria-hidden="true"></span>' +
+          '<span class="sample-dot" aria-hidden="true"></span>' +
+          '<span class="sample-copy">' +
+            '<strong>' + s.name + '</strong>' +
+            '<em>' + s.mood + '</em>' +
+            '<small>' + s.note + '</small>' +
+          '</span>' +
+          (s.badge ? '<span class="sample-badge">' + s.badge + '</span>' : '') +
+          '<span class="sample-row-action">' + (isSelected ? 'Убрать' : (isBlocked ? 'Заполнено' : 'Добавить')) + '</span>' +
+        '</button>' +
+      '</article>';
+    }).join('');
+  }
+
+  function renderSlots() {
+    var html = '';
+    for (var i = 0; i < SAMPLE_PACK_SIZE; i += 1) {
+      var scent = selected[i] ? findScent(selected[i]) : null;
+      html += '<li class="bundle-vial-card' + (scent ? ' filled' : '') + (scent && scent.id === lastAddedId ? ' is-new' : '') + '" style="--tone:' + (scent ? scent.tone : '#d8d2c5') + '">' +
+        '<button type="button" ' + (scent ? 'data-slot-remove="' + scent.id + '" aria-label="Убрать ' + scent.name + '"' : 'disabled aria-label="Свободное место ' + (i + 1) + '"') + '>' +
+          '<span class="vial-bottle" aria-hidden="true">' +
+            '<img src="images/sample-vial-10ml.png" alt="" loading="lazy">' +
+          '</span>' +
+          '<span class="vial-name">' + (scent ? shortName(scent) : 'Пусто') + '</span>' +
+          '<span class="vial-note">' + (scent ? scent.mood : String(i + 1).padStart(2, '0')) + '</span>' +
+        '</button>' +
+      '</li>';
+    }
+    slotsEl.innerHTML = html;
+  }
+
+  function renderSets() {
+    setGrid.innerHTML = suggestedSets.map(function (set) {
+      var names = set.ids.map(function (id) { return findScent(id).name; });
+      return '<article class="set-card">' +
+        '<div><h3>' + set.title + '</h3><p>' + set.text + '</p></div>' +
+        '<ul>' + names.map(function (name) { return '<li>' + name + '</li>'; }).join('') + '</ul>' +
+        '<button type="button" data-set-id="' + set.id + '">Собрать этот сценарий</button>' +
+      '</article>';
+    }).join('');
+  }
+
+  function renderLayering() {
+    layeringGrid.innerHTML = layeringPairs.map(function (pair) {
+      var pairScents = pair.ids.map(findScent);
+      return '<article class="layering-card">' +
+        '<div><h3>' + pair.title + '</h3><p>' + pairScents.map(function (s) { return s.name; }).join(' + ') + '</p></div>' +
+        '<div class="layering-notes">' + pairScents.map(function (s) { return '<span>' + s.note + '</span>'; }).join('') + '</div>' +
+        '<button type="button" data-layer-ids="' + pair.ids.join(',') + '">Добавить пару</button>' +
+      '</article>';
+    }).join('');
+  }
+
+  function updateProgress() {
+    var pct = Math.round((selected.length / SAMPLE_PACK_SIZE) * 100);
+    var left = SAMPLE_PACK_SIZE - selected.length;
+    var isComplete = selected.length === SAMPLE_PACK_SIZE;
+    var isSaved = isComplete && selected.join('|') === savedSignature;
+    countText.textContent = selected.length + '/' + SAMPLE_PACK_SIZE;
+    progressText.textContent = pct + '% комплект';
+    progressBar.style.width = pct + '%';
+    addButton.disabled = !isComplete || isSaved;
+    addButton.textContent = isSaved ? 'Добавлено в корзину' : (isComplete ? 'Добавить набор в корзину' : 'Выберите ' + left + ' ' + aromaWord(left));
+  }
+
+  function renderAll() {
+    renderScents();
+    renderSlots();
+    updateProgress();
+  }
+
+  function toggleScent(id) {
+    var index = selected.indexOf(id);
+    if (index > -1) {
+      selected.splice(index, 1);
+      lastAddedId = '';
+    } else if (selected.length < SAMPLE_PACK_SIZE) {
+      selected.push(id);
+      lastAddedId = id;
+    } else {
+      showToast('В набор помещается ровно 6 ароматов.');
+    }
+    renderAll();
+  }
+
+  function setSelection(ids) {
+    selected = ids.slice(0, SAMPLE_PACK_SIZE);
+    lastAddedId = selected[selected.length - 1] || '';
+    renderAll();
+    window.scrollTo({ top: document.getElementById('bundleBuilder').offsetTop - 80, behavior: 'smooth' });
+    showToast('Сценарий собран. Можно менять ароматы вручную.');
+  }
+
+  function addMany(ids) {
+    var added = 0;
+    ids.forEach(function (id) {
+      if (selected.indexOf(id) === -1 && selected.length < SAMPLE_PACK_SIZE) {
+        selected.push(id);
+        lastAddedId = id;
+        added += 1;
+      }
+    });
+    renderAll();
+    showToast(added ? 'Пара добавлена в набор.' : 'Для пары уже нет места или она выбрана.');
+  }
+
+  function saveBundle() {
+    if (selected.length !== SAMPLE_PACK_SIZE) return;
+    var pack = {
+      id: 'sample-pack-' + Date.now(),
+      title: 'Пробный набор CTRL home',
+      price: SAMPLE_PACK_PRICE,
+      scents: selected.map(function (id) { return findScent(id).name; }),
+      createdAt: new Date().toISOString()
+    };
+    var packs = readJson(SAMPLE_PACK_KEY, []);
+    packs.push(pack);
+    writeJson(SAMPLE_PACK_KEY, packs);
+    savedSignature = selected.join('|');
+    syncHeaderCart();
+    updateProgress();
+    showToast('Набор добавлен в корзину. Красиво, функционально, без театра.');
+  }
+
+  scentGrid.addEventListener('click', function (e) {
+    var button = e.target.closest('[data-scent-id]');
+    if (button) toggleScent(button.getAttribute('data-scent-id'));
+  });
+
+  slotsEl.addEventListener('click', function (e) {
+    var button = e.target.closest('[data-slot-remove]');
+    if (!button) return;
+    selected = selected.filter(function (id) { return id !== button.getAttribute('data-slot-remove'); });
+    lastAddedId = '';
+    renderAll();
+  });
+
+  setGrid.addEventListener('click', function (e) {
+    var button = e.target.closest('[data-set-id]');
+    if (!button) return;
+    var set = suggestedSets.find(function (item) { return item.id === button.getAttribute('data-set-id'); });
+    if (set) setSelection(set.ids);
+  });
+
+  layeringGrid.addEventListener('click', function (e) {
+    var button = e.target.closest('[data-layer-ids]');
+    if (button) addMany(button.getAttribute('data-layer-ids').split(','));
+  });
+
+  addButton.addEventListener('click', saveBundle);
+  resetButton.addEventListener('click', function () {
+    selected = [];
+    lastAddedId = '';
+    savedSignature = '';
+    renderAll();
+    showToast('Выбор очищен.');
+  });
+
+  renderSets();
+  renderLayering();
+  renderAll();
+  syncHeaderCart();
+
   var h=document.getElementById('header');
   if(h){var f=function(){h.classList.toggle('scrolled',window.scrollY>40);};window.addEventListener('scroll',f,{passive:true});f();}
   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:.15});

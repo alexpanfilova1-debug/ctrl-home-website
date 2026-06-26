@@ -1,0 +1,120 @@
+/* ============================================================
+   CTRL home — DESIGN SYSTEM (v1)
+   Источник: Claude Design → brand-summary/control-home-brand-board
+   ------------------------------------------------------------
+   Это автономный файл дизайн-системы (токены + компоненты).
+   Он ещё НЕ подключён к сайту — рабочий styles.css не тронут.
+   Подключение и перенос на страницы — отдельный шаг.
+
+   Токены и классы с префиксом «ch-», чтобы не конфликтовать с
+   текущим styles.css (там уже есть .btn, .hero и свой --ink).
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap');
+
+:root{
+  /* --- Цвет --- */
+  --ch-paper:#F7F5EF;        /* основной холст */
+  --ch-paper-soft:#EDEAE2;
+  --ch-ink:#1A1916;          /* текст / контур (не чистый чёрный) */
+  --ch-ink-2:#2A2721;
+  --ch-muted:#6B675E;
+  --ch-lime:#CCF400;         /* акцент 1 */
+  --ch-pink:#FF2D9E;         /* акцент 2 */
+  --ch-line:rgba(26,25,22,.16);
+  --ch-error:#D71920;
+
+  /* --- Шрифты --- */
+  --ch-display:"Space Grotesk",Arial,sans-serif;  /* заголовки */
+  --ch-body:"Manrope",Arial,sans-serif;           /* текст */
+  --ch-mono:"Space Mono",ui-monospace,SFMono-Regular,Menlo,monospace; /* детали, цены, лейблы */
+
+  /* --- Типошкала (clamp = адаптивно) --- */
+  --ch-fs-display:clamp(2.6rem,6vw,4.5rem);
+  --ch-fs-h1:clamp(2rem,4.5vw,3.2rem);
+  --ch-fs-h2:clamp(1.5rem,3vw,2.2rem);
+  --ch-fs-h3:1.3rem;
+  --ch-fs-body:1.0625rem;
+  --ch-fs-small:.8125rem;
+
+  /* --- Отступы --- */
+  --ch-sp-1:4px;  --ch-sp-2:8px;  --ch-sp-3:12px; --ch-sp-4:16px;
+  --ch-sp-5:24px; --ch-sp-6:32px; --ch-sp-7:48px; --ch-sp-8:64px;
+
+  /* --- Форма, тени-сдвиги, анимация --- */
+  --ch-radius:8px;
+  --ch-border:2px solid var(--ch-ink);
+  --ch-shadow-lime:8px 8px 0 var(--ch-lime);   /* фирменная жёсткая тень */
+  --ch-shadow-ink:6px 6px 0 var(--ch-ink);
+  --ch-ease:cubic-bezier(.16,1,.3,1);
+  --ch-container:1280px;
+}
+
+/* ---------- Раскладка ---------- */
+.ch-container{max-width:var(--ch-container);margin:0 auto;padding:0 var(--ch-sp-5);}
+.ch-grid-bg{                                   /* фон в техно-сетку 40px */
+  background:
+    linear-gradient(90deg,rgba(26,25,22,.045) 1px,transparent 1px),
+    linear-gradient(180deg,rgba(26,25,22,.045) 1px,transparent 1px),
+    var(--ch-paper);
+  background-size:40px 40px;
+}
+.ch-section--dark{background:var(--ch-ink);color:var(--ch-paper);}
+
+/* ---------- Типографика ---------- */
+.ch-display{font-family:var(--ch-display);font-weight:700;line-height:.9;font-size:var(--ch-fs-display);color:var(--ch-ink);margin:0;}
+.ch-h1{font-family:var(--ch-display);font-weight:700;line-height:.92;font-size:var(--ch-fs-h1);margin:0;}
+.ch-lead{font-family:var(--ch-body);font-size:1.25rem;line-height:1.25;color:var(--ch-muted);max-width:42ch;}
+.ch-mark{display:inline-block;padding:0 .12em .06em;background:var(--ch-lime);color:var(--ch-ink);font-style:normal;} /* лайм-подсветка слова */
+.ch-label{font-family:var(--ch-mono);font-size:var(--ch-fs-small);font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--ch-muted);}
+
+/* ---------- Кейкап ⌃ (фирменный знак) ---------- */
+.ch-keycap{
+  display:inline-grid;place-items:center;width:88px;height:74px;
+  background:var(--ch-ink);color:var(--ch-lime);border-radius:var(--ch-radius);
+  box-shadow:inset 0 -8px 0 rgba(255,255,255,.08),8px 8px 0 var(--ch-lime);
+  font-family:var(--ch-mono);font-size:36px;line-height:1;transform:rotate(-2deg);
+}
+
+/* ---------- Кнопки ---------- */
+.ch-btn{
+  display:inline-flex;align-items:center;justify-content:center;height:46px;padding:0 20px;
+  border:var(--ch-border);background:var(--ch-paper);color:var(--ch-ink);
+  font-family:var(--ch-mono);font-size:13px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;
+  cursor:pointer;transition:transform .15s var(--ch-ease),box-shadow .15s var(--ch-ease);
+}
+.ch-btn--primary{background:var(--ch-pink);color:var(--ch-ink);}
+.ch-btn--secondary{background:var(--ch-lime);color:var(--ch-ink);box-shadow:5px 5px 0 var(--ch-ink);}
+.ch-btn:active{transform:translate(2px,2px);box-shadow:none;}    /* тактильное «нажатие» */
+
+/* ---------- Бейджи статуса ---------- */
+.ch-badge{
+  display:inline-block;padding:8px 10px;border:1.5px solid var(--ch-ink);background:var(--ch-paper);
+  font-family:var(--ch-mono);font-size:12px;font-weight:700;line-height:1;text-transform:uppercase;
+}
+.ch-badge--lime{background:var(--ch-lime);}
+.ch-badge--pink{background:var(--ch-pink);}
+
+/* ---------- Карточка товара ---------- */
+.ch-card{padding:20px;background:var(--ch-paper);color:var(--ch-ink);border:var(--ch-border);box-shadow:var(--ch-shadow-lime);}
+.ch-card__mode{display:inline-flex;margin-bottom:14px;padding:7px 9px;background:var(--ch-pink);color:var(--ch-ink);font-family:var(--ch-mono);font-size:12px;font-weight:700;text-transform:uppercase;}
+.ch-card__title{font-family:var(--ch-display);font-weight:700;font-size:1.6rem;line-height:1;margin:0 0 6px;}
+.ch-card__price{font-family:var(--ch-mono);font-size:1.1rem;}
+
+/* ---------- Моно-карточка (тёмная) ---------- */
+.ch-mono-card{padding:16px;background:var(--ch-ink);color:var(--ch-paper);font-family:var(--ch-mono);font-size:15px;line-height:1.45;}
+.ch-mono-card b{color:var(--ch-lime);}
+
+/* ---------- Поле ввода ---------- */
+.ch-field{display:grid;gap:6px;}
+.ch-field label{font-family:var(--ch-mono);font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--ch-muted);}
+.ch-field input{height:46px;padding:0 14px;border:var(--ch-border);background:var(--ch-paper);font-family:var(--ch-body);font-size:1rem;color:var(--ch-ink);}
+.ch-field input:focus{outline:none;box-shadow:4px 4px 0 var(--ch-lime);}
+.ch-field .ch-error{font-family:var(--ch-mono);font-size:12px;color:var(--ch-error);}
+
+/* ---------- Editorial-фото с дуотон-наложением ---------- */
+.ch-photo{position:relative;overflow:hidden;border:1.5px solid var(--ch-line);background:var(--ch-ink-2);}
+.ch-photo img{display:block;width:100%;height:100%;object-fit:cover;filter:saturate(.78) contrast(1.06) brightness(.9);}
+.ch-photo::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(26,25,22,.05),rgba(26,25,22,.45)),
+             linear-gradient(90deg,rgba(255,45,158,.20),transparent 40%,rgba(204,244,0,.14));}

@@ -11,52 +11,92 @@
     {
       trigger: 'Парфюмерия', id: 'subFragrance',
       feature: 'Эра розы', kicker: 'парфюм', img: 'images/aromat-1.png',
-      allHref: 'catalog.html', allLabel: 'Посмотреть все ароматы',
+      allHref: 'parfumeriya.html', allLabel: 'Посмотреть всю парфюмерию',
       groups: [
         { title: 'Фруктовые и цветочные', items: ['Эра розы', 'Коко-шайн', 'Цитрусовая фантазия', 'Тарт-деко', 'Медовый люкс', 'Солнечный день'] },
         { title: 'Сладкие и тёплые', items: ['Ванильный порок', 'Горячая карамель', 'Тёплый пряник', 'Сахарная дымка', 'Медовый бархат'] },
         { title: 'Ароматы чистоты и комфорта', items: ['Чистый хлопок', 'Белый мускус', 'Свежее утро', 'Лёгкий бриз'] }
       ],
-      sizes: ['30 мл', '10 мл', 'Пробники']
+      sizeTitle: 'Выбрать по типу',
+      sizes: [
+        { label: '50 мл', img: 'images/aromat-1.png' },
+        { label: '100 мл', img: 'images/aromat-2.png' },
+        { label: '10 мл', img: 'images/aromat-3.png' },
+        { label: 'Наборы', img: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=220&q=70&auto=format&fit=crop' }
+      ]
     },
     {
       trigger: 'Спреи для тела', id: 'subMists',
       feature: 'Сахарный вихрь', kicker: 'спрей для тела', img: 'images/aromat-2.png',
-      allHref: 'catalog.html', allLabel: 'Посмотреть все спреи',
+      allHref: 'sprei-dlya-tela.html', allLabel: 'Посмотреть все спреи',
       groups: [
         { title: 'Сладкие и аппетитные', items: ['Сахарный вихрь', 'Карамельный хруст', 'Взбитые сливки', 'Лесной орех'] },
         { title: 'Фруктовые и тёплые', items: ['Фруктовый коктейль', 'Солнечный загар', 'Ягодный стиль'] }
       ],
-      sizes: ['50 мл', '150 мл', 'Наборы']
+      sizeTitle: 'Выбрать по типу',
+      sizes: [
+        { label: '50 мл', img: 'images/aromat-2.png' },
+        { label: '100 мл', img: 'images/aromat-3.png' },
+        { label: 'Бандлы', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=220&q=70&auto=format&fit=crop' }
+      ]
     },
     {
       trigger: 'Уход за телом', id: 'subCare',
       feature: 'Взбитые сливки', kicker: 'уход за телом', img: 'images/aromat-3.png',
-      allHref: 'catalog.html', allLabel: 'Посмотреть весь уход',
+      allHref: 'uhod-za-telom.html', allLabel: 'Посмотреть весь уход',
       groups: [
         { title: 'По аромату', items: ['Коко-шайн', 'Ванильный порок', 'Взбитые сливки', 'Сахарная дымка', 'Эра розы'] },
         { title: 'Бальзам-масло', items: ['Бережная забота'] }
       ],
       sizes: ['50 мл', '200 мл', 'Наборы']
+    },
+    {
+      trigger: 'Свечи', id: 'subCandles',
+      feature: 'Мгновенная перезагрузка', kicker: 'свеча', img: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?w=900&q=75&auto=format&fit=crop',
+      allHref: 'svechi.html', allLabel: 'Посмотреть все свечи',
+      groups: [
+        { title: 'Основная коллекция свечей', items: ['Мгновенная перезагрузка', 'Сладкий дым', 'Вне сети', 'Тихий лес', 'Ветер в комнате'] },
+        { title: 'Сезонные и лимитированные свечи', items: ['Утро после хаоса', 'Исцели пространство', 'До обещаний', 'Момент “да”', 'Побег к морю', 'Маленькая слабость', 'Большой флирт', 'Секретный ритуал'] }
+      ],
+      sizeTitle: 'Выбрать по формату',
+      sizes: ['Мини-свечи 6 oz', 'Классические свечи 8.5 oz', 'Большие свечи 50 oz', 'Наборы мини-свечей', 'Подарочные наборы']
+    },
+    {
+      trigger: 'Для стирки', id: 'subLaundry',
+      feature: 'Первый ритуал чистоты', kicker: 'для стирки', img: 'https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=900&q=75&auto=format&fit=crop',
+      allHref: 'dlya-stirki.html', allLabel: 'Посмотреть всё для стирки',
+      groups: [
+        { title: 'Стартовые наборы для стирки', items: ['Первый ритуал чистоты', 'Набор “Дом под контролем”', 'Стирка без хаоса', 'Чистый старт', 'Набор для свежего шкафа', 'Средство для стирки + усилитель аромата'] },
+        { title: 'Гели / средства для стирки', items: ['Тихая роскошь', 'Фирменная стирка', 'После дождя', 'Сладкий дым', 'Кислая эстетика', 'Ночной ритм'] },
+        { title: 'Арома-усилители для стирки', items: ['Тихая роскошь', 'Фирменный цикл', 'После дождя', 'Сладкий дым', 'Кислая эстетика', 'Ночной ритм'] }
+      ],
+      sizeTitle: 'Выбрать раздел',
+      sizes: ['Стартовые наборы', 'Гели / средства', 'Арома-усилители', 'Подарочные наборы']
     }
   ];
 
   function buildSub(cfg) {
     var groups = cfg.groups.map(function (g) {
       return '<div class="nav-sub-group"><h5>' + g.title + '</h5>' +
-        g.items.map(function (n) { return '<a href="#">' + n + '</a>'; }).join('') + '</div>';
+        g.items.map(function (n) { return '<a href="' + cfg.allHref + '">' + n + '</a>'; }).join('') + '</div>';
     }).join('');
-    var sizes = cfg.sizes.map(function (s) { return '<a href="#">' + s + '</a>'; }).join('');
+    var sizes = cfg.sizes.map(function (s) {
+      var item = typeof s === 'string' ? { label: s } : s;
+      var img = item.img ? '<img src="' + item.img + '" alt="" onerror="this.style.display=\'none\'">' : '';
+      return '<a class="' + (item.img ? 'has-img' : 'no-img') + '" href="' + cfg.allHref + '">' + img + '<span>' + item.label + '</span></a>';
+    }).join('');
     return '<div class="nav-subpanel" id="' + cfg.id + '">' +
         '<button class="nav-sub-back" data-back>‹ Назад</button>' +
-        '<a class="nav-sub-feature" href="' + cfg.allHref + '">' +
-          '<img src="' + cfg.img + '" alt="" onerror="this.style.display=\'none\'">' +
-          '<div class="nm">' + cfg.feature + '</div><div class="tp">' + cfg.kicker + '</div>' +
-        '</a>' +
-        '<div class="nav-sub-divider"></div>' +
-        '<a class="nav-sub-all" href="' + cfg.allHref + '">' + cfg.allLabel + '</a>' +
-        groups +
-        '<div class="nav-sub-sizes"><h5>Купить по объёму</h5><div class="row">' + sizes + '</div></div>' +
+        '<div class="nav-sub-scroll">' +
+          '<a class="nav-sub-feature" href="' + cfg.allHref + '">' +
+            '<img src="' + cfg.img + '" alt="" onerror="this.style.display=\'none\'">' +
+            '<div class="nm">' + cfg.feature + '</div><div class="tp">' + cfg.kicker + '</div>' +
+          '</a>' +
+          '<div class="nav-sub-divider"></div>' +
+          '<a class="nav-sub-all" href="' + cfg.allHref + '">' + cfg.allLabel + '</a>' +
+          groups +
+          '<div class="nav-sub-sizes"><h5>' + (cfg.sizeTitle || 'Купить по объёму') + '</h5><div class="row">' + sizes + '</div></div>' +
+        '</div>' +
       '</div>';
   }
 
@@ -95,4 +135,55 @@
   /* ссылки внутри flyout и в подвале закрывают всё меню */
   document.querySelectorAll('.nav-subpanel a').forEach(function (a) { a.addEventListener('click', closeMenu); });
   drawer.querySelectorAll('.nav-drawer-foot a').forEach(function (a) { a.addEventListener('click', closeMenu); });
+
+  /* активный пункт меню на текущей странице */
+  var currentPage = location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-link,.header-nav a,.header-right a,.footer-nav a,.nav-subpanel a').forEach(function (a) {
+    var href = a.getAttribute('href');
+    if (!href || href.charAt(0) === '#') return;
+    var test = document.createElement('a');
+    test.href = href;
+    var linkPage = test.pathname.split('/').pop() || 'index.html';
+    if (linkPage === currentPage) {
+      a.classList.add('is-active');
+      a.setAttribute('aria-current', 'page');
+    }
+  });
+
+  /* запасной сценарий корзины для внутренних страниц без выезжающей корзины */
+  var hasCartDrawer = !!document.getElementById('cartDrawer');
+  var cartOpen = document.getElementById('cartOpen');
+  var cartCount = document.getElementById('cartCount');
+  var storageKey = 'ctrlHomeCart';
+  var bundleKey = 'ctrlHomeSamplePacks';
+  function readCart() {
+    try { return JSON.parse(localStorage.getItem(storageKey) || '[]'); }
+    catch (e) { return []; }
+  }
+  function readBundles() {
+    try { return JSON.parse(localStorage.getItem(bundleKey) || '[]'); }
+    catch (e) { return []; }
+  }
+  function writeCart(items) {
+    try { localStorage.setItem(storageKey, JSON.stringify(items)); }
+    catch (e) {}
+  }
+  function syncCartCount() {
+    if (cartCount) cartCount.textContent = readCart().length + readBundles().length;
+  }
+  if (!hasCartDrawer) {
+    syncCartCount();
+    if (cartOpen) {
+      cartOpen.addEventListener('click', function () { location.href = 'korzina.html'; });
+    }
+    document.querySelectorAll('[data-add]').forEach(function (button) {
+      button.addEventListener('click', function () {
+        var items = readCart();
+        items.push(Number(button.getAttribute('data-add')));
+        writeCart(items);
+        syncCartCount();
+        location.href = 'korzina.html';
+      });
+    });
+  }
 })();
