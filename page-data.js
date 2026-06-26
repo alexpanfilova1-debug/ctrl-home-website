@@ -265,36 +265,8 @@
 
   var root = document.querySelector('[data-page]');
   if (!root) return;
-  var SAMPLE_PACK_KEY = 'ctrlHomeSamplePacks';
 
-  function money(n) {
-    return n.toLocaleString('ru-RU') + ' ₽';
-  }
-
-  function readCart() {
-    try { return JSON.parse(localStorage.getItem('ctrlHomeCart') || '[]'); }
-    catch (e) { return []; }
-  }
-
-  function writeCart(items) {
-    try { localStorage.setItem('ctrlHomeCart', JSON.stringify(items)); }
-    catch (e) {}
-  }
-
-  function readBundles() {
-    try { return JSON.parse(localStorage.getItem(SAMPLE_PACK_KEY) || '[]'); }
-    catch (e) { return []; }
-  }
-
-  function writeBundles(items) {
-    try { localStorage.setItem(SAMPLE_PACK_KEY, JSON.stringify(items)); }
-    catch (e) {}
-  }
-
-  function syncCartCount() {
-    var count = document.getElementById('cartCount');
-    if (count) count.textContent = readCart().length + readBundles().length;
-  }
+  /* Корзина (выезжающая панель, счётчик, страница korzina) — целиком в cart.js */
 
   function renderCommon(page) {
     var tags = page.tags.map(function (tag) { return '<span>' + tag + '</span>'; }).join('');
@@ -329,70 +301,6 @@
       '</div>';
   }
 
-  function renderCart() {
-    var ids = readCart();
-    var bundles = readBundles().filter(function (pack) { return pack && pack.scents && pack.scents.length; });
-    var valid = ids.filter(function (id) { return PRODUCTS[id]; });
-    var total = valid.reduce(function (sum, id) { return sum + PRODUCTS[id].price; }, 0) +
-      bundles.reduce(function (sum, pack) { return sum + (Number(pack.price) || 0); }, 0);
-    var rows = valid.map(function (id, i) {
-      var p = PRODUCTS[id];
-      return '<div class="cart-page-item">' +
-        '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy">' +
-        '<div><div class="product-name">' + p.name + '</div><div class="product-note">' + p.note + '</div><div class="product-price">' + money(p.price) + '</div></div>' +
-        '<button class="cart-page-remove" data-remove="' + i + '">Убрать</button>' +
-      '</div>';
-    }).join('') + bundles.map(function (pack, i) {
-      return '<div class="cart-page-item cart-page-item--bundle">' +
-        '<div class="cart-page-bundle-media">6</div>' +
-        '<div><div class="product-name">' + (pack.title || 'Пробный набор CTRL home') + '</div>' +
-          '<div class="product-note">' + pack.scents.join(' · ') + '</div>' +
-          '<div class="product-price">' + money(Number(pack.price) || 0) + '</div></div>' +
-        '<button class="cart-page-remove" data-remove-bundle="' + i + '">Убрать</button>' +
-      '</div>';
-    }).join('');
-
-    root.innerHTML =
-      '<div class="philosophy-label">Корзина</div>' +
-      '<h1 class="section-title">Ваша <em>корзина</em></h1>' +
-      '<p class="page-lead">Здесь собираются товары, добавленные с внутренних страниц. На главной корзина по-прежнему открывается выезжающей панелью.</p>' +
-      (valid.length || bundles.length
-        ? '<div class="cart-page-panel reveal" data-delay="2">' + rows + '<div class="cart-page-total"><span>Итого</span><span>' + money(total) + '</span></div></div>' +
-          '<div class="page-actions reveal" data-delay="3"><a class="btn" href="catalog.html">Продолжить покупки</a><button class="btn" data-clear-cart>Очистить корзину</button></div>'
-        : '<div class="cart-page-empty reveal" data-delay="2">Пока пусто. Красиво, но коммерчески бессмысленно.</div><div class="page-actions reveal" data-delay="3"><a class="btn" href="catalog.html">Выбрать аромат</a></div>');
-
-    root.querySelectorAll('[data-remove]').forEach(function (button) {
-      button.addEventListener('click', function () {
-        var items = readCart();
-        items.splice(Number(button.getAttribute('data-remove')), 1);
-        writeCart(items);
-        renderCart();
-        initPage();
-        syncCartCount();
-      });
-    });
-    root.querySelectorAll('[data-remove-bundle]').forEach(function (button) {
-      button.addEventListener('click', function () {
-        var items = readBundles();
-        items.splice(Number(button.getAttribute('data-remove-bundle')), 1);
-        writeBundles(items);
-        renderCart();
-        initPage();
-        syncCartCount();
-      });
-    });
-    var clear = root.querySelector('[data-clear-cart]');
-    if (clear) {
-      clear.addEventListener('click', function () {
-        writeCart([]);
-        writeBundles([]);
-        renderCart();
-        initPage();
-        syncCartCount();
-      });
-    }
-  }
-
   function initPage() {
     var header = document.getElementById('header');
     if (header) {
@@ -416,11 +324,8 @@
   }
 
   var key = root.getAttribute('data-page');
-  if (key === 'korzina') {
-    renderCart();
-  } else if (PAGES[key]) {
+  if (PAGES[key]) {
     renderCommon(PAGES[key]);
   }
-  syncCartCount();
   initPage();
 })();

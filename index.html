@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=11">
+<link rel="stylesheet" href="styles.css?v=12">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
@@ -314,33 +314,12 @@
   </div>
 </footer>
 
-<!-- КОРЗИНА -->
-<div class="cart-overlay" id="cartOverlay"></div>
-<aside class="cart-drawer" id="cartDrawer" aria-label="Корзина">
-  <div class="cart-head">
-    <h4>Корзина (<span id="cartHeadCount">0</span>)</h4>
-    <button class="cart-close" id="cartClose">Закрыть</button>
-  </div>
-  <div class="cart-items" id="cartItems">
-    <div class="cart-empty">Ваша корзина<br>пока пуста</div>
-  </div>
-  <div class="cart-foot">
-    <div class="cart-total"><span>Итого</span><span id="cartTotal">0 ₽</span></div>
-    <button class="checkout-btn">Оформить заказ</button>
-  </div>
-</aside>
+<!-- КОРЗИНА: выезжающая панель инжектится cart.js (общая для всех страниц) -->
 
-<script src="menu.js?v=6"></script>
+<script src="page-data.js?v=7"></script>
+<script src="cart.js?v=1"></script>
+<script src="menu.js?v=7"></script>
 <script>
-/* ============ ДАННЫЕ ============ */
-const PRODUCTS = {
-  1:{name:'CTRL № 1 — Рассвет',price:6900,img:'images/aromat-1.png'},
-  2:{name:'CTRL № 2 — Полдень',price:7400,img:'images/aromat-2.png'},
-  3:{name:'CTRL № 3 — Сумерки',price:8200,img:'images/aromat-3.png'},
-  4:{name:'CTRL № 4 — Полночь',price:9100,img:'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=300&q=70&auto=format&fit=crop'}
-};
-const fmt = n => n.toLocaleString('ru-RU') + ' ₽';
-
 /* ============ ШАПКА ПРИ СКРОЛЛЕ ============ */
 const header = document.getElementById('header');
 let lastScrollState = false;
@@ -361,43 +340,7 @@ document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 /* ============ БЕГУЩАЯ СТРОКА (дублируем контент) ============ */
 document.querySelectorAll('.marquee-track').forEach(t => t.innerHTML += t.innerHTML);
 
-/* ============ КОРЗИНА ============ */
-const cart = [];
-const cartDrawer = document.getElementById('cartDrawer');
-const cartOverlay = document.getElementById('cartOverlay');
-const cartItemsEl = document.getElementById('cartItems');
-const cartCountEl = document.getElementById('cartCount');
-
-function openCart(){ cartDrawer.classList.add('open'); cartOverlay.classList.add('open'); }
-function closeCart(){ cartDrawer.classList.remove('open'); cartOverlay.classList.remove('open'); }
-document.getElementById('cartOpen').addEventListener('click', openCart);
-document.getElementById('cartClose').addEventListener('click', closeCart);
-cartOverlay.addEventListener('click', closeCart);
-
-function renderCart(){
-  document.getElementById('cartHeadCount').textContent = cart.length;
-  cartCountEl.textContent = cart.length;
-  cartCountEl.classList.add('bump');
-  setTimeout(() => cartCountEl.classList.remove('bump'), 300);
-  if(!cart.length){
-    cartItemsEl.innerHTML = '<div class="cart-empty">Ваша корзина<br>пока пуста</div>';
-    document.getElementById('cartTotal').textContent = fmt(0);
-    return;
-  }
-  cartItemsEl.innerHTML = cart.map((id,i) => {
-    const p = PRODUCTS[id];
-    return `<div class="cart-item">
-      <img src="${p.img}" alt="${p.name}" onerror="this.src='https://picsum.photos/seed/ctrl${id}/300/380'">
-      <div><div class="cart-item-name">${p.name}</div><div class="cart-item-price">${fmt(p.price)}</div></div>
-      <button class="cart-remove" data-rm="${i}">Убрать</button>
-    </div>`;
-  }).join('');
-  document.getElementById('cartTotal').textContent = fmt(cart.reduce((s,id) => s + PRODUCTS[id].price, 0));
-  cartItemsEl.querySelectorAll('[data-rm]').forEach(b =>
-    b.addEventListener('click', () => { cart.splice(+b.dataset.rm,1); renderCart(); }));
-}
-document.querySelectorAll('[data-add]').forEach(b =>
-  b.addEventListener('click', () => { cart.push(+b.dataset.add); renderCart(); openCart(); }));
+/* ============ КОРЗИНА — в cart.js (выезжающая панель, счётчик, data-add) ============ */
 
 /* ============ ПОДПИСКА ============ */
 document.getElementById('subscribeForm').addEventListener('submit', e => {

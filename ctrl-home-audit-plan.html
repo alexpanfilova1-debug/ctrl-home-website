@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CTRL home - аудит первой страницы и план работ</title>
+  <style>
+    :root {
+      --paper: #f7f5ef;
+      --paper-2: #efede6;
+      --ink: #1a1916;
+      --muted: #6b6860;
+      --line: rgba(26, 25, 22, .18);
+      --lime: #ccf400;
+      --pink: #ff2d9e;
+      --white: #fffdfa;
+      --radius: 14px;
+      --shadow: 6px 6px 0 var(--ink);
+      --mono: "Space Mono", "SFMono-Regular", Consolas, monospace;
+      --display: "Space Grotesk", "Arial Black", Arial, sans-serif;
+      --body: Manrope, Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      background:
+        linear-gradient(rgba(26, 25, 22, .045) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(26, 25, 22, .045) 1px, transparent 1px),
+        var(--paper);
+      background-size: 36px 36px;
+      color: var(--ink);
+      font-family: var(--body);
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: inherit; }
+
+    .page {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 32px 0 72px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 5;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: center;
+      margin: 0 -20px 32px;
+      padding: 16px 20px;
+      background: rgba(247, 245, 239, .88);
+      border-bottom: 2px solid var(--ink);
+      backdrop-filter: blur(14px);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-family: var(--display);
+      font-size: 20px;
+      font-weight: 900;
+      letter-spacing: .01em;
+    }
+
+    .keycap {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 38px;
+      padding-bottom: 4px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--lime);
+      box-shadow: 0 4px 0 var(--lime);
+      font-family: var(--mono);
+      font-size: 24px;
+      line-height: 1;
+    }
+
+    .brand span { color: var(--pink); }
+
+    .meta {
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 13px;
+      text-align: right;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, .85fr);
+      gap: 28px;
+      align-items: stretch;
+      margin-bottom: 28px;
+    }
+
+    .hero-main,
+    .panel {
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    .hero-main {
+      padding: clamp(28px, 5vw, 56px);
+      min-height: 460px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      width: max-content;
+      max-width: 100%;
+      margin-bottom: 20px;
+      padding: 8px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: var(--lime);
+      box-shadow: 4px 4px 0 var(--pink);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 800;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    h3 {
+      margin: 0;
+      font-family: var(--display);
+      font-weight: 900;
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      max-width: 11ch;
+      font-size: clamp(52px, 8vw, 96px);
+    }
+
+    h1 mark,
+    h2 mark {
+      padding: 0 .12em .04em;
+      background: var(--lime);
+      color: var(--ink);
+    }
+
+    .lead {
+      max-width: 64ch;
+      margin: 22px 0 0;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .summary-card {
+      display: grid;
+      align-content: start;
+      gap: 18px;
+      padding: 28px;
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .score {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+
+    .score div {
+      min-height: 88px;
+      padding: 14px;
+      border: 2px solid var(--paper);
+      border-radius: 10px;
+      background: rgba(247, 245, 239, .06);
+    }
+
+    .score strong {
+      display: block;
+      color: var(--lime);
+      font-family: var(--display);
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .score span {
+      display: block;
+      margin-top: 8px;
+      color: rgba(247, 245, 239, .72);
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .verdict {
+      padding: 18px;
+      border: 2px solid var(--paper);
+      border-radius: 10px;
+      background: var(--pink);
+      color: var(--ink);
+      font-weight: 900;
+      font-size: 18px;
+    }
+
+    .toc {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin: 28px 0 42px;
+    }
+
+    .toc a {
+      padding: 9px 12px;
+      border: 2px solid var(--ink);
+      border-radius: 999px;
+      background: var(--white);
+      box-shadow: 3px 3px 0 var(--ink);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 800;
+      text-decoration: none;
+    }
+
+    section {
+      margin: 34px 0;
+      scroll-margin-top: 96px;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 20px;
+      align-items: end;
+      margin-bottom: 18px;
+      padding-bottom: 14px;
+      border-bottom: 2px solid var(--ink);
+    }
+
+    h2 {
+      font-size: clamp(34px, 5vw, 62px);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 34px;
+      padding: 6px 10px;
+      border: 2px solid var(--ink);
+      border-radius: 8px;
+      background: var(--lime);
+      box-shadow: 3px 3px 0 var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .tag.pink { background: var(--pink); }
+    .tag.dark { background: var(--ink); color: var(--paper); }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 18px;
+    }
+
+    .panel {
+      padding: 22px;
+    }
+
+    .span-4 { grid-column: span 4; }
+    .span-5 { grid-column: span 5; }
+    .span-6 { grid-column: span 6; }
+    .span-7 { grid-column: span 7; }
+    .span-8 { grid-column: span 8; }
+    .span-12 { grid-column: span 12; }
+
+    .panel h3 {
+      margin-bottom: 12px;
+      font-size: 26px;
+      line-height: 1.08;
+    }
+
+    .panel p,
+    .panel li {
+      color: var(--muted);
+      font-size: 16px;
+    }
+
+    .panel ul,
+    .panel ol {
+      margin: 12px 0 0;
+      padding-left: 20px;
+    }
+
+    .panel li + li { margin-top: 8px; }
+
+    .note {
+      margin-top: 16px;
+      padding: 14px;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      background: var(--paper-2);
+      font-size: 15px;
+    }
+
+    .note strong {
+      color: var(--ink);
+    }
+
+    .critical {
+      background: var(--pink);
+      color: var(--ink);
+    }
+
+    .critical p,
+    .critical li { color: var(--ink); }
+
+    .good {
+      background: var(--lime);
+      color: var(--ink);
+    }
+
+    .good p,
+    .good li { color: var(--ink); }
+
+    .dark-panel {
+      background: var(--ink);
+      color: var(--paper);
+    }
+
+    .dark-panel p,
+    .dark-panel li { color: rgba(247, 245, 239, .76); }
+
+    .rule-list {
+      display: grid;
+      gap: 10px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .rule-list li {
+      display: grid;
+      grid-template-columns: 86px minmax(0, 1fr);
+      gap: 12px;
+      align-items: start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .rule-list li:last-child { border-bottom: 0; }
+
+    .priority {
+      display: inline-flex;
+      justify-content: center;
+      width: max-content;
+      min-width: 58px;
+      padding: 5px 8px;
+      border: 2px solid var(--ink);
+      border-radius: 7px;
+      background: var(--white);
+      color: var(--ink);
+      box-shadow: 2px 2px 0 var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .p0 { background: var(--pink); }
+    .p1 { background: var(--lime); }
+    .p2 { background: var(--paper-2); }
+
+    table {
+      width: 100%;
+      border-collapse: separate;
+      border-spacing: 0;
+      overflow: hidden;
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--white);
+      box-shadow: var(--shadow);
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: top;
+      text-align: left;
+    }
+
+    th {
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td { border-bottom: 0; }
+
+    td:first-child {
+      width: 132px;
+      font-family: var(--mono);
+      font-weight: 900;
+    }
+
+    .checklist {
+      display: grid;
+      gap: 12px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .checklist li {
+      display: grid;
+      grid-template-columns: 26px minmax(0, 1fr);
+      gap: 10px;
+      align-items: start;
+      padding: 13px;
+      border: 2px solid var(--ink);
+      border-radius: 10px;
+      background: var(--white);
+    }
+
+    .box {
+      width: 22px;
+      height: 22px;
+      border: 2px solid var(--ink);
+      border-radius: 5px;
+      background: var(--lime);
+      box-shadow: 2px 2px 0 var(--ink);
+    }
+
+    .footer-note {
+      margin-top: 42px;
+      padding: 26px;
+      border: 2px solid var(--ink);
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: var(--shadow);
+    }
+
+    .footer-note strong { color: var(--lime); }
+
+    @media (max-width: 860px) {
+      .page { width: min(100% - 28px, 1180px); }
+      .hero,
+      .section-head { grid-template-columns: 1fr; }
+      .summary-card { padding: 22px; }
+      .score { grid-template-columns: 1fr; }
+      .span-4,
+      .span-5,
+      .span-6,
+      .span-7,
+      .span-8,
+      .span-12 { grid-column: 1 / -1; }
+      .topbar { margin-inline: -14px; }
+      h1 { max-width: 100%; font-size: clamp(44px, 15vw, 68px); }
+      .rule-list li { grid-template-columns: 1fr; }
+      table,
+      thead,
+      tbody,
+      th,
+      td,
+      tr { display: block; }
+      thead { display: none; }
+      tr { border-bottom: 2px solid var(--ink); }
+      tr:last-child { border-bottom: 0; }
+      td {
+        width: 100%;
+        border-bottom: 1px solid var(--line);
+      }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        margin-bottom: 4px;
+        color: var(--muted);
+        font-family: var(--mono);
+        font-size: 11px;
+        text-transform: uppercase;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="topbar">
+      <div class="brand"><span class="keycap">⌃</span> CTRL <span>home</span></div>
+      <div class="meta">аудит первой страницы<br>26 июня 2026</div>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="hero-main">
+          <div>
+            <div class="eyebrow">Taste audit / первая страница</div>
+            <h1>Сначала <mark>аудит</mark>, потом план</h1>
+            <p class="lead">
+              Документ фиксирует, что именно на главной странице работает, что мешает продажам
+              и в каком порядке это стоит переделывать. Структуру сайта не ломаем: работаем
+              с иерархией, визуальными акцентами, мобильным первым экраном, ассетами и копирайтом.
+            </p>
+          </div>
+        </div>
+
+        <aside class="summary-card panel">
+          <div class="score">
+            <div><strong>7</strong><span>variance</span></div>
+            <div><strong>6</strong><span>motion</span></div>
+            <div><strong>5</strong><span>density</span></div>
+          </div>
+          <div class="verdict">
+            Идея сильная, но сейчас концепт громче товара. Надо не “успокоить бренд”, а навести дисциплину.
+          </div>
+          <p>
+            Читаем страницу как e-commerce/brand landing для Gen Z с brutal-pop и keyboard-control языком:
+            лайм, розовый, keycap и “аромат как кнопка” сохраняем.
+          </p>
+        </aside>
+      </div>
+
+      <nav class="toc" aria-label="Навигация по документу">
+        <a href="#audit-summary">Вывод</a>
+        <a href="#audit-sections">Аудит секций</a>
+        <a href="#audit-risks">Риски</a>
+        <a href="#work-plan">План работ</a>
+        <a href="#acceptance">Критерии готовности</a>
+      </nav>
+
+      <section id="audit-summary">
+        <div class="section-head">
+          <h2>Аудит</h2>
+          <span class="tag pink">главный вывод</span>
+        </div>
+
+        <div class="grid">
+          <article class="panel good span-6">
+            <h3>Что уже работает</h3>
+            <ul>
+              <li>У бренда есть узнаваемое ядро: CTRL, keycap, режимы состояния, лайм и розовый.</li>
+              <li>Типографика крупная, уверенная, не уходит в “классическую парфюмерную нарядность”.</li>
+              <li>Карточки коллекции понятные: фото, режим, цена, кнопка покупки. Это сильнее всего продает.</li>
+              <li>Тактильные кнопки с жесткой тенью хорошо попадают в digital/keyboard характер.</li>
+            </ul>
+          </article>
+
+          <article class="panel critical span-6">
+            <h3>Что мешает</h3>
+            <ul>
+              <li>Первый экран перегружен: брендовый прием спорит с продуктом за внимание.</li>
+              <li>На мобильном товар не попадает в первый экран. Для магазина это больно.</li>
+              <li>Чужие и стоковые изображения ломают ощущение собственного бренда.</li>
+              <li>Некоторые эффекты повторяются слишком часто: две бегущие строки, много бейджей, много микро-лейблов.</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section id="audit-sections">
+        <div class="section-head">
+          <h2>Аудит по секциям</h2>
+          <span class="tag">без изменения структуры</span>
+        </div>
+
+        <div class="grid">
+          <article class="panel span-7">
+            <h3>1. Header</h3>
+            <p>
+              Навигация в целом держится: логотип, каталог, основные ссылки, аккаунт и корзина читаются.
+              Высота адекватная, брендовый keycap в логотипе работает.
+            </p>
+            <div class="note">
+              <strong>Комментарий:</strong> шапку не переделывать радикально. Достаточно сохранить одну строку
+              на десктопе и проверить, чтобы кнопка каталога не перетягивала внимание сильнее, чем основной CTA.
+            </div>
+          </article>
+
+          <article class="panel critical span-5">
+            <h3>2. Hero</h3>
+            <p>
+              Сейчас хиро работает как громкий бренд-плакат. Это не плохо само по себе, но для первой страницы
+              магазина товар должен быть не декорацией, а объектом желания.
+            </p>
+            <ul>
+              <li>H1 визуально занимает слишком много строк.</li>
+              <li>Продуктовая карточка справа затемнена и выглядит вторично.</li>
+              <li>В одном экране слишком много элементов: kicker, H1, текст, две CTA, чипы, keycap, NEW, цена, артикул, видео.</li>
+            </ul>
+            <div class="note">
+              <strong>Как править:</strong> оставить один главный брендовый удар, усилить продуктовый кадр,
+              чипы режимов перенести ниже или визуально успокоить.
+            </div>
+          </article>
+
+          <article class="panel critical span-6">
+            <h3>3. Mobile hero</h3>
+            <p>
+              На мобильном первый экран показывает идею, но не показывает товар. Пользователь видит CTA и чипы,
+              а флакон начинается ниже первого viewport.
+            </p>
+            <div class="note">
+              <strong>Как править:</strong> на мобильном сократить высоту текстового блока, сделать одну основную CTA
+              первой, вторую ниже или вторичной, а товарный визуал поднять выше.
+            </div>
+          </article>
+
+          <article class="panel span-6">
+            <h3>4. Marquee</h3>
+            <p>
+              Бегущая строка как прием подходит бренду, но два раза на одной странице она начинает звучать как шум.
+              Первый marquee после hero еще можно оправдать. Второй после promo уже спорный.
+            </p>
+            <div class="note">
+              <strong>Комментарий:</strong> оставить одну бегущую строку как фирменный ритм. Вторую либо убрать,
+              либо превратить в статичный разделитель без бесконечного движения.
+            </div>
+          </article>
+
+          <article class="panel good span-6">
+            <h3>5. Collection</h3>
+            <p>
+              Это самая коммерчески сильная секция. Карточки товара понятные и визуально цепкие.
+              Здесь уже есть правильная связка: режим, фото, название, ноты, цена, покупка.
+            </p>
+            <ul>
+              <li>Нужно унифицировать фото, чтобы все товары выглядели как одна коллекция.</li>
+              <li>На мобильном заголовок слишком массивный и забирает внимание у первого товара.</li>
+              <li>Четвертый товар выбивается визуально сильнее остальных.</li>
+            </ul>
+            <div class="note">
+              <strong>Как править:</strong> не менять логику карточек. Работать с ассетами, кадрированием,
+              размером заголовка на мобильном и единым направлением света/фона.
+            </div>
+          </article>
+
+          <article class="panel span-6">
+            <h3>6. Philosophy</h3>
+            <p>
+              Секция эффектная, но молекула уводит в лабораторный tech-образ. Если бренд сознательно хочет
+              звучать как “fragrance system”, это можно оставить. Если нужен более телесный, сенсорный образ,
+              визуал стоит сместить.
+            </p>
+            <div class="note">
+              <strong>Как править:</strong> заменить или переосмыслить визуал: меньше химической лаборатории,
+              больше состояния, текстуры, света, распыления, стекла, следа аромата.
+            </div>
+          </article>
+
+          <article class="panel critical span-6">
+            <h3>7. Promo</h3>
+            <p>
+              Секция композиционно сильная, но ассеты ломают доверие. Фото с чужим брендом NARS нельзя оставлять
+              в магазине CTRL home: это мгновенно сбивает ощущение собственного продукта.
+            </p>
+            <div class="note">
+              <strong>Как править:</strong> заменить оба промо-визуала на собственные предметные кадры CTRL home
+              или нейтральные текстуры без чужих логотипов.
+            </div>
+          </article>
+
+          <article class="panel span-6">
+            <h3>8. Steps</h3>
+            <p>
+              Sticky-механика может быть хорошей, но сейчас блок занимает очень много скролла для текста,
+              который скорее объясняет продукт, чем создает историю.
+            </p>
+            <div class="note">
+              <strong>Как править:</strong> структуру оставить, но сделать тексты плотнее и выразительнее.
+              Если блок остается длинным, каждый шаг должен давать новое ощущение, а не просто описание нот.
+            </div>
+          </article>
+
+          <article class="panel span-12">
+            <h3>9. Footer</h3>
+            <p>
+              Футер нормальный как функциональный блок. Но большой декоративный слоган сверху повторяет идею,
+              которую пользователь уже видел несколько раз.
+            </p>
+            <div class="note">
+              <strong>Комментарий:</strong> футер не приоритет. Вернуться к нему после хиро, ассетов и мобильной версии.
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section id="audit-risks">
+        <div class="section-head">
+          <h2>Риски</h2>
+          <span class="tag dark">что нельзя игнорировать</span>
+        </div>
+
+        <div class="panel">
+          <ul class="rule-list">
+            <li>
+              <span class="priority p0">P0</span>
+              <div>
+                <strong>Чужие изображения и логотипы.</strong>
+                NARS и Unsplash-ассеты противоречат брендборду. Это не “пока нормально”, это визуальный долг.
+              </div>
+            </li>
+            <li>
+              <span class="priority p0">P0</span>
+              <div>
+                <strong>Мобильный первый экран.</strong>
+                Товар появляется слишком низко. Для e-commerce это снижает ясность: что продаем и почему хочу купить.
+              </div>
+            </li>
+            <li>
+              <span class="priority p1">P1</span>
+              <div>
+                <strong>Перегруз фирменными приемами.</strong>
+                Лайм, розовый, keycap, бейджи и marquee работают только при дозировке. Иначе бренд становится шумом.
+              </div>
+            </li>
+            <li>
+              <span class="priority p1">P1</span>
+              <div>
+                <strong>Несобранная фото-система.</strong>
+                Разные стили фото делают коллекцию похожей на маркетплейс, а не на нишевый бренд.
+              </div>
+            </li>
+            <li>
+              <span class="priority p2">P2</span>
+              <div>
+                <strong>Текстовая дисциплина.</strong>
+                В копирайте есть удачные формулировки, но часть текстов длиннее, чем нужно для быстрой продажи.
+              </div>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="work-plan">
+        <div class="section-head">
+          <h2>План работ</h2>
+          <span class="tag pink">что переделываем</span>
+        </div>
+
+        <table>
+          <thead>
+            <tr>
+              <th>Этап</th>
+              <th>Что делаем</th>
+              <th>Комментарий по реализации</th>
+              <th>Результат</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Этап">1. Hero</td>
+              <td data-label="Что делаем">
+                Упрощаем первый экран: меньше вторичных элементов, сильнее товар, короче визуальный ритм H1.
+              </td>
+              <td data-label="Комментарий">
+                Структуру hero не менять. Работаем CSS-иерархией: размер H1, max-width, порядок/видимость чипов,
+                яркость/контраст product-card, плотность CTA.
+              </td>
+              <td data-label="Результат">
+                Пользователь за 3 секунды понимает: это ароматы CTRL home, их можно выбрать или собрать набор.
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Этап">2. Mobile</td>
+              <td data-label="Что делаем">
+                Пересобираем мобильный первый экран без изменения HTML-структуры.
+              </td>
+              <td data-label="Комментарий">
+                На мобильном можно менять порядок визуального акцента через CSS: уменьшить отступы, сократить высоту
+                чипов, поднять товарную карточку, сделать вторую CTA спокойнее.
+              </td>
+              <td data-label="Результат">
+                Товар или его часть появляется в первом viewport. CTA не утопают под декоративными элементами.
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Этап">3. Assets</td>
+              <td data-label="Что делаем">
+                Заменяем чужие и стоковые изображения на собственные или нейтральные брендовые кадры.
+              </td>
+              <td data-label="Комментарий">
+                Приоритет: promo с NARS, четвертый аромат, hover-фото в карточках. Направление: предметные кадры,
+                стекло, тень, текстуры, лайм/розовый как акцент, без чужих логотипов.
+              </td>
+              <td data-label="Результат">
+                Главная выглядит как цельный бренд, а не как коллаж из временных ассетов.
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Этап">4. Collection</td>
+              <td data-label="Что делаем">
+                Доводим карточки товара: единый фото-язык, мобильный заголовок, читаемость нот и цен.
+              </td>
+              <td data-label="Комментарий">
+                Логику карточек сохранить. Это рабочий коммерческий блок. Нужна не перестройка, а полировка.
+              </td>
+              <td data-label="Результат">
+                Коллекция выглядит как линейка продуктов, а не как четыре разные визуальные истории.
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Этап">5. Motion</td>
+              <td data-label="Что делаем">
+                Оставляем одну бегущую строку и проверяем, где движение реально помогает.
+              </td>
+              <td data-label="Комментарий">
+                Движение должно работать на ритм и внимание, не на “смотрите, оно двигается”. Вторую marquee убрать
+                или сделать статичным графическим разделителем.
+              </td>
+              <td data-label="Результат">
+                Страница остается энергичной, но не утомляет.
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Этап">6. Philosophy</td>
+              <td data-label="Что делаем">
+                Решаем, оставляем ли science/molecule образ или смещаемся в sensory/ritual.
+              </td>
+              <td data-label="Комментарий">
+                Если оставляем молекулу, текст вокруг нее должен прямо объяснять “fragrance system”.
+                Если нет, визуал меняем на более телесный: распыление, свет, кожа, ткань, стекло.
+              </td>
+              <td data-label="Результат">
+                Секция не спорит с обещанием “ароматы состояния”.
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Этап">7. Steps</td>
+              <td data-label="Что делаем">
+                Уплотняем тексты шагов и проверяем оправданность длинного sticky-scroll.
+              </td>
+              <td data-label="Комментарий">
+                Каждый шаг должен быть не “ноты аромата”, а состояние: утро, город, замедление, ночь.
+                Тексты короче, образнее, без воды.
+              </td>
+              <td data-label="Результат">
+                Блок ощущается как сценарий использования, а не как растянутый описательный список.
+              </td>
+            </tr>
+            <tr>
+              <td data-label="Этап">8. Copy QA</td>
+              <td data-label="Что делаем">
+                Проходим все видимые строки и чистим повторы, перегруз, лишнюю “поэтичность”.
+              </td>
+              <td data-label="Комментарий">
+                Правило: меньше объяснять бренд, больше давать желание и действие. Одна формулировка для одного CTA-интента.
+              </td>
+              <td data-label="Результат">
+                Тон остается дерзким, но становится точнее и коммерчески сильнее.
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section id="acceptance">
+        <div class="section-head">
+          <h2>Критерии готовности</h2>
+          <span class="tag">чеклист</span>
+        </div>
+
+        <ul class="checklist">
+          <li><span class="box"></span><div>На десктопе hero воспринимается как продуктовый первый экран, а не только как брендовый плакат.</div></li>
+          <li><span class="box"></span><div>На мобильном товар или товарный визуал появляется в первом viewport.</div></li>
+          <li><span class="box"></span><div>В промо и карточках нет чужих логотипов, случайных stock-фото и визуальных “затычек”.</div></li>
+          <li><span class="box"></span><div>Одна бегущая строка максимум. Остальное движение мотивировано.</div></li>
+          <li><span class="box"></span><div>Карточки коллекции выглядят как единая линейка CTRL home.</div></li>
+          <li><span class="box"></span><div>Философия визуально поддерживает состояние и аромат, а не случайную лабораторность.</div></li>
+          <li><span class="box"></span><div>CTA не дублируют один и тот же смысл разными словами без причины.</div></li>
+          <li><span class="box"></span><div>Страница остается дерзкой, но каждый акцент работает на смысл или покупку.</div></li>
+        </ul>
+      </section>
+
+      <div class="footer-note">
+        <strong>Рекомендация:</strong> начинать не с полной переделки, а с P0: hero mobile + ассеты promo.
+        Это даст самый быстрый прирост качества без риска развалить текущую структуру страницы.
+      </div>
+    </main>
+  </div>
+</body>
+</html>

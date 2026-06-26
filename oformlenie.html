@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Оформление заказа — CTRL home</title>
+<meta name="description" content="Оформление заказа CTRL home.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=12">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+<div data-site-chrome></div>
+
+<main class="section container" style="padding-top:calc(var(--header-h) + 3rem)">
+  <div class="philosophy-label">Оформление</div>
+  <h1 class="section-title">Оформление <em>заказа</em></h1>
+  <div id="checkoutRoot"></div>
+</main>
+
+<div data-site-footer></div>
+
+<script src="site-chrome.js"></script>
+<script src="page-data.js?v=7"></script>
+<script src="cart.js?v=1"></script>
+<script src="menu.js?v=7"></script>
+<script>
+(function () {
+  /* шапка: тень при скролле */
+  var h = document.getElementById('header');
+  if (h) { var sf = function () { h.classList.toggle('scrolled', window.scrollY > 40); }; window.addEventListener('scroll', sf, { passive: true }); sf(); }
+
+  var root = document.getElementById('checkoutRoot');
+  var C = window.CTRLCart;
+  var confirmed = false;
+  if (!C) { root.innerHTML = '<p class="checkout-empty">Не удалось загрузить корзину.</p>'; return; }
+
+  function money(n) { return (Number(n) || 0).toLocaleString('ru-RU') + ' ₽'; }
+
+  /* ---------- сводка заказа ---------- */
+  function summaryInner() {
+    var P = window.CTRL_PRODUCTS || {};
+    var items = C.getItems();
+    var bundles = C.getBundles();
+    var rows = items.map(function (it) {
+      var p = P[it.id] || {};
+      return '<div class="order-row"><div><b>' + (p.name || 'Товар') + '</b><em>' + it.ml + ' мл</em></div>' +
+        '<span class="order-price">' + money(it.price) + '</span></div>';
+    }).join('') + bundles.map(function (pk) {
+      var n = pk.scents ? pk.scents.length : 6;
+      return '<div class="order-row"><div><b>' + (pk.title || 'Пробный набор CTRL home') + '</b><em>' + n + ' × 10 мл</em></div>' +
+        '<span class="order-price">' + money(pk.price) + '</span></div>';
+    }).join('');
+    return '<h3>Ваш заказ</h3>' + rows +
+      '<div class="order-total"><span>Итого</span><span>' + money(C.total()) + '</span></div>' +
+      '<p class="checkout-note">Оплата картой онлайн подключается позже. После подтверждения мы свяжемся с вами, чтобы согласовать доставку и оплату.</p>';
+  }
+
+  function updateSummary() {
+    var el = document.getElementById('orderSummary');
+    if (el) el.innerHTML = summaryInner();
+  }
+
+  /* ---------- форма ---------- */
+  var FORM =
+    '<form class="checkout-form" id="checkoutForm" novalidate>' +
+      '<div class="field" id="f-name">' +
+        '<label for="cName">Имя и фамилия</label>' +
+        '<input id="cName" name="name" type="text" autocomplete="name" placeholder="Анна Иванова">' +
+        '<div class="field-error" data-err="name"></div>' +
+      '</div>' +
+      '<div class="field-row">' +
+        '<div class="field" id="f-phone">' +
+          '<label for="cPhone">Телефон</label>' +
+          '<input id="cPhone" name="phone" type="tel" autocomplete="tel" placeholder="+7 900 000-00-00">' +
+          '<div class="field-error" data-err="phone"></div>' +
+        '</div>' +
+        '<div class="field" id="f-email">' +
+          '<label for="cEmail">Email <span style="text-transform:none">(необязательно)</span></label>' +
+          '<input id="cEmail" name="email" type="email" autocomplete="email" placeholder="anna@email.ru">' +
+          '<div class="field-error" data-err="email"></div>' +
+        '</div>' +
+      '</div>' +
+      '<div class="field">' +
+        '<span class="checkout-leglabel">Способ доставки</span>' +
+        '<div class="delivery-options">' +
+          '<label class="delivery-opt is-active"><input type="radio" name="delivery" value="courier" checked><span><b>Курьер</b><small>Доставка по адресу, 2–4 дня</small></span></label>' +
+          '<label class="delivery-opt"><input type="radio" name="delivery" value="pickup"><span><b>Пункт выдачи</b><small>СДЭК / Boxberry / Почта России</small></span></label>' +
+          '<label class="delivery-opt"><input type="radio" name="delivery" value="self"><span><b>Самовывоз</b><small>Москва, по согласованию</small></span></label>' +
+        '</div>' +
+      '</div>' +
+      '<div class="field" id="f-address">' +
+        '<label for="cAddress" id="addressLabel">Адрес доставки</label>' +
+        '<input id="cAddress" name="address" type="text" autocomplete="street-address" placeholder="Город, улица, дом, квартира">' +
+        '<div class="field-error" data-err="address"></div>' +
+      '</div>' +
+      '<div class="field">' +
+        '<label for="cComment">Комментарий <span style="text-transform:none">(необязательно)</span></label>' +
+        '<textarea id="cComment" name="comment" placeholder="Удобное время, пожелания к заказу…"></textarea>' +
+      '</div>' +
+      '<button class="btn checkout-submit" type="submit">Подтвердить заказ</button>' +
+    '</form>';
+
+  function render() {
+    if (!C.count()) {
+      confirmed = false;
+      root.innerHTML =
+        '<p class="checkout-empty">Корзина пуста — оформлять пока нечего.</p>' +
+        '<div class="page-actions"><a class="btn" href="catalog.html">Выбрать аромат</a></div>';
+      return;
+    }
+    root.innerHTML =
+      '<div class="checkout-grid">' + FORM +
+        '<aside class="checkout-summary" id="orderSummary">' + summaryInner() + '</aside>' +
+      '</div>';
+    wireForm();
+  }
+
+  /* ---------- логика формы ---------- */
+  function wireForm() {
+    var form = document.getElementById('checkoutForm');
+    if (!form) return;
+    var opts = form.querySelectorAll('.delivery-opt');
+    var addressField = document.getElementById('f-address');
+    var addressLabel = document.getElementById('addressLabel');
+
+    function currentDelivery() {
+      var r = form.querySelector('input[name="delivery"]:checked');
+      return r ? r.value : 'courier';
+    }
+    function syncDelivery() {
+      var val = currentDelivery();
+      opts.forEach(function (o) { o.classList.toggle('is-active', o.querySelector('input').checked); });
+      if (val === 'self') {
+        addressField.style.display = 'none';
+      } else {
+        addressField.style.display = '';
+        addressLabel.textContent = val === 'pickup' ? 'Адрес пункта выдачи' : 'Адрес доставки';
+      }
+    }
+    form.querySelectorAll('input[name="delivery"]').forEach(function (r) {
+      r.addEventListener('change', syncDelivery);
+    });
+    syncDelivery();
+
+    function setError(name, msg) {
+      var box = form.querySelector('[data-err="' + name + '"]');
+      var field = document.getElementById('f-' + name);
+      if (box) box.textContent = msg || '';
+      if (field) field.classList.toggle('is-error', !!msg);
+    }
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var name = form.cName.value.trim();
+      var phone = form.cPhone.value.trim();
+      var email = form.cEmail.value.trim();
+      var delivery = currentDelivery();
+      var address = form.cAddress.value.trim();
+      var ok = true;
+
+      setError('name', ''); setError('phone', ''); setError('email', ''); setError('address', '');
+
+      if (!name) { setError('name', 'Укажите имя'); ok = false; }
+      if (!phone) { setError('phone', 'Укажите телефон'); ok = false; }
+      else if (phone.replace(/[^\d]/g, '').length < 10) { setError('phone', 'Проверьте номер'); ok = false; }
+      if (email && !/^\S+@\S+\.\S+$/.test(email)) { setError('email', 'Проверьте email'); ok = false; }
+      if (delivery !== 'self' && !address) { setError('address', 'Укажите адрес'); ok = false; }
+
+      if (!ok) {
+        var firstErr = form.querySelector('.field.is-error');
+        if (firstErr) firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        return;
+      }
+
+      var orderId = 'CTRL-' + Date.now().toString(36).toUpperCase().slice(-6);
+      confirmed = true;
+      C.clear();   // очищаем корзину (обновляет счётчик и панель)
+      root.innerHTML =
+        '<div class="checkout-confirm">' +
+          '<h2>Спасибо, заказ принят!</h2>' +
+          '<div class="order-id">Номер заказа: ' + orderId + '</div>' +
+          '<p>Мы свяжемся с вами по указанным контактам, чтобы согласовать доставку и оплату. ' +
+          'Онлайн-оплата картой появится на сайте чуть позже.</p>' +
+          '<div class="page-actions"><a class="btn" href="catalog.html">Вернуться в каталог</a>' +
+            '<a class="btn btn--ghost" href="index.html">На главную</a></div>' +
+        '</div>';
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* перерисовываем сводку, если корзину поменяли в выезжающей панели */
+  document.addEventListener('ctrlcart:change', function () {
+    if (confirmed) return;
+    if (!C.count()) { render(); return; }
+    updateSummary();
+  });
+
+  render();
+})();
+</script>
+</body>
+</html>

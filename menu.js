@@ -150,40 +150,6 @@
     }
   });
 
-  /* запасной сценарий корзины для внутренних страниц без выезжающей корзины */
-  var hasCartDrawer = !!document.getElementById('cartDrawer');
-  var cartOpen = document.getElementById('cartOpen');
-  var cartCount = document.getElementById('cartCount');
-  var storageKey = 'ctrlHomeCart';
-  var bundleKey = 'ctrlHomeSamplePacks';
-  function readCart() {
-    try { return JSON.parse(localStorage.getItem(storageKey) || '[]'); }
-    catch (e) { return []; }
-  }
-  function readBundles() {
-    try { return JSON.parse(localStorage.getItem(bundleKey) || '[]'); }
-    catch (e) { return []; }
-  }
-  function writeCart(items) {
-    try { localStorage.setItem(storageKey, JSON.stringify(items)); }
-    catch (e) {}
-  }
-  function syncCartCount() {
-    if (cartCount) cartCount.textContent = readCart().length + readBundles().length;
-  }
-  if (!hasCartDrawer) {
-    syncCartCount();
-    if (cartOpen) {
-      cartOpen.addEventListener('click', function () { location.href = 'korzina.html'; });
-    }
-    document.querySelectorAll('[data-add]').forEach(function (button) {
-      button.addEventListener('click', function () {
-        var items = readCart();
-        items.push(Number(button.getAttribute('data-add')));
-        writeCart(items);
-        syncCartCount();
-        location.href = 'korzina.html';
-      });
-    });
-  }
+  /* Корзина (счётчик, выезжающая панель, data-add) теперь целиком в cart.js,
+     который подключён на каждой странице раньше menu.js. */
 })();
