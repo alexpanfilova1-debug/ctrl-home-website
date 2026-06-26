@@ -1,10 +1,36 @@
 (function () {
   var PRODUCTS = {
-    1: { name: 'CTRL № 1 — Рассвет', price: 6900, note: 'бергамот · нероли · белый чай', img: 'images/aromat-1.png' },
-    2: { name: 'CTRL № 2 — Полдень', price: 7400, note: 'инжир · кедр · морская соль', img: 'images/aromat-2.png' },
-    3: { name: 'CTRL № 3 — Сумерки', price: 8200, note: 'ирис · сандал · амбра', img: 'images/aromat-3.png' },
-    4: { name: 'CTRL № 4 — Полночь', price: 9100, note: 'уд · ваниль · черный перец', img: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop' }
+    1: {
+      name: 'CTRL № 1 — Рассвет', price: 6900, note: 'бергамот · нероли · белый чай', img: 'images/aromat-1.png',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '6–8 ч', article: 'CTL-01', badge: 'NEW',
+      desc: 'Лёгкий цитрусовый старт: бергамот и нероли по утренней прохладе, мягкий белый чай в основе. Аромат «включить день» — собраться и проснуться без лишнего шума.',
+      volumes: [ { ml: 30, price: 4300 }, { ml: 50, price: 6900 }, { ml: 100, price: 11400 } ],
+      gallery: ['images/aromat-1.png']
+    },
+    2: {
+      name: 'CTRL № 2 — Полдень', price: 7400, note: 'инжир · кедр · морская соль', img: 'images/aromat-2.png',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '6–8 ч', article: 'CTL-02', badge: '',
+      desc: 'Инжир и кедр с солёной свежестью — собранный рабочий аромат в самый разгар дня. Держит фокус и не перетягивает внимание на себя.',
+      volumes: [ { ml: 30, price: 4600 }, { ml: 50, price: 7400 }, { ml: 100, price: 12200 } ],
+      gallery: ['images/aromat-2.png']
+    },
+    3: {
+      name: 'CTRL № 3 — Сумерки', price: 8200, note: 'ирис · сандал · амбра', img: 'images/aromat-3.png',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '8–10 ч', article: 'CTL-03', badge: '',
+      desc: 'Ирис, сандал и амбра — тёплый, чуть дымный переход в вечер. Для момента, когда дела закрыты и можно наконец выдохнуть.',
+      volumes: [ { ml: 30, price: 5100 }, { ml: 50, price: 8200 }, { ml: 100, price: 13500 } ],
+      gallery: ['images/aromat-3.png']
+    },
+    4: {
+      name: 'CTRL № 4 — Полночь', price: 9100, note: 'уд · ваниль · чёрный перец', img: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '10–12 ч', article: 'CTL-04', badge: 'NEW',
+      desc: 'Уд, ваниль и чёрный перец: плотный вечерний шлейф с характером. Для свиданий, выходов и уверенного входа в комнату.',
+      volumes: [ { ml: 30, price: 5700 }, { ml: 50, price: 9100 }, { ml: 100, price: 15000 } ],
+      gallery: ['https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop']
+    }
   };
+  // Доступ к товарам со страницы товара (product.html)
+  window.CTRL_PRODUCTS = PRODUCTS;
 
   var PAGES = {
     novinki: {

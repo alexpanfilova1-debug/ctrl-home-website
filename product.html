@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Товар — CTRL home</title>
+<meta name="description" content="CTRL home — страница аромата.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=11">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+</head>
+<body>
+
+<!-- ШАПКА -->
+<header class="header" id="header">
+  <div class="header-left">
+    <button class="menu-trigger" id="menuTrigger" aria-label="Открыть меню">
+      <span class="menu-ico"><span></span><span></span><span></span></span>
+      <span class="menu-trigger-text">Каталог</span>
+    </button>
+    <nav class="header-nav">
+      <a href="o-nas.html" class="rlink" data-text="О нас"><span class="roll">О нас</span></a>
+      <a href="kachestvo.html" class="rlink" data-text="Качество"><span class="roll">Качество</span></a>
+      <a href="soobshestvo.html" class="rlink" data-text="Сообщество"><span class="roll">Сообщество</span></a>
+    </nav>
+  </div>
+  <a class="logo" href="index.html">CTRL <span>home</span></a>
+  <div class="header-right">
+    <a href="account.html" class="hide-m rlink" data-text="Аккаунт"><span class="roll">Аккаунт</span></a>
+    <button class="cart-btn" id="cartOpen"><span class="rlink" data-text="Корзина"><span class="roll">Корзина</span></span><span class="cart-count" id="cartCount">0</span></button>
+  </div>
+</header>
+
+<!-- БОКОВОЕ МЕНЮ (ШТОРКА) -->
+<div class="nav-overlay" id="navOverlay"></div>
+<aside class="nav-drawer" id="navDrawer" aria-label="Меню">
+  <div class="nav-drawer-head">
+    <a class="nav-drawer-logo" href="index.html">CTRL <span>home</span></a>
+    <button class="nav-close" id="navClose" aria-label="Закрыть">Закрыть</button>
+  </div>
+  <nav class="nav-drawer-body">
+    <a class="nav-link" href="catalog.html">Все ароматы</a>
+    <a class="nav-link" href="novinki.html">Новинки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="parfumeriya.html">Парфюмерия <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="sprei-dlya-tela.html">Спреи для тела <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="super-aromaty.html">Супер-ароматы <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="uhod-za-telom.html">Уход за телом <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="svechi.html">Свечи <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="dlya-stirki.html">Для стирки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="merch.html">Мерч и аксессуары</a>
+    <a class="nav-link" href="sobrat-nabor.html">Собрать свой набор <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="podarochnye-karty.html">Подарочные карты <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="rasprodazha.html">Распродажа <span class="nav-arrow">›</span></a>
+    <a class="nav-link nav-link--accent" href="o-nas.html">О нас <span class="nav-arrow">›</span></a>
+    <a class="nav-link nav-link--accent" href="soobshestvo.html">Сообщество <span class="nav-arrow">›</span></a>
+  </nav>
+  <div class="nav-drawer-foot">
+    <a href="account.html">Аккаунт</a>
+    <a href="#">Instagram</a>
+    <a href="#">Telegram</a>
+  </div>
+</aside>
+
+<!-- СТРАНИЦА ТОВАРА -->
+<main class="pdp container" id="pdp" style="padding-top:calc(var(--header-h) + 3rem)">
+  <nav class="pdp-crumbs">
+    <a href="catalog.html">Каталог</a> <i>/</i>
+    <a href="parfumeriya.html">Парфюмерия</a> <i>/</i>
+    <span id="pdpCrumbName">Товар</span>
+  </nav>
+
+  <div class="pdp-grid">
+    <!-- Галерея -->
+    <div class="pdp-media">
+      <div class="pdp-stage" id="pdpStage">
+        <span class="pdp-chip" id="pdpChip">CTRL+FOCUS</span>
+        <span class="pdp-badge" id="pdpBadge" hidden>NEW</span>
+        <img id="pdpImg" src="" alt="" onerror="this.style.visibility='hidden'">
+        <span class="pdp-stage-cap" id="pdpStageCap">[ предметный кадр ]</span>
+      </div>
+      <div class="pdp-thumbs" id="pdpThumbs"></div>
+    </div>
+
+    <!-- Информация -->
+    <div class="pdp-info">
+      <h1 class="pdp-title" id="pdpTitle">Загрузка…</h1>
+      <div class="pdp-sub" id="pdpSub"></div>
+
+      <div class="pdp-priceline">
+        <span class="pdp-price" id="pdpPrice"></span>
+        <span class="pdp-art" id="pdpArt"></span>
+      </div>
+
+      <p class="pdp-desc" id="pdpDesc"></p>
+
+      <div class="pdp-vol">
+        <div class="pdp-vol-label">Объём</div>
+        <div class="pdp-vol-row" id="pdpVols"></div>
+      </div>
+
+      <div class="pdp-actions">
+        <button class="pdp-add" id="pdpAdd">В корзину</button>
+        <button class="pdp-fav" id="pdpFav" aria-label="В избранное" aria-pressed="false">♡</button>
+      </div>
+
+      <ul class="pdp-perks">
+        <li>Доставка 2–4 дня</li>
+        <li>Пробник в подарок</li>
+        <li>Без отдушек-аллергенов</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<!-- ФУТЕР -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div><div class="footer-logo">CTRL <span>home</span></div></div>
+      <div>
+        <h5>Навигация</h5>
+        <nav class="footer-nav">
+          <a href="catalog.html">Все ароматы</a>
+          <a href="sobrat-nabor.html">Собрать набор</a>
+          <a href="o-nas.html">О нас</a>
+          <a href="kachestvo.html">Качество</a>
+          <a href="soobshestvo.html">Сообщество</a>
+        </nav>
+      </div>
+      <div>
+        <h5>Подпишитесь на новости</h5>
+        <form class="subscribe" onsubmit="return false">
+          <input type="email" placeholder="ваш@email.ru" aria-label="Email">
+          <button type="submit">Отправить</button>
+        </form>
+        <div class="subscribe-msg"></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div>© 2026 CTRL home. Все права защищены.</div>
+      <div>Политика конфиденциальности · Оферта</div>
+    </div>
+  </div>
+</footer>
+
+<script src="page-data.js?v=6"></script>
+<script src="menu.js?v=6"></script>
+<script>
+(function () {
+  /* шапка: тень при скролле */
+  var h = document.getElementById('header');
+  if (h) { var sf = function(){ h.classList.toggle('scrolled', window.scrollY > 40); }; window.addEventListener('scroll', sf, {passive:true}); sf(); }
+
+  var P = window.CTRL_PRODUCTS || {};
+  function param(k){ try { return new URLSearchParams(location.search).get(k); } catch(e){ return null; } }
+  var id = parseInt(param('id'), 10);
+  var p = P[id];
+
+  var elTitle = document.getElementById('pdpTitle');
+
+  /* товар не найден */
+  if (!p) {
+    elTitle.textContent = 'Товар не найден';
+    document.getElementById('pdpSub').textContent = 'Возможно, ссылка устарела.';
+    document.getElementById('pdpDesc').innerHTML = '<a href="catalog.html" style="text-decoration:underline">← Вернуться в каталог</a>';
+    var rm = document.querySelector('.pdp-vol'); if (rm) rm.style.display = 'none';
+    var ra = document.querySelector('.pdp-actions'); if (ra) ra.style.display = 'none';
+    var rp = document.querySelector('.pdp-perks'); if (rp) rp.style.display = 'none';
+    return;
+  }
+
+  function fmt(n){ return n.toLocaleString('ru-RU') + ' ₽'; }
+  var CHIPS = { 1:'CTRL+FOCUS', 2:'CTRL+ENERGY', 3:'CTRL+CALM', 4:'CTRL+NIGHT' };
+
+  /* заголовок страницы и метаданные */
+  document.title = p.name + ' — CTRL home';
+  elTitle.textContent = p.name;
+  document.getElementById('pdpCrumbName').textContent = p.name;
+  document.getElementById('pdpSub').textContent = [p.type, p.gender, 'стойкость ' + p.longevity].filter(Boolean).join(' · ');
+  document.getElementById('pdpDesc').textContent = p.desc || p.note || '';
+
+  /* картинка + бейджи */
+  var img = document.getElementById('pdpImg');
+  img.src = (p.gallery && p.gallery[0]) || p.img; img.alt = p.name;
+  document.getElementById('pdpStageCap').textContent = '[ ' + (p.note || 'аромат') + ' ]';
+  document.getElementById('pdpChip').textContent = CHIPS[id] || 'CTRL';
+  var badge = document.getElementById('pdpBadge');
+  if (p.badge) { badge.textContent = p.badge; badge.hidden = false; }
+
+  /* миниатюры: реальные кадры + заглушки-плейсхолдеры до 4 шт. */
+  var thumbs = document.getElementById('pdpThumbs');
+  var gallery = (p.gallery && p.gallery.length) ? p.gallery : [p.img];
+  var thumbsHtml = '';
+  gallery.forEach(function (src, i) {
+    thumbsHtml += '<button class="pdp-thumb' + (i === 0 ? ' is-active' : '') + '" data-src="' + src + '"><img src="' + src + '" alt="" onerror="this.style.display=\'none\'"></button>';
+  });
+  for (var t = gallery.length; t < 4; t++) {
+    thumbsHtml += '<span class="pdp-thumb pdp-thumb--empty" aria-hidden="true"></span>';
+  }
+  thumbs.innerHTML = thumbsHtml;
+  thumbs.querySelectorAll('.pdp-thumb[data-src]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      img.style.visibility = 'visible'; img.src = b.getAttribute('data-src');
+      thumbs.querySelectorAll('.pdp-thumb').forEach(function (x){ x.classList.remove('is-active'); });
+      b.classList.add('is-active');
+    });
+  });
+
+  /* объёмы */
+  var vols = p.volumes && p.volumes.length ? p.volumes : [{ ml: 50, price: p.price }];
+  var sel = 0; for (var v = 0; v < vols.length; v++) { if (vols[v].ml === 50) { sel = v; break; } }
+  var volRow = document.getElementById('pdpVols');
+  volRow.innerHTML = vols.map(function (vv, i) {
+    return '<button class="pdp-vol-btn' + (i === sel ? ' is-active' : '') + '" data-i="' + i + '">' + vv.ml + ' мл</button>';
+  }).join('');
+  var priceEl = document.getElementById('pdpPrice');
+  var artEl = document.getElementById('pdpArt');
+  var addBtn = document.getElementById('pdpAdd');
+
+  function render() {
+    var vv = vols[sel];
+    priceEl.textContent = fmt(vv.price);
+    artEl.textContent = 'арт. ' + (p.article || ('CTL-' + id)) + '-' + vv.ml;
+    if (!addBtn.classList.contains('is-added')) addBtn.textContent = 'В корзину — ' + fmt(vv.price);
+    volRow.querySelectorAll('.pdp-vol-btn').forEach(function (b) {
+      b.classList.toggle('is-active', +b.getAttribute('data-i') === sel);
+    });
+  }
+  volRow.querySelectorAll('.pdp-vol-btn').forEach(function (b) {
+    b.addEventListener('click', function () { sel = +b.getAttribute('data-i'); render(); });
+  });
+  render();
+
+  /* добавление в ту же localStorage-корзину, что и каталог (ctrlHomeCart = массив id) */
+  function cartCountUpdate() {
+    var cc = document.getElementById('cartCount'); if (!cc) return;
+    try {
+      var c = JSON.parse(localStorage.getItem('ctrlHomeCart') || '[]');
+      var b = JSON.parse(localStorage.getItem('ctrlHomeSamplePacks') || '[]');
+      cc.textContent = c.length + b.length;
+    } catch (e) {}
+  }
+  addBtn.addEventListener('click', function () {
+    try {
+      var c = JSON.parse(localStorage.getItem('ctrlHomeCart') || '[]');
+      c.push(id);
+      localStorage.setItem('ctrlHomeCart', JSON.stringify(c));
+    } catch (e) {}
+    cartCountUpdate();
+    var prev = addBtn.textContent;
+    addBtn.classList.add('is-added');
+    addBtn.textContent = 'Добавлено ✓';
+    setTimeout(function () { addBtn.classList.remove('is-added'); render(); }, 1600);
+  });
+
+  /* избранное (локальный список, визуальный переключатель) */
+  var fav = document.getElementById('pdpFav');
+  function readFav(){ try { return JSON.parse(localStorage.getItem('ctrlHomeWishlist') || '[]'); } catch(e){ return []; } }
+  function isFav(){ return readFav().indexOf(id) !== -1; }
+  function paintFav(){ var on = isFav(); fav.textContent = on ? '♥' : '♡'; fav.classList.toggle('is-on', on); fav.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  fav.addEventListener('click', function () {
+    var list = readFav(); var i = list.indexOf(id);
+    if (i === -1) list.push(id); else list.splice(i, 1);
+    try { localStorage.setItem('ctrlHomeWishlist', JSON.stringify(list)); } catch(e){}
+    paintFav();
+  });
+  paintFav();
+})();
+</script>
+</body>
+</html>
