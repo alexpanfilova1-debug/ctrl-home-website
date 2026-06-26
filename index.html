@@ -7,8 +7,9 @@
 <meta name="description" content="CTRL home — ароматы, созданные как инструменты настроения.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700&family=Prata&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=10">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
 
@@ -27,7 +28,7 @@
   </div>
   <a class="logo" href="index.html">CTRL <span>home</span></a>
   <div class="header-right">
-    <a href="#" class="hide-m rlink" data-text="Аккаунт"><span class="roll">Аккаунт</span></a>
+    <a href="account.html" class="hide-m rlink" data-text="Аккаунт"><span class="roll">Аккаунт</span></a>
     <button class="cart-btn" id="cartOpen"><span class="rlink" data-text="Корзина"><span class="roll">Корзина</span></span><span class="cart-count" id="cartCount">0</span></button>
   </div>
 </header>
@@ -41,22 +42,22 @@
   </div>
   <nav class="nav-drawer-body">
     <a class="nav-link" href="catalog.html">Все ароматы</a>
-    <a class="nav-link" href="#">Новинки <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Парфюмерия <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Спреи для тела <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Супер-ароматы <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Уход за телом <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Свечи <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Для стирки <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Мерч и аксессуары</a>
+    <a class="nav-link" href="novinki.html">Новинки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="parfumeriya.html">Парфюмерия <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="sprei-dlya-tela.html">Спреи для тела <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="super-aromaty.html">Супер-ароматы <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="uhod-za-telom.html">Уход за телом <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="svechi.html">Свечи <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="dlya-stirki.html">Для стирки <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="merch.html">Мерч и аксессуары</a>
     <a class="nav-link" href="sobrat-nabor.html">Собрать свой набор <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Подарочные карты <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="#">Распродажа <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="podarochnye-karty.html">Подарочные карты <span class="nav-arrow">›</span></a>
+    <a class="nav-link" href="rasprodazha.html">Распродажа <span class="nav-arrow">›</span></a>
     <a class="nav-link nav-link--accent" href="o-nas.html">О нас <span class="nav-arrow">›</span></a>
     <a class="nav-link nav-link--accent" href="soobshestvo.html">Сообщество <span class="nav-arrow">›</span></a>
   </nav>
   <div class="nav-drawer-foot">
-    <a href="#">Аккаунт</a>
+    <a href="account.html">Аккаунт</a>
     <a href="#">Instagram</a>
     <a href="#">Telegram</a>
   </div>
@@ -68,6 +69,30 @@
     <video src="videos/hero.mp4" autoplay muted loop playsinline></video>
   </div>
   <canvas id="heroBubbles"></canvas>
+  <div class="hero-content">
+    <div class="hero-kicker">CTRL+STATE / парфюмерия настроения</div>
+    <h1>Аромат — это кнопка. Нажми и <em>переключись</em>.</h1>
+    <p class="hero-copy">Ароматы, которые меняют состояние за одно нажатие: фокус, спокойствие, подъём или вечерний шлейф. Без парфюмерной нарядности.</p>
+    <div class="hero-actions">
+      <a class="btn" href="catalog.html">Выбрать аромат</a>
+      <a class="btn" href="sobrat-nabor.html">Собрать sample pack</a>
+    </div>
+    <div class="hero-chips" aria-label="Режимы CTRL home">
+      <span class="hero-chip">CTRL+FOCUS <small>фокус</small></span>
+      <span class="hero-chip">CTRL+CALM <small>спокойствие</small></span>
+      <span class="hero-chip">CTRL+LIFT <small>подъём</small></span>
+    </div>
+  </div>
+  <div class="hero-status" aria-label="Предметный кадр CTRL home">
+    <div class="hero-card-label">[ предметный кадр · 50 мл ]</div>
+    <img src="images/aromat-1.png" alt="Аромат CTRL home" loading="eager">
+    <div class="hero-card-foot">
+      <span>арт. CTL-FOC-50</span>
+      <strong>6 900 ₽</strong>
+    </div>
+    <span class="hero-keycap" aria-hidden="true"></span>
+    <span class="hero-new">NEW</span>
+  </div>
 </section>
 
 <!-- БЕГУЩАЯ СТРОКА -->
@@ -148,7 +173,7 @@
   </div>
 </section>
 
-<!-- ФИЛОСОФИЯ + ПУЗЫРЬ -->
+<!-- ФИЛОСОФИЯ + МОЛЕКУЛА -->
 <section class="philosophy" id="philosophy">
   <div class="container philosophy-grid">
     <div>
@@ -161,9 +186,8 @@
       </div>
       <a class="btn reveal" data-delay="3" href="#collection">Смотреть ароматы</a>
     </div>
-    <div class="bubble-stage" id="bubbleStage">
-      <canvas id="bubbleCanvas"></canvas>
-      <div class="bubble-hint">Поднесите курсор к молекуле</div>
+    <div class="philosophy-molecule-stage reveal" data-delay="2" id="philosophyMolecule" aria-label="Интерактивная молекула аромата">
+      <canvas class="philosophy-molecule-canvas" aria-hidden="true"></canvas>
     </div>
   </div>
 </section>
@@ -205,7 +229,7 @@
 <!-- БЕГУЩАЯ СТРОКА (слоган) -->
 <div class="marquee marquee--promo" aria-hidden="true">
   <div class="marquee-track">
-    <span>чистый · честный · твой аромат <i>•</i> чистый · честный · твой аромат <i>•</i> чистый · честный · твой аромат <i>•</i> </span>
+    <span>переключись <i>⌃</i> аромат — это кнопка <i>⌃</i> CTRL+FOCUS <i>⌃</i> CTRL+CALM <i>⌃</i> CTRL+LIFT <i>⌃</i> </span>
   </div>
 </div>
 
@@ -262,7 +286,7 @@
           <a href="#collection">Ароматы</a>
           <a href="#philosophy">Философия</a>
           <a href="#steps">Ритуал</a>
-          <a href="#">Доставка и возврат</a>
+          <a href="dostavka-i-vozvrat.html">Доставка и возврат</a>
         </nav>
       </div>
       <div>
@@ -302,7 +326,7 @@
   </div>
 </aside>
 
-<script src="menu.js"></script>
+<script src="menu.js?v=6"></script>
 <script>
 /* ============ ДАННЫЕ ============ */
 const PRODUCTS = {
@@ -439,159 +463,7 @@ updateSteps();
   loop();
 })();
 
-/* ============ ЖИДКАЯ СТЕКЛЯННАЯ МОЛЕКУЛА АРОМАТА ============ */
-(function(){
-  const stage = document.getElementById('bubbleStage');
-  const cv = document.getElementById('bubbleCanvas');
-  const ctx = cv.getContext('2d');
-  const DPR = Math.min(devicePixelRatio, 2);
-  let W,H,CX,CY,R;
-  function resize(){
-    W = cv.width = stage.offsetWidth * DPR;
-    H = cv.height = stage.offsetHeight * DPR;
-    CX = W/2; CY = H/2;
-    R = Math.min(W,H) * 0.27;
-  }
-  resize(); window.addEventListener('resize', resize);
-
-  const mouse = {x:0, y:0, inside:false};
-  let pull = 0;            /* сила «магнита» 0..1, плавная */
-  let lastDir = 0;         /* направление к курсору */
-  stage.addEventListener('pointermove', e => {
-    const r = stage.getBoundingClientRect();
-    mouse.x = (e.clientX - r.left) * DPR;
-    mouse.y = (e.clientY - r.top) * DPR;
-    mouse.inside = true;
-  });
-  stage.addEventListener('pointerleave', () => {
-    mouse.inside = false;
-    if(pull > .15) spawnDroplet(lastDir);   /* капля отделяется в сторону курсора */
-  });
-
-  /* --- капельки-частицы аромата --- */
-  const droplets = [];
-  function spawnDroplet(dir){
-    droplets.push({
-      dir, dist:R*.9,                 /* расстояние от центра */
-      r:R*.16, phase:'bridge',        /* bridge → free */
-      vx:Math.cos(dir)*1.1*DPR, vy:Math.sin(dir)*1.1*DPR - .3*DPR,
-      life:1, wob:Math.random()*6
-    });
-  }
-
-  /* органический радиус контура: дыхание + морфинг + магнитное растяжение */
-  function blobRadius(a, t){
-    let r = R * (1
-      + .035*Math.sin(t*.0009)                       /* дыхание */
-      + .045*Math.sin(3*a + t*.0007)                 /* медленный морфинг */
-      + .03 *Math.sin(5*a - t*.0011)
-      + .018*Math.sin(8*a + t*.0016));
-    if(pull > .003){
-      let d = a - lastDir;
-      d = Math.atan2(Math.sin(d), Math.cos(d));      /* кратчайший угол */
-      r += R * .45 * pull * Math.exp(-(d*d)/.45);    /* вытягивание к курсору */
-    }
-    return r;
-  }
-
-  function drawBlob(t){
-    /* сила притяжения: ближе курсор — сильнее тянется */
-    let target = 0;
-    if(mouse.inside){
-      const dx = mouse.x-CX, dy = mouse.y-CY;
-      const dist = Math.hypot(dx,dy);
-      lastDir = Math.atan2(dy,dx);
-      target = Math.max(0, Math.min(1, 1.6 - dist/(R*2.2)));
-    }
-    pull += (target - pull) * .06;                   /* вязкая инерция */
-
-    const N = 140;
-    ctx.beginPath();
-    for(let i=0;i<=N;i++){
-      const a = i/N*Math.PI*2;
-      const r = blobRadius(a,t);
-      const x = CX + Math.cos(a)*r, y = CY + Math.sin(a)*r;
-      i ? ctx.lineTo(x,y) : ctx.moveTo(x,y);
-    }
-    ctx.closePath();
-
-    /* тело: жидкое стекло с мягким внутренним свечением */
-    const body = ctx.createRadialGradient(CX-R*.25,CY-R*.3,R*.05,CX,CY,R*1.35);
-    body.addColorStop(0,'rgba(255,255,255,.75)');
-    body.addColorStop(.4,'rgba(250,247,240,.28)');
-    body.addColorStop(.75,'rgba(214,200,178,.18)');
-    body.addColorStop(1,'rgba(154,123,79,.10)');
-    ctx.fillStyle = body;
-    ctx.fill();
-
-    /* перламутровая кромка */
-    for(let i=0;i<2;i++){
-      const hue = (t*.02 + i*160) % 360;
-      ctx.strokeStyle = `hsla(${hue},45%,80%,${.4-.15*i})`;
-      ctx.lineWidth = (1.6-i*.6)*DPR;
-      ctx.stroke();
-    }
-
-    /* верхний блик */
-    ctx.save();
-    ctx.translate(CX-R*.32,CY-R*.4);
-    ctx.rotate(-.6);
-    const hl = ctx.createRadialGradient(0,0,0,0,0,R*.32);
-    hl.addColorStop(0,'rgba(255,255,255,.8)');
-    hl.addColorStop(1,'rgba(255,255,255,0)');
-    ctx.fillStyle = hl;
-    ctx.beginPath(); ctx.ellipse(0,0,R*.3,R*.13,0,0,7); ctx.fill();
-    ctx.restore();
-  }
-
-  function drawDroplets(t){
-    for(let i = droplets.length-1; i >= 0; i--){
-      const d = droplets[i];
-      const edge = blobRadius(d.dir, t);
-      if(d.phase === 'bridge'){
-        d.dist += 2.2*DPR;
-        const x = CX + Math.cos(d.dir)*d.dist, y = CY + Math.sin(d.dir)*d.dist;
-        /* тонкий жидкий мостик: сужающаяся цепочка капель */
-        const ex = CX + Math.cos(d.dir)*edge*.92, ey = CY + Math.sin(d.dir)*edge*.92;
-        for(let k=0;k<=6;k++){
-          const f = k/6;
-          const br = d.r * (1-f) * .45 + d.r * f * .2;
-          ctx.fillStyle = `rgba(245,240,230,${.5*(1-f*.5)})`;
-          ctx.beginPath();
-          ctx.arc(ex+(x-ex)*f, ey+(y-ey)*f, Math.max(br*(1 - Math.sin(f*Math.PI)*.65), .8*DPR), 0, 7);
-          ctx.fill();
-        }
-        d.x = x; d.y = y;
-        if(d.dist > edge + R*.55) d.phase = 'free';   /* мостик рвётся */
-      } else {
-        d.wob += .04;
-        d.x += d.vx + Math.sin(d.wob)*.4*DPR;
-        d.y += d.vy; d.vy -= .008*DPR;                /* лёгкий подъём — испарение */
-        d.life -= .006;
-        d.r *= .998;
-      }
-      if(d.life <= 0){ droplets.splice(i,1); continue; }
-      /* сама капля */
-      ctx.save();
-      ctx.globalAlpha = Math.min(d.life,1);
-      const g = ctx.createRadialGradient(d.x-d.r*.3,d.y-d.r*.3,d.r*.05,d.x,d.y,d.r);
-      g.addColorStop(0,'rgba(255,255,255,.85)');
-      g.addColorStop(.6,'rgba(248,243,234,.3)');
-      g.addColorStop(1,'rgba(200,185,160,.35)');
-      ctx.fillStyle = g;
-      ctx.beginPath(); ctx.arc(d.x,d.y,d.r,0,7); ctx.fill();
-      ctx.restore();
-    }
-  }
-
-  function loop(t){
-    ctx.clearRect(0,0,W,H);
-    drawBlob(t);
-    drawDroplets(t);
-    requestAnimationFrame(loop);
-  }
-  loop(0);
-})();
 </script>
+<script src="philosophy-molecule.js?v=1"></script>
 </body>
 </html>
