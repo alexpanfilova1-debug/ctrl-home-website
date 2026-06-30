@@ -3,6 +3,7 @@
   if (!chrome) return;
 
   chrome.innerHTML =
+    '<div class="topbar"><span><b>Бесплатная доставка</b> от 3000&nbsp;₽.</span><a href="dostavka-i-vozvrat.html">Подробнее →</a></div>' +
     '<header class="header" id="header">' +
       '<div class="header-left">' +
         '<button class="menu-trigger" id="menuTrigger" aria-label="Открыть меню">' +
@@ -49,6 +50,18 @@
         '<a href="#">Telegram</a>' +
       '</div>' +
     '</aside>';
+
+  /* шапка при скролле: класс .scrolled (фон/тень). Бар-объявление уезжает сам — он в обычном потоке. */
+  var header = document.getElementById('header');
+  if (header) {
+    var scrolledState = false;
+    var onScrollHeader = function () {
+      var s = window.scrollY > 40;
+      if (s !== scrolledState) { header.classList.toggle('scrolled', s); scrolledState = s; }
+    };
+    window.addEventListener('scroll', onScrollHeader, { passive: true });
+    onScrollHeader();
+  }
 
   var footer = document.querySelector('[data-site-footer]');
   if (!footer) return;
