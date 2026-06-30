@@ -2154,13 +2154,14 @@ body{
 .topbar a:hover{opacity:.7}
 
 /* шапка на главной: навигация слева, лого по центру, действия справа; закреплена */
-body.home .header{
-  position:sticky;top:0;left:auto;right:auto;bottom:auto;
+.header{
   display:grid;grid-template-columns:1fr auto 1fr;
 }
-body.home .header-left{order:0;justify-self:start;flex:0 0 auto}
-body.home .logo{order:1;justify-self:center}
-body.home .header-right{order:2;justify-self:end}
+.header-left{order:0;justify-self:start;flex:0 0 auto;justify-content:flex-start}
+.logo{order:1;justify-self:center}
+.header-right{order:2;justify-self:end}
+/* на главной шапка закреплена (под ней бар-объявление) */
+body.home .header{position:sticky;top:0;left:auto;right:auto;bottom:auto}
 
 /* HERO с фото */
 .phero{position:relative;min-height:clamp(400px,42vw,600px);overflow:hidden;background:var(--ink)}
