@@ -8,10 +8,17 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=22">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<script>document.documentElement.classList.add('js-reveal')</script>
 </head>
-<body>
+<body class="home">
+
+<!-- ВЕРХНИЙ БАР-ОБЪЯВЛЕНИЕ (уезжает при скролле) -->
+<div class="topbar">
+  <span><b>Бесплатная доставка</b> от 3000&nbsp;₽.</span>
+  <a href="dostavka-i-vozvrat.html">Подробнее →</a>
+</div>
 
 <!-- ШАПКА -->
 <header class="header" id="header">
@@ -63,48 +70,31 @@
   </div>
 </aside>
 
-<!-- ХИРО -->
-<section class="hero">
-  <div class="hero-media">
-    <video src="videos/hero.mp4" autoplay muted loop playsinline></video>
+<!-- ХИРО (фото) -->
+<section class="phero">
+  <div class="phero-media">
+    <img class="phero-img" src="images/hero.jpg" width="1672" height="941" fetchpriority="high"
+         alt="Девушка с флаконом CTRL home на улице">
+    <span class="phero-scrim" aria-hidden="true"></span>
   </div>
-  <canvas id="heroBubbles"></canvas>
-  <div class="hero-content">
-    <div class="hero-kicker">CTRL+STATE / парфюмерия настроения</div>
-    <h1>Аромат — это кнопка. Нажми и <em>переключись</em>.</h1>
-    <p class="hero-copy">Ароматы, которые меняют состояние за одно нажатие: фокус, спокойствие, подъём или вечерний шлейф. Без парфюмерной нарядности.</p>
-    <div class="hero-actions">
-      <a class="btn" href="catalog.html">Выбрать аромат</a>
-      <a class="btn" href="sobrat-nabor.html">Собрать sample pack</a>
-    </div>
-    <div class="hero-chips" aria-label="Режимы CTRL home">
-      <span class="hero-chip">CTRL+FOCUS <small>фокус</small></span>
-      <span class="hero-chip">CTRL+CALM <small>спокойствие</small></span>
-      <span class="hero-chip">CTRL+LIFT <small>подъём</small></span>
-    </div>
-  </div>
-  <div class="hero-status" aria-label="Предметный кадр CTRL home">
-    <div class="hero-card-label">[ предметный кадр · 50 мл ]</div>
-    <img src="images/aromat-1.png" alt="Аромат CTRL home" loading="eager">
-    <div class="hero-card-foot">
-      <span>арт. CTL-FOC-50</span>
-      <strong>6 900 ₽</strong>
-    </div>
-    <span class="hero-keycap" aria-hidden="true"></span>
-    <span class="hero-new">NEW</span>
+  <div class="phero-text">
+    <p class="phero-kicker"><span class="phero-key" aria-hidden="true">⌃</span> CTRL+STATE · нишевая парфюмерия</p>
+    <h1 class="phero-h1">Нажми.<br><span class="hl">Переключись.</span></h1>
+    <a class="phero-cta" href="#collection">Смотреть бестселлеры <span class="ar" aria-hidden="true">→</span></a>
   </div>
 </section>
 
-<!-- БЕГУЩАЯ СТРОКА -->
-<div class="marquee" aria-hidden="true">
-  <div class="marquee-track" id="marqueeTrack">
-    <span>CTRL home <i>•</i> Парфюмерия настроения <i>•</i> Сделано с любовью <i>•</i> Новая коллекция 2026 <i>•</i></span>
+<!-- БЕГУЩАЯ СТРОКА (под фото) -->
+<div class="cmarq" aria-hidden="true">
+  <div class="cmarq-track">
+    <span>БЕСТСЕЛЛЕРЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+FOCUS&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+CALM&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+LIFT&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+STATE&nbsp;&nbsp;·&nbsp;&nbsp;РАССВЕТ&nbsp;&nbsp;·&nbsp;&nbsp;БЕСТСЕЛЛЕРЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+FOCUS&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+CALM&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+LIFT&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+STATE&nbsp;&nbsp;·&nbsp;&nbsp;РАССВЕТ&nbsp;&nbsp;·&nbsp;&nbsp;БЕСТСЕЛЛЕРЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+FOCUS&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+CALM&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+LIFT&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+STATE&nbsp;&nbsp;·&nbsp;&nbsp;РАССВЕТ&nbsp;&nbsp;·&nbsp;&nbsp;БЕСТСЕЛЛЕРЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+FOCUS&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+CALM&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+LIFT&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+STATE&nbsp;&nbsp;·&nbsp;&nbsp;РАССВЕТ&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+    <span aria-hidden="true">БЕСТСЕЛЛЕРЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+FOCUS&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+CALM&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+LIFT&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+STATE&nbsp;&nbsp;·&nbsp;&nbsp;РАССВЕТ&nbsp;&nbsp;·&nbsp;&nbsp;БЕСТСЕЛЛЕРЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+FOCUS&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+CALM&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+LIFT&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+STATE&nbsp;&nbsp;·&nbsp;&nbsp;РАССВЕТ&nbsp;&nbsp;·&nbsp;&nbsp;БЕСТСЕЛЛЕРЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+FOCUS&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+CALM&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+LIFT&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+STATE&nbsp;&nbsp;·&nbsp;&nbsp;РАССВЕТ&nbsp;&nbsp;·&nbsp;&nbsp;БЕСТСЕЛЛЕРЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+FOCUS&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+CALM&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+LIFT&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+STATE&nbsp;&nbsp;·&nbsp;&nbsp;РАССВЕТ&nbsp;&nbsp;·&nbsp;&nbsp;</span>
   </div>
 </div>
 
 <!-- КОЛЛЕКЦИЯ -->
 <section class="section container" id="collection">
-  <h2 class="section-title reveal">Коллекция <em>/ 4 аромата</em></h2>
+  <h2 class="section-title reveal">Бестселлеры</h2>
   <div class="products">
     <article class="product reveal" data-id="1">
         <a class="product-link" href="product.html?id=1" aria-label="CTRL № 1 — Рассвет"></a>
@@ -230,12 +220,7 @@
   </div>
 </section>
 
-<!-- БЕГУЩАЯ СТРОКА (слоган) -->
-<div class="marquee marquee--promo" aria-hidden="true">
-  <div class="marquee-track">
-    <span>переключись <i>⌃</i> аромат — это кнопка <i>⌃</i> CTRL+FOCUS <i>⌃</i> CTRL+CALM <i>⌃</i> CTRL+LIFT <i>⌃</i> </span>
-  </div>
-</div>
+<!-- (вторая бегущая строка убрана — оставляем одну, под hero) -->
 
 <!-- 4 ШАГА -->
 <section class="steps-wrap" id="steps">
@@ -316,7 +301,7 @@
 
 <!-- КОРЗИНА: выезжающая панель инжектится cart.js (общая для всех страниц) -->
 
-<script src="page-data.js?v=7"></script>
+<script src="page-data.js?v=8"></script>
 <script src="cart.js?v=1"></script>
 <script src="menu.js?v=7"></script>
 <script>
@@ -372,43 +357,7 @@ window.addEventListener('scroll', () => {
 },{passive:true});
 updateSteps();
 
-/* ============ ПУЗЫРИ В ХИРО (фоновые, медленные) ============ */
-(function(){
-  const cv = document.getElementById('heroBubbles');
-  const ctx = cv.getContext('2d');
-  let W,H,bubbles=[];
-  function resize(){
-    W = cv.width = cv.offsetWidth * devicePixelRatio;
-    H = cv.height = cv.offsetHeight * devicePixelRatio;
-  }
-  resize(); window.addEventListener('resize', resize);
-  for(let i=0;i<10;i++) bubbles.push({
-    x:Math.random(), y:Math.random()+0.3,
-    r:(6+Math.random()*16)*devicePixelRatio,
-    sp:(0.0004+Math.random()*0.0008), drift:Math.random()*Math.PI*2
-  });
-  function drawBubble(x,y,r,alpha){
-    ctx.save(); ctx.globalAlpha = alpha;
-    const g = ctx.createRadialGradient(x-r*.3,y-r*.3,r*.1,x,y,r);
-    g.addColorStop(0,'rgba(255,255,255,.65)');
-    g.addColorStop(.7,'rgba(255,255,255,.06)');
-    g.addColorStop(.92,'rgba(200,210,255,.25)');
-    g.addColorStop(1,'rgba(255,255,255,.45)');
-    ctx.fillStyle = g;
-    ctx.beginPath(); ctx.arc(x,y,r,0,7); ctx.fill();
-    ctx.restore();
-  }
-  function loop(t){
-    ctx.clearRect(0,0,W,H);
-    bubbles.forEach(b => {
-      b.y -= b.sp; b.drift += 0.01;
-      if(b.y*H < -40) b.y = 1.1;
-      drawBubble(b.x*W + Math.sin(b.drift)*14*devicePixelRatio, b.y*H, b.r, .5);
-    });
-    requestAnimationFrame(loop);
-  }
-  loop();
-})();
+/* ============ ПУЗЫРИ В ХИРО — убраны вместе со старым hero ============ */
 
 </script>
 <script src="philosophy-molecule.js?v=1"></script>

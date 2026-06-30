@@ -2,28 +2,28 @@
   var PRODUCTS = {
     1: {
       name: 'CTRL № 1 — Рассвет', price: 6900, note: 'бергамот · нероли · белый чай', img: 'images/aromat-1.png',
-      type: 'Eau de Parfum', gender: 'унисекс', longevity: '6–8 ч', article: 'CTL-01', badge: 'NEW',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '6–8 ч', article: 'CTL-01', badge: 'NEW', mood: 'focus', moodLabel: 'CTRL+FOCUS',
       desc: 'Лёгкий цитрусовый старт: бергамот и нероли по утренней прохладе, мягкий белый чай в основе. Аромат «включить день» — собраться и проснуться без лишнего шума.',
       volumes: [ { ml: 30, price: 4300 }, { ml: 50, price: 6900 }, { ml: 100, price: 11400 } ],
       gallery: ['images/aromat-1.png']
     },
     2: {
       name: 'CTRL № 2 — Полдень', price: 7400, note: 'инжир · кедр · морская соль', img: 'images/aromat-2.png',
-      type: 'Eau de Parfum', gender: 'унисекс', longevity: '6–8 ч', article: 'CTL-02', badge: '',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '6–8 ч', article: 'CTL-02', badge: '', mood: 'energy', moodLabel: 'CTRL+ENERGY',
       desc: 'Инжир и кедр с солёной свежестью — собранный рабочий аромат в самый разгар дня. Держит фокус и не перетягивает внимание на себя.',
       volumes: [ { ml: 30, price: 4600 }, { ml: 50, price: 7400 }, { ml: 100, price: 12200 } ],
       gallery: ['images/aromat-2.png']
     },
     3: {
       name: 'CTRL № 3 — Сумерки', price: 8200, note: 'ирис · сандал · амбра', img: 'images/aromat-3.png',
-      type: 'Eau de Parfum', gender: 'унисекс', longevity: '8–10 ч', article: 'CTL-03', badge: '',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '8–10 ч', article: 'CTL-03', badge: '', mood: 'calm', moodLabel: 'CTRL+CALM',
       desc: 'Ирис, сандал и амбра — тёплый, чуть дымный переход в вечер. Для момента, когда дела закрыты и можно наконец выдохнуть.',
       volumes: [ { ml: 30, price: 5100 }, { ml: 50, price: 8200 }, { ml: 100, price: 13500 } ],
       gallery: ['images/aromat-3.png']
     },
     4: {
       name: 'CTRL № 4 — Полночь', price: 9100, note: 'уд · ваниль · чёрный перец', img: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop',
-      type: 'Eau de Parfum', gender: 'унисекс', longevity: '10–12 ч', article: 'CTL-04', badge: 'NEW',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '10–12 ч', article: 'CTL-04', badge: 'NEW', mood: 'night', moodLabel: 'CTRL+NIGHT',
       desc: 'Уд, ваниль и чёрный перец: плотный вечерний шлейф с характером. Для свиданий, выходов и уверенного входа в комнату.',
       volumes: [ { ml: 30, price: 5700 }, { ml: 50, price: 9100 }, { ml: 100, price: 15000 } ],
       gallery: ['https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop']
@@ -57,6 +57,7 @@
       title: 'Парфюмерия <em>настроения</em>',
       lead: 'Основная линейка CTRL home: ароматы как переключатели состояния — от чистого утра до глубокого вечернего шлейфа.',
       tags: ['30 мл', '10 мл', 'пробники', 'наборы'],
+      shelf: [1, 2, 3, 4],
       cards: [
         { title: 'Фруктовые и цветочные', text: 'Легкие, понятные, но не плоские композиции для дневного звучания.', img: 'images/aromat-1.png', href: 'catalog.html' },
         { title: 'Сладкие и теплые', text: 'Ваниль, карамель, мед и мягкие гурманские ноты без липкой перегрузки.', img: 'https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
@@ -272,13 +273,13 @@
     var tags = page.tags.map(function (tag) { return '<span>' + tag + '</span>'; }).join('');
     var cards = page.cards.map(function (card, i) {
       return '<article class="page-card reveal" data-delay="' + Math.min(i, 3) + '">' +
-        '<a class="page-card-media" href="' + card.href + '">' +
-          '<img src="' + card.img + '" alt="' + card.title + '" loading="lazy" onerror="this.src=\'https://picsum.photos/seed/ctrl-page-' + i + '/900/700\'">' +
-        '</a>' +
+        '<a class="page-card-link" href="' + card.href + '" aria-label="' + card.title + '"></a>' +
+        '<div class="page-card-media">' +
+          '<img src="' + card.img + '" alt="' + card.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'https://picsum.photos/seed/ctrl-page-' + i + '/900/700\'">' +
+        '</div>' +
         '<div class="page-card-body">' +
           '<h3>' + card.title + '</h3>' +
           '<p>' + card.text + '</p>' +
-          '<a href="' + card.href + '">Открыть</a>' +
         '</div>' +
       '</article>';
     }).join('');
@@ -298,6 +299,40 @@
       '</div>' +
       '<div class="page-actions reveal" data-delay="2">' +
         '<a class="btn" href="' + page.cta[1] + '">' + page.cta[0] + '</a>' +
+      '</div>';
+  }
+
+  // Товарная «полка»: интро + реальная сетка товаров из PRODUCTS по списку page.shelf
+  function renderShelf(page) {
+    var cards = (page.shelf || []).map(function (id) {
+      var p = PRODUCTS[id];
+      if (!p) return '';
+      var price = Number(p.price).toLocaleString('ru-RU');
+      return '<article class="product reveal" data-id="' + id + '">' +
+        (p.moodLabel ? '<span class="product-badge" data-state="' + (p.mood || '') + '">' + p.moodLabel + '</span>' : '') +
+        '<a class="product-link" href="product.html?id=' + id + '" aria-label="' + p.name + '"></a>' +
+        '<div class="product-img">' +
+          '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" onerror="this.onerror=null;this.src=\'https://picsum.photos/seed/ctrl' + id + '/900/1200\'">' +
+          '<button class="product-add" data-add="' + id + '" aria-label="В корзину">В корзину</button>' +
+        '</div>' +
+        '<div class="product-info">' +
+          '<div>' +
+            '<div class="product-name">' + p.name + '</div>' +
+            '<div class="product-note">' + p.note + '</div>' +
+          '</div>' +
+          '<div class="product-price">' + price + ' ₽</div>' +
+        '</div>' +
+      '</article>';
+    }).join('');
+    var tags = (page.tags || []).map(function (tag) { return '<span>' + tag + '</span>'; }).join('');
+    root.innerHTML =
+      '<div class="philosophy-label">' + page.kicker + '</div>' +
+      '<h1 class="section-title">' + page.title + '</h1>' +
+      '<p class="page-lead">' + page.lead + '</p>' +
+      (tags ? '<div class="page-tags reveal" data-delay="2">' + tags + '</div>' : '') +
+      '<div class="products">' + cards + '</div>' +
+      '<div class="page-actions reveal" data-delay="2" style="margin-top:2.5rem">' +
+        '<a class="btn" href="catalog.html">Весь каталог</a>' +
       '</div>';
   }
 
@@ -325,7 +360,8 @@
 
   var key = root.getAttribute('data-page');
   if (PAGES[key]) {
-    renderCommon(PAGES[key]);
+    if (PAGES[key].shelf) { renderShelf(PAGES[key]); }
+    else { renderCommon(PAGES[key]); }
   }
   initPage();
 })();

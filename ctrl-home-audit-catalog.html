@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CTRL home — аудит каталога и страниц категорий</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap');
+  :root{
+    --paper:#f7f5ef; --paper-2:#efede6; --ink:#1a1916; --muted:#6b6860;
+    --line:rgba(26,25,22,.18); --lime:#ccf400; --pink:#ff2d9e; --white:#fffdfa;
+    --crit:#ff2d9e; --major:#ffb200; --minor:#8b8880;
+    --radius:14px; --shadow:6px 6px 0 var(--ink);
+    --mono:"Space Mono","SFMono-Regular",Consolas,monospace;
+    --display:"Space Grotesk","Arial Black",Arial,sans-serif;
+    --body:Manrope,Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:linear-gradient(rgba(26,25,22,.045) 1px,transparent 1px),
+      linear-gradient(90deg,rgba(26,25,22,.045) 1px,transparent 1px),var(--paper);
+    background-size:36px 36px;
+    color:var(--ink); font-family:var(--body); line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  .page{width:min(1100px,calc(100% - 40px));margin:0 auto;padding:28px 0 80px;}
+
+  /* topbar */
+  .topbar{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;
+    gap:20px;align-items:center;margin:0 -20px 30px;padding:14px 20px;
+    background:rgba(247,245,239,.9);border-bottom:2px solid var(--ink);backdrop-filter:blur(14px);}
+  .brand{display:flex;align-items:center;gap:12px;font-family:var(--display);font-size:19px;font-weight:700;}
+  .brand b{font-weight:700;} .brand span{color:var(--pink);}
+  .keycap{display:grid;place-items:center;width:40px;height:36px;padding-bottom:4px;border-radius:8px;
+    background:var(--ink);color:var(--lime);box-shadow:0 4px 0 var(--lime);font-family:var(--mono);font-size:22px;line-height:1;}
+  .meta{color:var(--muted);font-family:var(--mono);font-size:12px;text-align:right;}
+
+  /* blocks */
+  .panel{border:2px solid var(--ink);border-radius:var(--radius);background:var(--white);box-shadow:var(--shadow);padding:clamp(20px,3vw,34px);margin-bottom:22px;}
+  h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,5vw,46px);line-height:1.02;margin:0 0 14px;letter-spacing:-.01em;}
+  h2{font-family:var(--display);font-weight:700;font-size:clamp(21px,3vw,27px);margin:34px 0 14px;letter-spacing:-.01em;}
+  h3{font-family:var(--display);font-weight:700;font-size:17px;margin:0 0 6px;}
+  p{margin:0 0 12px;} .lead{font-size:18px;color:#34322c;max-width:62ch;}
+  .eyebrow{display:inline-flex;align-items:center;width:max-content;margin-bottom:16px;padding:7px 11px;
+    border:2px solid var(--ink);border-radius:8px;background:var(--lime);box-shadow:4px 4px 0 var(--pink);
+    font-family:var(--mono);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;}
+  code{font-family:var(--mono);font-size:.86em;background:var(--paper-2);border:1px solid var(--line);
+    border-radius:5px;padding:1px 5px;white-space:nowrap;}
+  .muted{color:var(--muted);}
+
+  /* verdict band */
+  .verdict{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 4px;}
+  .pill{font-family:var(--mono);font-size:12px;font-weight:700;border:2px solid var(--ink);border-radius:999px;padding:6px 12px;background:var(--white);}
+  .pill.crit{background:var(--crit);color:#fff;} .pill.major{background:var(--major);} .pill.minor{background:var(--paper-2);}
+
+  /* two-system grid */
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+  @media(max-width:720px){.cols{grid-template-columns:1fr;}}
+  .sysbox{border:2px solid var(--ink);border-radius:12px;padding:18px;background:var(--paper);}
+  .sysbox h3 span{font-family:var(--mono);font-size:11px;font-weight:700;display:block;color:var(--muted);text-transform:uppercase;letter-spacing:.1em;margin-top:2px;}
+
+  /* schematic cards */
+  .schem{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin:16px 0 4px;}
+  @media(max-width:720px){.schem{grid-template-columns:1fr;}}
+  .schem-col{text-align:center;}
+  .schem-col .cap{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:10px;}
+  .mock{width:150px;margin:0 auto;border:2px solid var(--ink);border-radius:10px;overflow:hidden;background:var(--white);box-shadow:4px 4px 0 var(--ink);}
+  .mock .img{background:repeating-linear-gradient(45deg,var(--paper-2),var(--paper-2) 7px,#e4e1d6 7px,#e4e1d6 14px);display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--muted);}
+  .mock .void{background:var(--crit);opacity:.14;display:grid;place-items:center;font-family:var(--mono);font-size:10px;color:var(--crit);}
+  .mock .txt{padding:9px;text-align:left;font-size:11px;line-height:1.35;}
+  .mock .txt .nm{font-family:var(--display);font-weight:700;font-size:12px;}
+  .mock .txt .lk{font-family:var(--mono);font-size:9px;color:var(--pink);text-transform:uppercase;letter-spacing:.1em;margin-top:6px;}
+  .dim{font-family:var(--mono);font-size:11px;color:var(--ink);margin-top:10px;}
+  .dim b{color:var(--crit);}
+
+  /* findings */
+  .find{border:2px solid var(--ink);border-radius:12px;background:var(--white);padding:18px 20px;margin-bottom:14px;position:relative;box-shadow:3px 3px 0 var(--ink);}
+  .find .sev{position:absolute;top:-11px;right:14px;font-family:var(--mono);font-size:11px;font-weight:700;border:2px solid var(--ink);border-radius:999px;padding:3px 10px;text-transform:uppercase;letter-spacing:.06em;}
+  .find .sev.crit{background:var(--crit);color:#fff;} .find .sev.major{background:var(--major);} .find .sev.minor{background:var(--paper-2);}
+  .find .num{font-family:var(--mono);color:var(--pink);font-weight:700;}
+  .find dl{display:grid;grid-template-columns:74px 1fr;gap:4px 12px;margin:10px 0 0;font-size:14.5px;}
+  .find dt{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:3px;}
+  .find dd{margin:0;}
+  .find .tag{font-family:var(--mono);font-size:10.5px;border:1px solid var(--line);border-radius:5px;padding:1px 6px;color:var(--muted);margin-right:5px;white-space:nowrap;}
+
+  ul.clean{margin:8px 0 0;padding-left:20px;} ul.clean li{margin-bottom:7px;}
+  ol.steps{margin:10px 0 0;padding-left:22px;} ol.steps li{margin-bottom:9px;}
+  .specbox{background:var(--ink);color:var(--paper);border-radius:12px;padding:18px 20px;font-family:var(--mono);font-size:13px;line-height:1.6;overflow:auto;margin:14px 0;}
+  .specbox .c{color:#9c9a90;} .specbox .k{color:var(--lime);} .specbox .v{color:var(--pink);} .specbox .new{color:var(--lime);}
+  .note{border-left:4px solid var(--lime);background:var(--paper);padding:12px 16px;border-radius:0 8px 8px 0;margin:14px 0;}
+  .foot{margin-top:34px;text-align:center;font-family:var(--mono);font-size:12px;color:var(--muted);}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="topbar">
+    <div class="brand"><span class="keycap">⌘</span><b>CTRL <span>home</span></b></div>
+    <div class="meta">Аудит каталога + категорий<br>Taste + Hallmark · 29.06.2026</div>
+  </div>
+
+  <!-- INTRO -->
+  <div class="panel">
+    <div class="eyebrow">Аудит · что переделать</div>
+    <h1>Каталог и страницы категорий</h1>
+    <p class="lead">Прогнал «Каталог» и все 11 страниц-категорий (Парфюмерия, Свечи, Спреи и т.д.)
+    через два наших дизайн-скила — <b>Taste</b> и <b>Hallmark</b>. Главная жалоба («слишком длинные карточки»)
+    подтвердилась на боевом сайте и оказалась симптомом более крупной проблемы со структурой каталога.</p>
+    <div class="verdict">
+      <span class="pill crit">4 критичных</span>
+      <span class="pill major">5 серьёзных</span>
+      <span class="pill minor">4 мелких</span>
+      <span class="pill">Вердикт: переделать карточки + развести 2 системы</span>
+    </div>
+  </div>
+
+  <!-- ГЛАВНОЕ -->
+  <div class="panel">
+    <h2 style="margin-top:0">TL;DR — три вещи</h2>
+    <ul class="clean">
+      <li><b>Карточки категорий растягиваются до 985px</b> (в 2.5 раза выше ширины). Это и есть «слишком длинные».
+      Причина — <code>min-height:100%</code> + грид-растяжение убивают <code>aspect-ratio</code>, а <code>margin-top:auto</code>
+      создаёт пустоты до 800px. Чинится в <code>styles.css</code> точечно.</li>
+      <li><b>Категории не показывают товары.</b> «Парфюмерия», «Свечи» и др. — это не списки продуктов, а одинаковые
+      редакционные страницы с 3 карточками-концепциями, которые все ведут обратно на <code>catalog.html</code>.
+      Покупатель ждёт ароматы с ценами, а получает брошюру.</li>
+      <li><b>Две несовместимые системы карточек и шапок</b> живут параллельно (хардкод vs <code>page-data.js</code>),
+      плюс рассинхрон версий <code>styles.css</code> — категории могут отдавать устаревший кеш.</li>
+    </ul>
+  </div>
+
+  <!-- ДВЕ СИСТЕМЫ -->
+  <div class="panel">
+    <h2 style="margin-top:0">Контекст: в каталоге живут две разные системы</h2>
+    <p class="muted">Прежде чем чинить карточки — важно понимать, что «карточка» в проекте означает две разные вещи.</p>
+    <div class="cols">
+      <div class="sysbox">
+        <h3>Система A — товарная<span>catalog.html · класс .product</span></h3>
+        <p style="font-size:14.5px">Настоящая сетка товаров 4-в-ряд. <b>Захардкожена</b> прямо в HTML (4 товара),
+        хотя данные тех же товаров уже есть в <code>page-data.js</code> (<code>PRODUCTS</code>). Получила нео-брутал
+        редизайн (рамка, тень, бейдж <code>CTRL+FOCUS</code>, всегда видимая кнопка «В корзину»).</p>
+        <p class="dim">Замер боевого: 286×493px · соотношение 1.72</p>
+      </div>
+      <div class="sysbox">
+        <h3>Система B — редакционная<span>11 категорий · класс .page-card</span></h3>
+        <p style="font-size:14.5px">Парфюмерия, Спреи, Супер-ароматы, Уход, Свечи, Для стирки, Новинки, Мерч,
+        Подарочные карты, Распродажа, Доставка. Все рендерятся <b>одним шаблоном</b> <code>renderCommon()</code>:
+        kicker → заголовок → лид → теги → 3 карточки → split → список → CTA. Отличается только текст.</p>
+        <p class="dim">Замер боевого: 393×<b>985px</b> · соотношение <b>2.51</b></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ПРОБЛЕМА КАРТОЧЕК -->
+  <div class="panel">
+    <h2 style="margin-top:0">Почему карточки «слишком длинные» — с реальными цифрами</h2>
+    <p>Снял живые размеры с боевого сайта (<code>parfumeriya.html</code>, десктоп 1440px, сетка 3 колонки):</p>
+    <div class="schem">
+      <div class="schem-col">
+        <div class="cap">Сейчас — .page-card</div>
+        <div class="mock" style="height:300px">
+          <div class="img" style="height:250px">картинка 832px*</div>
+          <div class="txt"><div class="nm">Фруктовые и цветочные</div><div>Лёгкие, понятные…</div><div class="lk">Открыть →</div></div>
+        </div>
+        <div class="dim">393×<b>985px</b> · картинка раздута до <b>832px</b><br>(должно быть ~295px по <code>aspect-ratio:4/3</code>)</div>
+      </div>
+      <div class="schem-col">
+        <div class="cap">Сейчас — соседняя карточка со «сломанной» картинкой</div>
+        <div class="mock" style="height:300px">
+          <div class="img" style="height:24px">18px</div>
+          <div class="void" style="height:180px">801px<br>пустоты</div>
+          <div class="txt"><div class="lk">Открыть →</div></div>
+        </div>
+        <div class="dim">Та же высота <b>985px</b>, но <b>801px пустого</b> места,<br>ссылка прибита к низу через <code>margin-top:auto</code></div>
+      </div>
+    </div>
+    <div class="note">
+      <b>Механика бага.</b> <code>.page-card</code> — это грид <code>grid-template-rows:auto 1fr</code> с <code>min-height:100%</code>.
+      В сетке <code>.page-grid</code> (3×1fr, <code>align-items:stretch</code> по умолчанию) все три карточки тянутся
+      до высоты самой высокой. <code>aspect-ratio:4/3</code> на медиа <b>не держит высоту</b>, потому что растянутый
+      грид-элемент перекрывает соотношение сторон. Ряд <code>1fr</code> под текст + <code>margin-top:auto</code> на ссылке
+      добивают карточку огромными пустотами. Исходники портретные (1086×1448) — усугубляют.
+    </div>
+  </div>
+
+  <!-- НАХОДКИ -->
+  <h2>Находки по важности</h2>
+  <p class="muted" style="margin-top:-6px">Формат Hallmark: что → где → почему → фикс. В скобках — правило Taste/Hallmark.</p>
+
+  <!-- CRIT -->
+  <div class="find">
+    <span class="sev crit">critical</span>
+    <h3><span class="num">01.</span> Растянутые карточки категорий</h3>
+    <dl>
+      <dt>Где</dt><dd><code>styles.css</code> L590–597 (<code>.page-card</code>, <code>.page-card-media</code>, <code>.page-card a</code>)</dd>
+      <dt>Почему</dt><dd>На боевом — 985px высота, картинка 832px вместо 295px, пустоты до 801px. Главная причина жалобы.</dd>
+      <dt>Фикс</dt><dd>Убрать <code>min-height:100%</code> и ряд <code>1fr</code>; задать медиа фикс-пропорцию + <code>align-self:start</code>; убрать <code>margin-top:auto</code>-пустоту; ограничить текст 2–3 строками (<code>line-clamp</code>). <span class="tag">Taste 4.4 / 4.7</span></dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev crit">critical</span>
+    <h3><span class="num">02.</span> Категории не продают товар (структурный)</h3>
+    <dl>
+      <dt>Где</dt><dd><code>page-data.js</code> L271–302 + все <code>*.html</code> категорий; карточки <code>href</code> ведут на <code>catalog.html</code> (L61–63 и т.д.)</dd>
+      <dt>Почему</dt><dd>Заходишь в «Парфюмерию» — нет ни одного аромата с ценой и кнопкой. 3 карточки-концепции у всех ведут назад в общий каталог. Все 11 категорий — копия одного шаблона.</dd>
+      <dt>Фикс</dt><dd>Категория = отфильтрованная сетка товаров (переиспользовать <code>.product</code> + <code>PRODUCTS</code>), а интро-блок оставить сверху как вступление. <span class="tag">Hallmark: default-attractor sameness</span><span class="tag">Taste: section-repetition</span></dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev crit">critical</span>
+    <h3><span class="num">03.</span> Дубль и конфликт CSS у <code>.product</code></h3>
+    <dl>
+      <dt>Где</dt><dd><code>styles.css</code>: блок 1 L203–233 и блок 2 L1557–1630 (оба описывают <code>.product*</code>)</dd>
+      <dt>Почему</dt><dd>Редизайн-блок 2 переопределяет рамку/тень/кнопку, но <b>не трогает</b> <code>aspect-ratio:3/4</code> из блока 1 (L205) — поэтому товарные карточки остаются высокими (493px). Логика размазана по двум местам, легко сломать.</dd>
+      <dt>Фикс</dt><dd>Слить в один блок <code>.product</code>; явно задать пропорцию картинки (3/4 → 4/5 или 1/1) в одном месте. <span class="tag">Taste 4.4</span></dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev crit">critical</span>
+    <h3><span class="num">04.</span> Рассинхрон версий <code>styles.css</code> → устаревший кеш</h3>
+    <dl>
+      <dt>Где</dt><dd><code>catalog.html</code> → <code>?v=14</code>, <code>index.html</code> → <code>?v=19</code>, все категории → <code>?v=12</code></dd>
+      <dt>Почему</dt><dd>Стили правились сегодня, но категории всё ещё ссылаются на <code>v=12</code>. У вернувшихся посетителей браузер отдаёт старый CSS на категориях, при свежем — на главной. Видишь разные версии одного сайта.</dd>
+      <dt>Фикс</dt><dd>Единая версия <code>?v=</code> на всех страницах при каждом релизе CSS (в идеале — авто-бамп). <span class="tag">тех-долг</span></dd>
+    </dl>
+  </div>
+
+  <!-- MAJOR -->
+  <div class="find">
+    <span class="sev major">major</span>
+    <h3><span class="num">05.</span> Карточки ломаются от «тяжёлой»/битой картинки</h3>
+    <dl>
+      <dt>Где</dt><dd><code>styles.css</code> L591 + <code>.page-card-media img</code> L592</dd>
+      <dt>Почему</dt><dd>Нет гарантированной высоты медиа: при медленной/битой картинке блок схлопывается до 18px и перекашивает весь ряд. На боевом это видно прямо сейчас на 2-й карточке.</dd>
+      <dt>Фикс</dt><dd>Резервировать высоту медиа фикс-пропорцией + фон-плейсхолдер; локальные <code>onerror</code>-фолбэки вместо внешних. <span class="tag">Hallmark: lazy-loaded / fragile media</span></dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev major">major</span>
+    <h3><span class="num">06.</span> Бейджи <code>CTRL+FOCUS/ENERGY/CALM/NIGHT</code> привязаны к позиции</h3>
+    <dl>
+      <dt>Где</dt><dd><code>styles.css</code> L1570–1588 (<code>.product::before</code> + <code>:nth-child</code>)</dd>
+      <dt>Почему</dt><dd>Бейдж зависит от <b>порядкового места</b> карточки, а не от товара. Работает только для первых 4 и только в захардкоженном каталоге; при фильтрации/сортировке/динамике развалится. <span class="tag">Hallmark: content tied to DOM position</span></dd>
+      <dt>Фикс</dt><dd>Перенести «состояние» (focus/energy/calm/night) в данные товара в <code>PRODUCTS</code> и выводить из них.</dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev major">major</span>
+    <h3><span class="num">07.</span> Постоянно видимая кнопка «В корзину» поверх картинки</h3>
+    <dl>
+      <dt>Где</dt><dd><code>styles.css</code> L1594–1606 (<code>opacity:1</code> в блоке 2 перебивает hover-логику блока 1)</dd>
+      <dt>Почему</dt><dd>Лаймовая кнопка + бейдж + второе фото на наведении = перегруженная нижняя зона картинки. На тач-устройствах кнопка живёт всегда, конкурирует с кликом по всей карточке-ссылке.</dd>
+      <dt>Фикс</dt><dd>Решить один паттерн: либо кнопка в info-зоне под картинкой, либо появление на hover/focus с доступным состоянием для тача. <span class="tag">Taste 4.5 / hover-affordance</span></dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev major">major</span>
+    <h3><span class="num">08.</span> Равная высота через растяжение, а не через контент</h3>
+    <dl>
+      <dt>Где</dt><dd><code>.page-card</code> L590, <code>.product</code> L1558–1561 (<code>grid-template-rows:auto 1fr</code>)</dd>
+      <dt>Почему</dt><dd>Выравнивание высот достигается растяжением пустого пространства. Правильно — единая высота за счёт одинаковой длины контента (обрезка описаний, ровные пропорции), а не за счёт <code>1fr</code>-пустоты.</dd>
+      <dt>Фикс</dt><dd>Фикс-пропорция медиа + <code>line-clamp</code> на тексте → карточки ровные естественно. <span class="tag">Taste 4.7</span></dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev major">major</span>
+    <h3><span class="num">09.</span> Мобайл: 1 колонка + пропорция 3/4 = очень длинно</h3>
+    <dl>
+      <dt>Где</dt><dd><code>styles.css</code> L1949 (<code>.products</code> 1 кол. &lt;560px), L628 (<code>.page-grid</code> 1 кол. &lt;900px)</dd>
+      <dt>Почему</dt><dd>На телефоне карточки во всю ширину с портретной картинкой 3/4 дают высоту 450–550px каждая; экран = одна карточка. Каталог превращается в бесконечную ленту.</dd>
+      <dt>Фикс</dt><dd>На мобайле — 2 колонки для товаров и более компактная пропорция (4/5 или 1/1). <span class="tag">Taste: mobile collapse</span></dd>
+    </dl>
+  </div>
+
+  <!-- MINOR -->
+  <div class="find">
+    <span class="sev minor">minor</span>
+    <h3><span class="num">10.</span> Внешние фото-плейсхолдеры как «финал»</h3>
+    <dl>
+      <dt>Где</dt><dd><code>page-data.js</code> — часть <code>img</code> ведёт на Unsplash/Picsum</dd>
+      <dt>Почему</dt><dd>Часть карточек тянет внешние стоковые фото (и они же тормозят рендер). Для боевого нужны свои изображения товаров. <span class="tag">Taste 4.8</span></dd>
+      <dt>Фикс</dt><dd>Заменить на собственные фото в <code>images/</code>; внешние оставить только как явные TODO-слоты.</dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev minor">minor</span>
+    <h3><span class="num">11.</span> Одинаковый ритм всех категорий</h3>
+    <dl>
+      <dt>Где</dt><dd><code>page-data.js</code> <code>renderCommon</code> для всех 11 страниц</dd>
+      <dt>Почему</dt><dd>kicker + заголовок + лид + теги + 3 карточки + split + список — один и тот же макет 11 раз. Сайт ощущается как один шаблон в разных цветах. <span class="tag">Hallmark: variety drift</span></dd>
+      <dt>Фикс</dt><dd>После п.02 (товарные сетки) проблема снимается сама; для служебных страниц — ок.</dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev minor">minor</span>
+    <h3><span class="num">12.</span> «Открыть» как мини-eyebrow на каждой карточке</h3>
+    <dl>
+      <dt>Где</dt><dd><code>.page-card a</code> L597 (uppercase + tracking)</dd>
+      <dt>Почему</dt><dd>Каждая карточка повторяет один и тот же капс-лейбл «Открыть» — лишний шум, вся карточка и так кликабельна.</dd>
+      <dt>Фикс</dt><dd>Убрать дублирующую ссылку или оставить как стрелку без капса. <span class="tag">Hallmark: eyebrow tic</span></dd>
+    </dl>
+  </div>
+
+  <div class="find">
+    <span class="sev minor">minor</span>
+    <h3><span class="num">13.</span> Две системы шапки = двойная поддержка</h3>
+    <dl>
+      <dt>Где</dt><dd>inline <code>&lt;header&gt;</code> (catalog, index, product, sobrat-nabor…) vs <code>site-chrome.js</code> (категории)</dd>
+      <dt>Почему</dt><dd>Шапка/меню живут в двух местах и расходятся: правки в одной не попадают в другую.</dd>
+      <dt>Фикс</dt><dd>Свести всё на <code>site-chrome.js</code> (одна шапка для всех страниц). <span class="tag">тех-долг</span></dd>
+    </dl>
+  </div>
+
+  <!-- СПЕКА -->
+  <h2>Спека: целевая карточка</h2>
+  <div class="panel">
+    <p>Эталон геометрии (ориентир, в код пока не вношу — отдельным шагом, как с hero):</p>
+    <div class="schem">
+      <div class="schem-col">
+        <div class="cap">Было</div>
+        <div class="mock" style="height:250px"><div class="img" style="height:200px">832px</div><div class="txt"><div class="nm">…</div><div class="lk">Открыть →</div></div></div>
+        <div class="dim">соотношение <b>2.51</b></div>
+      </div>
+      <div class="schem-col">
+        <div class="cap">Стало (цель)</div>
+        <div class="mock" style="height:210px"><div class="img" style="height:120px;background:var(--lime);color:var(--ink)">медиа 4/5</div><div class="txt"><div class="nm">Название</div><div>2 строки описания, обрезка…</div><div style="font-family:var(--mono);margin-top:6px">6 900 ₽</div></div></div>
+        <div class="dim">соотношение ~<b>1.3</b>, ровная высота</div>
+      </div>
+    </div>
+    <div class="specbox">
+<span class="c">/* ориентир, не финальный код */</span>
+.page-card{ <span class="c">/* убрать растяжение */</span>
+  display:flex; flex-direction:column;
+  <span class="v">min-height:100%;</span> <span class="c">← удалить</span>
+}
+.page-card-media{
+  aspect-ratio:<span class="new">4/5</span>; <span class="k">align-self</span>:stretch; <span class="c">/* держит высоту */</span>
+}
+.page-card-body p{
+  display:-webkit-box; -webkit-line-clamp:<span class="new">2</span>;
+  -webkit-box-orient:vertical; overflow:hidden;
+}
+.page-card a{ <span class="v">margin-top:auto;</span> <span class="c">← убрать пустоту, заменить фикс-отступом</span> }
+    </div>
+    <div class="note">Параллельно решаем <b>стратегию</b> категорий (п.02): показывать настоящие товары
+    (<code>.product</code> + <code>PRODUCTS</code> с фильтром) вместо редакционных карточек. Тогда и геометрию правим
+    один раз — в товарной карточке.</div>
+  </div>
+
+  <!-- ПОРЯДОК -->
+  <h2>Порядок работ</h2>
+  <div class="panel">
+    <ol class="steps">
+      <li><b>Развести 2 системы и решить, что такое категория</b> (п.02, 03, 13). Это меняет, какую карточку чиним.</li>
+      <li><b>Починить геометрию карточки</b> (п.01, 05, 08) — фикс-пропорция, без растяжения, обрезка текста.</li>
+      <li><b>Перенести «состояние» и кнопку в данные/info-зону</b> (п.06, 07).</li>
+      <li><b>Мобайл-сетка и свои фото</b> (п.09, 10).</li>
+      <li><b>Единая версия CSS + одна шапка</b> (п.04, 13) — гигиена релиза.</li>
+    </ol>
+    <p class="muted" style="margin-bottom:0">Дальше — по нашему воркфлоу: дизайн в Claude Design → код → commit/push в GitHub Desktop (без git из песочницы).</p>
+  </div>
+
+  <div class="foot">CTRL home · аудит каталога · Taste + Hallmark · цифры сняты с боевого alexpanfilova1-debug.github.io</div>
+
+</div>
+</body>
+</html>

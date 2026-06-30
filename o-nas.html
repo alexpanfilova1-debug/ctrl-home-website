@@ -8,60 +8,12 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=12">
+<link rel="stylesheet" href="styles.css?v=22">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
 
-<!-- ШАПКА -->
-<header class="header" id="header">
-  <div class="header-left">
-    <button class="menu-trigger" id="menuTrigger" aria-label="Открыть меню">
-      <span class="menu-ico"><span></span><span></span><span></span></span>
-      <span class="menu-trigger-text">Каталог</span>
-    </button>
-    <nav class="header-nav">
-      <a href="o-nas.html" class="rlink" data-text="О нас"><span class="roll">О нас</span></a>
-      <a href="kachestvo.html" class="rlink" data-text="Качество"><span class="roll">Качество</span></a>
-      <a href="soobshestvo.html" class="rlink" data-text="Сообщество"><span class="roll">Сообщество</span></a>
-    </nav>
-  </div>
-  <a class="logo" href="index.html">CTRL <span>home</span></a>
-  <div class="header-right">
-    <a href="account.html" class="hide-m rlink" data-text="Аккаунт"><span class="roll">Аккаунт</span></a>
-    <button class="cart-btn" id="cartOpen"><span class="rlink" data-text="Корзина"><span class="roll">Корзина</span></span><span class="cart-count" id="cartCount">0</span></button>
-  </div>
-</header>
-
-<!-- БОКОВОЕ МЕНЮ (ШТОРКА) -->
-<div class="nav-overlay" id="navOverlay"></div>
-<aside class="nav-drawer" id="navDrawer" aria-label="Меню">
-  <div class="nav-drawer-head">
-    <a class="nav-drawer-logo" href="index.html">CTRL <span>home</span></a>
-    <button class="nav-close" id="navClose" aria-label="Закрыть">Закрыть</button>
-  </div>
-  <nav class="nav-drawer-body">
-    <a class="nav-link" href="catalog.html">Все ароматы</a>
-    <a class="nav-link" href="novinki.html">Новинки <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="parfumeriya.html">Парфюмерия <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="sprei-dlya-tela.html">Спреи для тела <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="super-aromaty.html">Супер-ароматы <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="uhod-za-telom.html">Уход за телом <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="svechi.html">Свечи <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="dlya-stirki.html">Для стирки <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="merch.html">Мерч и аксессуары</a>
-    <a class="nav-link" href="sobrat-nabor.html">Собрать свой набор <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="podarochnye-karty.html">Подарочные карты <span class="nav-arrow">›</span></a>
-    <a class="nav-link" href="rasprodazha.html">Распродажа <span class="nav-arrow">›</span></a>
-    <a class="nav-link nav-link--accent" href="o-nas.html">О нас <span class="nav-arrow">›</span></a>
-    <a class="nav-link nav-link--accent" href="soobshestvo.html">Сообщество <span class="nav-arrow">›</span></a>
-  </nav>
-  <div class="nav-drawer-foot">
-    <a href="account.html">Аккаунт</a>
-    <a href="#">Instagram</a>
-    <a href="#">Telegram</a>
-  </div>
-</aside>
+<div data-site-chrome></div>
 
 <!-- О НАС -->
 <section class="section container" style="padding-top:calc(var(--header-h) + 4rem)">
@@ -106,7 +58,8 @@
   </div>
 </footer>
 
-<script src="page-data.js?v=7"></script>
+<script src="site-chrome.js"></script>
+<script src="page-data.js?v=8"></script>
 <script src="cart.js?v=1"></script>
 <script src="menu.js?v=7"></script>
 <script>

@@ -53,9 +53,11 @@ button{font-family:inherit;cursor:pointer;border:none;background:none}
 h1,h2,h3{font-weight:700;letter-spacing:0}
 .container{max-width:1280px;margin:0 auto;padding:0 clamp(1.25rem,4vw,2rem)}
 
-/* появление при скролле */
-.reveal{opacity:0;transform:translateY(40px);transition:opacity .9s var(--ease),transform .9s var(--ease)}
-.reveal.visible{opacity:1;transform:none}
+/* появление при скролле — прогрессивное улучшение:
+   контент виден ПО УМОЛЧАНИЮ; прячем и анимируем только если работает JS (html.js-reveal) */
+.reveal{transition:opacity .9s var(--ease),transform .9s var(--ease)}
+html.js-reveal .reveal{opacity:0;transform:translateY(40px)}
+html.js-reveal .reveal.visible{opacity:1;transform:none}
 .reveal[data-delay="1"]{transition-delay:.15s}
 .reveal[data-delay="2"]{transition-delay:.3s}
 .reveal[data-delay="3"]{transition-delay:.45s}
@@ -200,7 +202,7 @@ h1,h2,h3{font-weight:700;letter-spacing:0}
 }
 .product{position:relative}
 .product-img{
-  aspect-ratio:3/4;overflow:hidden;border-radius:0;
+  aspect-ratio:4/5;flex:none;overflow:hidden;border-radius:0;
   background:var(--bg-soft);position:relative;
 }
 .product-img img{
@@ -585,14 +587,15 @@ h1,h2,h3{font-weight:700;letter-spacing:0}
   font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-soft);
 }
 .page-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2rem;margin-bottom:3rem}
-.page-card{background:var(--bg-soft);border:1px solid var(--line);display:grid;grid-template-rows:auto 1fr;min-height:100%}
-.page-card-media{aspect-ratio:4/3;background:var(--bg);overflow:hidden}
-.page-card-media img{width:100%;height:100%;object-fit:cover;transition:transform .7s var(--ease)}
+.page-card{position:relative;background:#fff;border:2px solid var(--ink);border-radius:12px;box-shadow:6px 6px 0 var(--ink);display:flex;flex-direction:column;overflow:hidden;transition:transform .12s ease,box-shadow .12s ease}
+.page-card:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--ink)}
+.page-card-link{position:absolute;inset:0;z-index:2;border-radius:inherit;width:auto;padding:0;border:0;background:none;box-shadow:none}
+.page-card-media{aspect-ratio:4/3;flex:none;background:var(--n-100);overflow:hidden;border-bottom:2px solid var(--ink)}
+.page-card-media img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .7s var(--ease)}
 .page-card:hover .page-card-media img{transform:scale(1.04)}
-.page-card-body{padding:1.3rem;display:flex;flex-direction:column;gap:.7rem}
-.page-card h3{font-family:var(--font-display);font-size:1.25rem;line-height:1.25}
-.page-card p{color:var(--ink-soft);font-size:.92rem}
-.page-card a{margin-top:auto;font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+.page-card-body{padding:1.2rem;display:flex;flex-direction:column;gap:.5rem;flex:1}
+.page-card h3{font-family:var(--font-display);font-size:1.2rem;line-height:1.2;margin:0}
+.page-card p{margin:0;color:var(--ink-soft);font-size:.92rem;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .page-split{
   display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;align-items:stretch;
   border-block:1px solid var(--line);padding:2rem 0;margin:1rem 0 3rem;
@@ -1129,11 +1132,7 @@ h1,h2,h3{font-weight:700;letter-spacing:0}
 :root{--header-h:72px}
 
 body{
-  background:
-    linear-gradient(90deg,rgba(26,25,22,.045) 1px,transparent 1px),
-    linear-gradient(180deg,rgba(26,25,22,.045) 1px,transparent 1px),
-    var(--paper);
-  background-size:40px 40px;
+  background:var(--paper);
 }
 
 .header{
@@ -1559,8 +1558,8 @@ body{
 .products{gap:clamp(1rem,2vw,1.5rem)}
 .product{
   position:relative;
-  display:grid;
-  grid-template-rows:auto 1fr;
+  display:flex;
+  flex-direction:column;
   border:2px solid var(--ink);
   border-radius:12px;
   background:#fff;
@@ -1569,8 +1568,7 @@ body{
   transition:transform .12s ease,box-shadow .12s ease;
 }
 .product:hover{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--ink)}
-.product::before{
-  content:'CTRL+FOCUS';
+.product-badge{
   position:absolute;
   z-index:3;
   left:14px;
@@ -1584,13 +1582,14 @@ body{
   font-size:.68rem;
   font-weight:700;
   letter-spacing:.04em;
+  pointer-events:none;
 }
-.product:nth-child(2)::before{content:'CTRL+ENERGY';background:var(--pink)}
-.product:nth-child(3)::before{content:'CTRL+CALM';background:var(--paper)}
-.product:nth-child(4)::before{content:'CTRL+NIGHT';background:var(--ink);color:var(--paper)}
+.product-badge[data-state="energy"]{background:var(--pink)}
+.product-badge[data-state="calm"]{background:var(--paper)}
+.product-badge[data-state="night"]{background:var(--ink);color:var(--paper)}
 .product-img{
   border-bottom:2px solid var(--ink);
-  background:repeating-linear-gradient(135deg,var(--n-100) 0 15px,#E7E4DB 15px 30px);
+  background:var(--n-100);
 }
 .product-img img{filter:saturate(.9) contrast(1.04)}
 .product-add{
@@ -1610,6 +1609,7 @@ body{
   margin-top:0;
   padding:1rem;
   background:#fff;
+  flex:1;
 }
 .product-name{
   font-family:var(--font-display);
@@ -1649,11 +1649,7 @@ body{
 .philosophy-molecule-stage{
   border:2px solid var(--paper);
   border-radius:14px;
-  background:
-    linear-gradient(90deg,rgba(247,245,239,.05) 1px,transparent 1px),
-    linear-gradient(180deg,rgba(247,245,239,.05) 1px,transparent 1px),
-    var(--ink-surface);
-  background-size:34px 34px;
+  background:var(--ink-surface);
   box-shadow:7px 7px 0 var(--pink);
 }
 .philosophy-molecule-stage::before,
@@ -1812,18 +1808,7 @@ body{
   font-weight:700;
   letter-spacing:0;
 }
-.page-card a{
-  width:max-content;
-  margin-top:auto;
-  padding:.45rem .6rem;
-  border:2px solid var(--ink);
-  border-radius:6px;
-  background:var(--lime);
-  color:var(--ink);
-  box-shadow:3px 3px 0 var(--ink);
-  font-family:var(--font-mono);
-  letter-spacing:.04em;
-}
+/* бывшая лаймовая кнопка «Открыть» удалена — карточка кликается целиком через прозрачный .page-card-link */
 .page-split{
   border:2px solid var(--ink);
   border-radius:14px;
@@ -1952,7 +1937,7 @@ body{
   .promo-card:last-child{border-bottom:0}
 }
 @media (max-width:560px){
-  .products{grid-template-columns:1fr}
+  .products{grid-template-columns:repeat(2,1fr)}
   .product-info{align-items:flex-start;flex-direction:column}
   .hero-actions{display:grid}
   .hero-status{min-height:340px}
@@ -1990,7 +1975,7 @@ body{
 .pdp-stage{
   position:relative; aspect-ratio:1/1; overflow:hidden;
   border:2px solid var(--ink); border-radius:14px; box-shadow:10px 10px 0 var(--lime);
-  background:repeating-linear-gradient(135deg,var(--n-100) 0 16px,#E7E4DB 16px 32px);
+  background:var(--n-100);
   display:flex; align-items:center; justify-content:center;
 }
 .pdp-stage img{ position:relative; z-index:1; width:100%; height:100%; object-fit:cover; }
@@ -2010,7 +1995,7 @@ body{
 .pdp-thumb{
   aspect-ratio:1/1; padding:0; overflow:hidden; cursor:pointer;
   border:2px solid var(--ink); border-radius:9px;
-  background:repeating-linear-gradient(135deg,var(--n-100) 0 10px,#E7E4DB 10px 20px);
+  background:var(--n-100);
   transition:transform .12s ease, box-shadow .12s ease;
 }
 .pdp-thumb img{ width:100%; height:100%; object-fit:cover; display:block; }
@@ -2153,3 +2138,102 @@ body{
   .checkout-summary{position:static;order:-1}
   .field-row{grid-template-columns:1fr}
 }
+
+/* ============================================================
+   ГЛАВНАЯ: РЕДИЗАЙН HERO (2026-06) — скоуп body.home
+   ============================================================ */
+
+/* верхний бар-объявление (уезжает при скролле, т.к. в обычном потоке) */
+.topbar{
+  display:flex;align-items:center;justify-content:center;gap:.5rem;text-align:center;
+  height:42px;background:var(--ink);color:#E9E7E0;
+  font-family:var(--font-mono);font-size:.78rem;letter-spacing:.04em;
+}
+.topbar b{color:var(--lime);font-weight:700}
+.topbar a{color:var(--lime);border-bottom:1px solid rgba(204,244,0,.5);transition:opacity .3s}
+.topbar a:hover{opacity:.7}
+
+/* шапка на главной: навигация слева, лого по центру, действия справа; закреплена */
+body.home .header{
+  position:sticky;top:0;left:auto;right:auto;bottom:auto;
+  display:grid;grid-template-columns:1fr auto 1fr;
+}
+body.home .header-left{order:0;justify-self:start;flex:0 0 auto}
+body.home .logo{order:1;justify-self:center}
+body.home .header-right{order:2;justify-self:end}
+
+/* HERO с фото */
+.phero{position:relative;min-height:clamp(400px,42vw,600px);overflow:hidden;background:var(--ink)}
+.phero-media{position:absolute;inset:0;overflow:hidden;background:var(--ink)}
+.phero-img{width:100%;height:100%;object-fit:cover;object-position:center 42%}
+.phero-scrim{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(12,11,9,.80) 0%,rgba(12,11,9,.60) 16%,rgba(12,11,9,.34) 30%,rgba(12,11,9,.10) 40%,rgba(12,11,9,0) 48%)}
+.phero-text{
+  position:absolute;left:clamp(1.25rem,5vw,64px);top:0;bottom:0;z-index:2;
+  width:min(470px,42%);display:flex;flex-direction:column;justify-content:center;
+}
+.phero-kicker{
+  display:inline-flex;align-items:center;gap:.6rem;margin:0 0 1.25rem;
+  font-family:var(--font-mono);font-size:.75rem;letter-spacing:.16em;text-transform:uppercase;
+  color:rgba(255,255,255,.82);
+}
+.phero-key{
+  display:inline-grid;place-items:center;width:30px;height:30px;padding-bottom:3px;
+  border-radius:7px;background:var(--ink);color:var(--lime);box-shadow:0 3px 0 #0E0D0B;
+  font-family:var(--font-mono);font-size:17px;line-height:1;
+}
+.phero-h1{
+  font-family:var(--font-display);font-weight:700;color:#fff;margin:0 0 1.6rem;
+  font-size:clamp(2.5rem,4.8vw,4rem);line-height:1.06;letter-spacing:-.03em;
+  text-shadow:0 2px 16px rgba(0,0,0,.55);
+}
+.phero-h1 .hl{
+  background:var(--lime);color:var(--ink);padding:0 .12em 3px;text-shadow:none;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+}
+.phero-cta{
+  align-self:flex-start;display:inline-flex;align-items:center;gap:.65rem;
+  font-family:var(--font-display);font-weight:700;font-size:1.125rem;color:var(--ink);
+  background:var(--pink);border:2px solid var(--ink);border-radius:12px;padding:17px 30px;
+  box-shadow:5px 5px 0 var(--ink);transition:var(--press);
+}
+.phero-cta:hover{transform:translate(-1px,-1px);box-shadow:7px 7px 0 var(--ink)}
+.phero-cta:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.phero-cta .ar{font-family:var(--font-mono)}
+
+/* бегущая строка под фото */
+.cmarq{height:42px;background:var(--ink);overflow:hidden;display:flex;align-items:center;border-top:1px solid #000}
+.cmarq-track{display:flex;white-space:nowrap;animation:cmarq 90s linear infinite;
+  font-family:var(--font-mono);font-weight:700;font-size:.75rem;letter-spacing:.16em;color:var(--lime)}
+@keyframes cmarq{to{transform:translateX(-50%)}}
+
+/* мобайл/планшет: заголовок и кнопка над фото, маркиза под фото */
+@media (max-width:768px){
+  .phero{display:flex;flex-direction:column;min-height:0;background:transparent}
+  .phero-media{position:static;height:360px}
+  .phero-img{object-position:56% center}
+  .phero-scrim{display:none}
+  .phero-text{position:static;order:-1;width:auto;padding:1.1rem 1.25rem .35rem}
+  .phero-kicker{color:var(--n-600);margin-bottom:.7rem;font-size:.62rem;letter-spacing:.14em}
+  .phero-key{width:24px;height:24px;font-size:14px}
+  .phero-h1{color:var(--ink);font-size:clamp(2rem,9vw,2.6rem);margin-bottom:1rem;text-shadow:none}
+  .phero-cta{align-self:stretch;justify-content:center;margin-top:1rem;font-size:1.05rem;padding:15px 20px;box-shadow:4px 4px 0 var(--ink)}
+  .cmarq{height:34px}
+  .cmarq-track{font-size:.66rem;letter-spacing:.14em;animation-duration:58s}
+}
+
+/* ============ ВИДИМАЯ РАМКА ФОКУСА (навигация с клавиатуры) ============ */
+:focus-visible{
+  outline:3px solid var(--ink) !important;
+  outline-offset:2px;
+}
+/* на тёмном фоне (hero, верхний бар) рамку делаем лаймовой, чтобы была видна */
+.topbar a:focus-visible,
+.phero a:focus-visible,
+.phero-cta:focus-visible{
+  outline-color:var(--lime) !important;
+}
+
+/* блок «Бестселлеры»: поднять карточки выше — компактнее сверху */
+#collection{padding-top:clamp(1.5rem,3vw,2.5rem)}
+#collection .section-title{margin-bottom:clamp(1.25rem,2.5vw,2rem);font-size:clamp(1.6rem,3vw,2.5rem)}
