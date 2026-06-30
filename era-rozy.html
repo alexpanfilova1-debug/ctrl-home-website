@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Эра розы — CTRL home</title>
+<meta name="description" content="Эра розы — дерзкая роза без пудры: малина и розовый перец, живая дамасская роза, тёплые пачули и белый мускус. Eau de Parfum CTRL home.">
+<meta property="og:title" content="Эра розы — CTRL home">
+<meta property="og:description" content="Роза, с которой сняли корсет. Цветочно-фруктовый аромат CTRL+BLOOM.">
+<meta property="og:type" content="product">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css?v=24">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+/* ====================================================================
+   ЭРА РОЗЫ — страница товара  (скоуп .era / префикс .er-)
+   Токены, chrome, .phero, .cmarq, .pdp-* — из styles.css
+   ==================================================================== */
+
+/* HERO: первым блоком после chrome гасим глобальный -header-h,
+   чтобы видео-герой стоял ПОД залипающей шапкой, как на главной */
+.era [data-site-chrome] + .er-hero{ margin-top:0; }
+.er-hero .phero-media video{ position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; object-position:center 45%; }
+.er-hero .phero-scrim{
+  background:linear-gradient(90deg,rgba(12,11,9,.82) 0%,rgba(12,11,9,.62) 18%,rgba(12,11,9,.34) 32%,rgba(12,11,9,.08) 44%,rgba(12,11,9,0) 52%);
+}
+@media (max-width:768px){ .er-hero .phero-media video{ object-position:56% center; } }
+
+/* — байбокс + стопка фото — */
+.era .pdp{ padding-top:clamp(1.6rem,3vw,2.4rem); }
+.er-pdp-grid{ grid-template-columns:1.04fr .96fr; align-items:start; }
+.er-shots{ display:flex; flex-direction:column; gap:1rem; }
+.er-shot{ margin:0; border:2px solid var(--ink); border-radius:16px; overflow:hidden;
+  background:var(--n-100); box-shadow:9px 9px 0 var(--lime); }
+.er-shot:nth-child(2){ box-shadow:9px 9px 0 var(--pink); }
+.er-shot:nth-child(3){ box-shadow:9px 9px 0 var(--ink); }
+.er-shot:nth-child(4){ box-shadow:9px 9px 0 var(--lime); }
+.er-shot img{ width:100%; height:100%; object-fit:cover; display:block; aspect-ratio:4/5; }
+.er-shot figcaption{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.04em;
+  color:var(--n-600); padding:.6rem .9rem; border-top:2px solid var(--ink); background:#fff; }
+.er-buybox{ position:sticky; top:calc(var(--header-h) + 1rem); align-self:start; }
+
+.er-buytype{ margin-top:1.7rem; }
+.er-seg{ display:flex; gap:.7rem; flex-wrap:wrap; }
+.er-seg-btn{ flex:1 1 0; min-width:150px; text-align:left; border:2px solid var(--ink); border-radius:10px;
+  background:#fff; color:var(--ink); padding:.8rem .95rem; cursor:pointer;
+  transition:transform .12s ease, box-shadow .12s ease, background .15s ease; }
+.er-seg-btn b{ display:block; font-family:var(--font-display); font-weight:700; font-size:.98rem; }
+.er-seg-btn small{ font-family:var(--font-mono); font-size:.72rem; color:var(--n-600); letter-spacing:.02em; }
+.er-seg-btn:hover{ transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--ink); }
+.er-seg-btn.is-active{ background:var(--lime); box-shadow:5px 5px 0 var(--ink); }
+.er-seg-btn.is-active small{ color:var(--ink); }
+
+.er-gift{ margin-top:1.2rem; }
+.er-gift-toggle{ display:inline-flex; align-items:center; gap:.6rem; cursor:pointer;
+  font-family:var(--font-mono); font-size:.82rem; letter-spacing:.02em; }
+.er-gift-toggle input{ width:18px; height:18px; accent-color:var(--pink); }
+.er-gift-fields{ display:none; gap:.7rem; margin-top:.9rem; }
+.er-gift-fields.is-open{ display:grid; }
+.er-gift-fields input, .er-gift-fields textarea{ width:100%; padding:.7rem .85rem; border:2px solid var(--ink);
+  border-radius:8px; background:#fff; font-family:var(--font-body); font-size:.92rem; color:var(--ink); }
+.er-gift-fields textarea{ min-height:64px; resize:vertical; }
+.er-gift-row{ display:grid; grid-template-columns:1fr 1fr; gap:.7rem; }
+
+.er-ship{ margin-top:1.1rem; font-family:var(--font-mono); font-size:.78rem; color:var(--n-600); }
+.er-ship a{ text-decoration:underline; text-underline-offset:3px; }
+
+/* — общие секционные элементы — */
+.er-eyebrow{ display:inline-flex; align-items:center; gap:.55rem; font-family:var(--font-mono); font-size:.74rem;
+  letter-spacing:.18em; text-transform:uppercase; color:var(--ink); padding:.4rem .7rem; border:2px solid var(--ink);
+  border-radius:999px; background:var(--lime); }
+.er-h2{ font-family:var(--font-display); font-weight:700; line-height:.98; letter-spacing:-.01em;
+  font-size:clamp(2rem,5vw,3.6rem); margin:1rem 0 0; }
+
+/* — «с первого вдоха» — */
+.er-glance{ display:grid; grid-template-columns:1.15fr .85fr; gap:clamp(1.5rem,4vw,3.5rem); align-items:start;
+  padding:clamp(3rem,6vw,5.5rem) 0; border-top:2px solid var(--ink); }
+.er-glance p{ font-size:clamp(1.02rem,1.5vw,1.18rem); line-height:1.7; max-width:52ch; }
+.er-glance p + p{ margin-top:1.1rem; }
+.er-pills{ display:flex; flex-wrap:wrap; gap:.55rem; margin-top:1.6rem; }
+.er-pill{ font-family:var(--font-mono); font-size:.82rem; padding:.5rem .85rem; border:2px solid var(--ink);
+  border-radius:999px; background:#fff; }
+.er-pill--hl{ background:var(--pink); }
+.er-side{ border:2px solid var(--ink); border-radius:14px; background:var(--paper); box-shadow:8px 8px 0 var(--ink);
+  padding:1.4rem; position:sticky; top:calc(var(--header-h) + 1rem); }
+.er-side h4{ font-family:var(--font-mono); font-size:.74rem; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--n-600); margin-bottom:.8rem; }
+.er-attrs{ display:flex; flex-wrap:wrap; gap:.4rem; }
+.er-attr{ font-family:var(--font-mono); font-size:.74rem; padding:.42rem .6rem; border:2px solid var(--ink);
+  border-radius:7px; background:#fff; }
+.er-attr::before{ content:'✓ '; font-weight:700; color:var(--pink-shadow); }
+.er-credits{ margin-top:1.2rem; padding-top:1.1rem; border-top:1px solid var(--line);
+  font-family:var(--font-mono); font-size:.78rem; color:var(--n-700); line-height:1.7; }
+.er-credits b{ color:var(--ink); }
+
+/* — аккордеон — */
+.er-acc{ padding:clamp(2.5rem,5vw,4rem) 0; border-top:2px solid var(--ink); }
+.er-acc-item{ border:2px solid var(--ink); border-radius:12px; background:#fff; margin-bottom:.8rem; overflow:hidden; }
+.er-acc-head{ width:100%; text-align:left; display:flex; align-items:center; justify-content:space-between; gap:1rem;
+  padding:1.05rem 1.2rem; font-family:var(--font-display); font-weight:700; font-size:1.05rem; color:var(--ink); background:#fff; }
+.er-acc-head:hover{ background:var(--n-100); }
+.er-acc-sign{ font-family:var(--font-mono); font-size:1.3rem; line-height:1; transition:transform .25s var(--ease); }
+.er-acc-item.is-open .er-acc-sign{ transform:rotate(45deg); }
+.er-acc-body{ max-height:0; overflow:hidden; transition:max-height .3s var(--ease); }
+.er-acc-body > div{ padding:0 1.2rem 1.15rem; color:var(--n-800); line-height:1.65; max-width:64ch; }
+
+/* — апселл — */
+.er-upsell{ padding:clamp(2.5rem,5vw,4rem) 0; border-top:2px solid var(--ink); }
+.er-up-grid{ display:grid; grid-template-columns:repeat(2,1fr); gap:1rem; margin-top:1.6rem; }
+.er-up-card{ display:grid; grid-template-columns:96px 1fr auto; gap:1rem; align-items:center;
+  border:2px solid var(--ink); border-radius:12px; background:#fff; padding:.9rem; }
+.er-up-card img{ width:96px; height:96px; object-fit:cover; border:2px solid var(--ink); border-radius:9px; background:var(--n-100); }
+.er-up-name{ font-family:var(--font-display); font-weight:700; font-size:1.02rem; }
+.er-up-note{ font-family:var(--font-mono); font-size:.78rem; color:var(--n-600); margin-top:.2rem; }
+.er-up-price{ font-family:var(--font-mono); font-size:.82rem; margin-top:.35rem; }
+.er-up-add{ align-self:center; font-family:var(--font-mono); font-weight:700; font-size:.8rem; letter-spacing:.04em;
+  padding:.7rem .9rem; border:2px solid var(--ink); border-radius:9px; background:var(--lime); color:var(--ink);
+  box-shadow:3px 3px 0 var(--ink); cursor:pointer; transition:transform .12s ease, box-shadow .12s ease; white-space:nowrap; }
+.er-up-add:hover{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+.er-up-add.is-added{ background:var(--pink); }
+
+/* — заглушки фото/медиа — */
+.ph{ position:relative; display:flex; align-items:flex-end; overflow:hidden;
+  border:2px solid var(--ink); border-radius:14px; background:var(--n-100); min-height:220px; }
+.ph::after{ content:'⌃'; position:absolute; inset:0; display:grid; place-items:center;
+  font-size:clamp(4rem,12vw,8rem); color:rgba(26,25,22,.10); font-family:var(--font-mono); pointer-events:none; }
+.ph span{ position:relative; z-index:1; margin:1rem; font-family:var(--font-mono); font-size:.76rem;
+  letter-spacing:.06em; text-transform:uppercase; color:var(--ink);
+  background:var(--paper); border:2px solid var(--ink); border-radius:7px; padding:.35rem .55rem; }
+.ph--lime{ background:var(--lime); } .ph--lime::after{ color:rgba(26,25,22,.16); }
+.ph--pink{ background:var(--pink); } .ph--pink::after{ color:rgba(26,25,22,.18); }
+.ph--ink{ background:var(--ink-surface); border-color:var(--ink); }
+.ph--ink span{ color:var(--paper); background:var(--ink); border-color:var(--ink-line); }
+.ph--ink::after{ color:rgba(247,245,239,.10); }
+.ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+
+/* — видео-блоки — */
+.er-video{ position:relative; border:2px solid var(--ink); border-radius:16px; overflow:hidden;
+  box-shadow:10px 10px 0 var(--pink); background:var(--ink); }
+.er-video video{ display:block; width:100%; height:100%; object-fit:cover; }
+.er-video-tag{ position:absolute; left:14px; top:14px; z-index:2; font-family:var(--font-mono); font-weight:700;
+  font-size:.72rem; letter-spacing:.04em; padding:.4rem .6rem; border:2px solid var(--ink); border-radius:7px;
+  background:var(--lime); color:var(--ink); }
+
+/* — дип-дайв: видео + цитата — */
+.er-deep{ padding:clamp(3rem,6vw,5.5rem) 0; border-top:2px solid var(--ink); display:grid;
+  grid-template-columns:1.1fr .9fr; gap:clamp(1.5rem,4vw,3rem); align-items:center; }
+.er-deep .er-video{ aspect-ratio:4/5; }
+.er-quote{ font-family:var(--font-display); font-weight:600; font-size:clamp(1.4rem,3vw,2.2rem);
+  line-height:1.2; letter-spacing:-.01em; }
+.er-quote-mark{ color:var(--pink); }
+.er-quote-by{ display:block; margin-top:1.2rem; font-family:var(--font-mono); font-size:.8rem;
+  letter-spacing:.04em; color:var(--n-600); }
+
+/* — медиа-полоса — */
+.er-media{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; padding:clamp(2rem,4vw,3rem) 0; }
+.er-media .ph{ min-height:300px; }
+
+/* — «в чём разница» — */
+.er-diff{ padding:clamp(3rem,6vw,5.5rem) 0; border-top:2px solid var(--ink); }
+.er-diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.5rem,4vw,3rem); align-items:center; margin-top:1.6rem; }
+.er-diff-list{ list-style:none; padding:0; margin:0; display:grid; gap:.7rem; }
+.er-diff-list li{ display:flex; gap:.9rem; align-items:flex-start; border:2px solid var(--ink); border-radius:11px;
+  background:#fff; padding:.95rem 1.1rem; }
+.er-diff-num{ font-family:var(--font-mono); font-weight:700; color:var(--pink-shadow); }
+.er-diff-list b{ font-family:var(--font-display); }
+.er-diff-list small{ display:block; font-family:var(--font-body); font-weight:400; color:var(--n-700); font-size:.88rem; margin-top:.15rem; }
+.er-diff .er-video{ aspect-ratio:1/1; box-shadow:10px 10px 0 var(--ink); }
+
+/* — большая цитата на акценте — */
+.er-band{ background:var(--lime); border-block:2px solid var(--ink); padding:clamp(3rem,6vw,5rem) 0; text-align:center; }
+.er-band p{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.6rem,4vw,3rem); line-height:1.08;
+  letter-spacing:-.01em; max-width:20ch; margin:0 auto; }
+
+/* — ШИРОКИЙ ТРИПТИХ: одна горизонтальная фотография из 3 кадров — */
+.er-trip-sec{ padding:clamp(2.5rem,5vw,4rem) 0 0; }
+.er-trip-head{ margin-bottom:1.3rem; }
+.er-trip{ display:grid; grid-template-columns:repeat(3,1fr); gap:5px; background:var(--ink);
+  border-block:3px solid var(--ink); height:clamp(240px,32vw,460px); }
+.er-trip figure{ position:relative; margin:0; overflow:hidden; background:var(--n-100); }
+.er-trip img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s var(--ease); }
+.er-trip figure:hover img{ transform:scale(1.04); }
+.er-trip figcaption{ position:absolute; left:12px; bottom:12px; z-index:1; font-family:var(--font-mono);
+  font-size:.7rem; letter-spacing:.04em; text-transform:uppercase; color:var(--ink);
+  background:var(--paper); border:2px solid var(--ink); border-radius:7px; padding:.3rem .5rem; }
+
+/* — ПИРАМИДА АРОМАТА (тёмная секция, в конце) — */
+.er-stack{ background:var(--ink); color:var(--paper); padding:clamp(3.5rem,7vw,6rem) 0; }
+.er-stack .er-eyebrow{ background:var(--pink); border-color:var(--paper); color:var(--ink); }
+.er-stack .er-h2{ color:var(--paper); }
+.er-stack-lead{ max-width:60ch; margin-top:1.1rem; color:#D7D4CC; line-height:1.7; }
+.er-pyr{ margin:2.4rem auto 0; max-width:780px; display:flex; flex-direction:column; align-items:center; gap:.7rem; }
+.er-pyr-tier{ border:2px solid var(--ink-line); border-radius:14px; background:var(--ink-surface);
+  padding:1.05rem 1.3rem; text-align:center; transition:transform .14s ease, border-color .2s ease; }
+.er-pyr-tier:hover{ transform:translateY(-2px); border-color:var(--lime); }
+.er-pyr-tier b{ display:block; font-family:var(--font-mono); font-size:.72rem; letter-spacing:.14em;
+  text-transform:uppercase; margin-bottom:.35rem; }
+.er-pyr-tier span{ font-family:var(--font-display); font-weight:600; color:var(--paper);
+  font-size:clamp(1.05rem,2.2vw,1.55rem); }
+.er-pyr-tier--top{ width:56%; } .er-pyr-tier--top b{ color:var(--lime); }
+.er-pyr-tier--heart{ width:78%; } .er-pyr-tier--heart b{ color:var(--pink); }
+.er-pyr-tier--base{ width:100%; } .er-pyr-tier--base b{ color:#D7D4CC; }
+
+.er-notes{ margin-top:2.2rem; display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem; }
+.er-note{ border:2px solid var(--ink-line); border-radius:12px; background:var(--ink-surface); padding:1.1rem;
+  cursor:pointer; transition:border-color .2s ease, transform .12s ease; }
+.er-note:hover{ transform:translateY(-2px); border-color:var(--lime); }
+.er-note-top{ display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
+.er-note-name{ font-family:var(--font-display); font-weight:700; font-size:1.12rem; color:var(--paper); }
+.er-note-plus{ font-family:var(--font-mono); color:var(--lime); transition:transform .2s ease; }
+.er-note.is-open .er-note-plus{ transform:rotate(45deg); }
+.er-note-tag{ font-family:var(--font-mono); font-size:.72rem; color:var(--n-400); margin-top:.2rem; }
+.er-note-body{ max-height:0; overflow:hidden; transition:max-height .3s var(--ease); }
+.er-note-body > div{ padding-top:.85rem; color:#CFCcC4; font-size:.92rem; line-height:1.6; }
+.er-note-body em{ font-style:normal; color:var(--lime); font-family:var(--font-mono); font-size:.72rem;
+  letter-spacing:.08em; text-transform:uppercase; display:block; margin-bottom:.2rem; }
+
+/* — отзывы (заглушка) — */
+.er-reviews{ padding:clamp(3rem,6vw,5rem) 0; }
+.er-rev-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.6rem; }
+.er-rev-card{ border:2px solid var(--ink); border-radius:12px; background:#fff; padding:1.2rem;
+  box-shadow:6px 6px 0 var(--ink); }
+.er-rev-stars{ color:var(--pink); letter-spacing:.12em; }
+.er-rev-text{ margin:.7rem 0 1rem; color:var(--n-800); line-height:1.55; min-height:3.2em;
+  font-family:var(--font-mono); font-size:.82rem; }
+.er-rev-by{ font-family:var(--font-mono); font-size:.76rem; color:var(--n-600); }
+
+/* — мягкое появление — */
+.era .er-reveal{ opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
+.era .er-reveal.er-in{ opacity:1; transform:none; }
+@media (prefers-reduced-motion:reduce){ .era .er-reveal{ opacity:1; transform:none; } }
+
+/* — адаптив — */
+@media (max-width:900px){
+  .er-pdp-grid{ grid-template-columns:1fr; }
+  .er-buybox{ position:static; order:-1; }
+  .er-glance, .er-deep, .er-diff-grid{ grid-template-columns:1fr; }
+  .er-side{ position:static; }
+}
+@media (max-width:680px){
+  .er-up-grid, .er-media, .er-notes, .er-rev-grid{ grid-template-columns:1fr; }
+  .er-notes, .er-rev-grid{ grid-template-columns:1fr 1fr; }
+  .er-up-card{ grid-template-columns:72px 1fr; }
+  .er-up-card img{ width:72px; height:72px; }
+  .er-up-add{ grid-column:2; justify-self:start; }
+}
+@media (max-width:560px){
+  .er-pyr-tier{ width:100% !important; }
+  .er-notes, .er-rev-grid{ grid-template-columns:1fr; }
+  .er-trip{ height:auto; grid-template-columns:1fr; gap:5px; }
+  .er-trip figure{ height:62vw; }
+}
+</style>
+</head>
+<body class="era">
+
+<div data-site-chrome></div>
+
+<!-- HERO с видео (под меню) -->
+<section class="phero er-hero">
+  <div class="phero-media">
+    <!-- ЗАГЛУШКА видео: локальный ролик проекта. Замените videos/hero.mp4 на финал. -->
+    <video src="videos/hero.mp4" poster="images/hero.jpg" autoplay muted loop playsinline preload="metadata"></video>
+    <span class="phero-scrim" aria-hidden="true"></span>
+  </div>
+  <div class="phero-text">
+    <p class="phero-kicker"><span class="phero-key" aria-hidden="true">⌃</span> CTRL+BLOOM · парфюмерия</p>
+    <h1 class="phero-h1">Эра <span class="hl">розы</span></h1>
+    <a class="phero-cta" href="#buy">В корзину <span class="ar" aria-hidden="true">→</span></a>
+  </div>
+</section>
+
+<!-- БЕГУЩАЯ СТРОКА под hero (стандартная скорость, как на главной) -->
+<div class="cmarq" aria-hidden="true">
+  <div class="cmarq-track">
+    <span>ЭРА РОЗЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+BLOOM&nbsp;&nbsp;·&nbsp;&nbsp;ДАМАССКАЯ РОЗА&nbsp;&nbsp;·&nbsp;&nbsp;СПЕЛАЯ МАЛИНА&nbsp;&nbsp;·&nbsp;&nbsp;ПАЧУЛИ&nbsp;&nbsp;·&nbsp;&nbsp;БЕЛЫЙ МУСКУС&nbsp;&nbsp;·&nbsp;&nbsp;ЭРА РОЗЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+BLOOM&nbsp;&nbsp;·&nbsp;&nbsp;ДАМАССКАЯ РОЗА&nbsp;&nbsp;·&nbsp;&nbsp;СПЕЛАЯ МАЛИНА&nbsp;&nbsp;·&nbsp;&nbsp;ПАЧУЛИ&nbsp;&nbsp;·&nbsp;&nbsp;БЕЛЫЙ МУСКУС&nbsp;&nbsp;·&nbsp;&nbsp;ЭРА РОЗЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+BLOOM&nbsp;&nbsp;·&nbsp;&nbsp;ДАМАССКАЯ РОЗА&nbsp;&nbsp;·&nbsp;&nbsp;СПЕЛАЯ МАЛИНА&nbsp;&nbsp;·&nbsp;&nbsp;ПАЧУЛИ&nbsp;&nbsp;·&nbsp;&nbsp;БЕЛЫЙ МУСКУС&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+    <span aria-hidden="true">ЭРА РОЗЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+BLOOM&nbsp;&nbsp;·&nbsp;&nbsp;ДАМАССКАЯ РОЗА&nbsp;&nbsp;·&nbsp;&nbsp;СПЕЛАЯ МАЛИНА&nbsp;&nbsp;·&nbsp;&nbsp;ПАЧУЛИ&nbsp;&nbsp;·&nbsp;&nbsp;БЕЛЫЙ МУСКУС&nbsp;&nbsp;·&nbsp;&nbsp;ЭРА РОЗЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+BLOOM&nbsp;&nbsp;·&nbsp;&nbsp;ДАМАССКАЯ РОЗА&nbsp;&nbsp;·&nbsp;&nbsp;СПЕЛАЯ МАЛИНА&nbsp;&nbsp;·&nbsp;&nbsp;ПАЧУЛИ&nbsp;&nbsp;·&nbsp;&nbsp;БЕЛЫЙ МУСКУС&nbsp;&nbsp;·&nbsp;&nbsp;ЭРА РОЗЫ&nbsp;&nbsp;·&nbsp;&nbsp;CTRL+BLOOM&nbsp;&nbsp;·&nbsp;&nbsp;ДАМАССКАЯ РОЗА&nbsp;&nbsp;·&nbsp;&nbsp;СПЕЛАЯ МАЛИНА&nbsp;&nbsp;·&nbsp;&nbsp;ПАЧУЛИ&nbsp;&nbsp;·&nbsp;&nbsp;БЕЛЫЙ МУСКУС&nbsp;&nbsp;·&nbsp;&nbsp;</span>
+  </div>
+</div>
+
+<!-- ТОВАР: крупные фото стопкой + sticky-байбокс -->
+<main class="pdp container" id="buy">
+  <nav class="pdp-crumbs">
+    <a href="catalog.html">Каталог</a> <i>/</i>
+    <a href="parfumeriya.html">Парфюмерия</a> <i>/</i>
+    <span>Эра розы</span>
+  </nav>
+
+  <div class="pdp-grid er-pdp-grid">
+    <!-- Стопка крупных фото (одна за другой) -->
+    <div class="pdp-media er-shots">
+      <figure class="er-shot"><img src="images/aromat-1.png" alt="Эра розы — флакон, кадр 1" loading="eager" onerror="this.closest('.er-shot').style.display='none'"><figcaption>[ предметный кадр · флакон 50 мл ]</figcaption></figure>
+      <figure class="er-shot"><img src="images/aromat-2.png" alt="Эра розы — флакон, кадр 2" loading="lazy" onerror="this.closest('.er-shot').style.display='none'"><figcaption>[ предметный кадр · ракурс ]</figcaption></figure>
+      <figure class="er-shot"><img src="images/aromat-3.png" alt="Эра розы — флакон, кадр 3" loading="lazy" onerror="this.closest('.er-shot').style.display='none'"><figcaption>[ макро · текстура ]</figcaption></figure>
+      <figure class="er-shot"><img src="images/sample-vial-10ml.png" alt="Эра розы — мини 10 мл" loading="lazy" onerror="this.closest('.er-shot').style.display='none'"><figcaption>[ мини 10 мл · компаньон ]</figcaption></figure>
+    </div>
+
+    <!-- Байбокс -->
+    <div class="pdp-info er-buybox">
+      <h1 class="pdp-title">Эра розы</h1>
+      <div class="pdp-sub">Eau de Parfum · цветочно-фруктовый · унисекс · стойкость 8–10 ч</div>
+
+      <div class="pdp-priceline">
+        <span class="pdp-price" id="erPrice">7 900 ₽</span>
+        <span class="pdp-art" id="erArt">арт. CTL-05-50</span>
+      </div>
+
+      <p class="pdp-desc">Роза, с которой сняли корсет: сочная малина и щепотка розового перца на входе, живая дамасская роза в сердце, тёплые пачули и белый мускус в шлейфе.</p>
+
+      <div class="pdp-vol">
+        <div class="pdp-vol-label">Объём</div>
+        <div class="pdp-vol-row" id="erVols">
+          <button class="pdp-vol-btn" data-ml="10" data-price="2200">10 мл</button>
+          <button class="pdp-vol-btn" data-ml="30" data-price="4900">30 мл</button>
+          <button class="pdp-vol-btn is-active" data-ml="50" data-price="7900">50 мл</button>
+        </div>
+      </div>
+
+      <div class="er-buytype">
+        <div class="pdp-vol-label">Тип покупки</div>
+        <div class="er-seg" id="erSeg">
+          <button class="er-seg-btn is-active" data-type="once"><b>Разовая покупка</b><small id="erSegOnce">7 900 ₽</small></button>
+          <button class="er-seg-btn" data-type="sub"><b>Подписка · −10%</b><small id="erSegSub">7 110 ₽ / повтор</small></button>
+        </div>
+      </div>
+
+      <div class="er-gift">
+        <label class="er-gift-toggle"><input type="checkbox" id="erGiftToggle"> Оформить как подарок</label>
+        <div class="er-gift-fields" id="erGiftFields">
+          <div class="er-gift-row">
+            <input type="text" placeholder="Кому" aria-label="Кому">
+            <input type="text" placeholder="От кого" aria-label="От кого">
+          </div>
+          <textarea placeholder="Короткое поздравление (по желанию)" aria-label="Сообщение"></textarea>
+        </div>
+      </div>
+
+      <div class="pdp-actions">
+        <button class="pdp-add" id="erAdd">В корзину — 7 900 ₽</button>
+        <button class="pdp-fav" id="erFav" aria-label="В избранное" aria-pressed="false">♡</button>
+      </div>
+
+      <div class="er-ship">Бесплатная доставка от 3000 ₽ · к 30 мл и 50 мл кладём пробник 2 мл в подарок · <a href="dostavka-i-vozvrat.html">доставка и возврат</a></div>
+
+      <ul class="pdp-perks">
+        <li>Доставка 2–4 дня</li>
+        <li>Пробник в подарок</li>
+        <li>Без отдушек-аллергенов</li>
+      </ul>
+    </div>
+  </div>
+</main>
+
+<!-- С ПЕРВОГО ВДОХА -->
+<section class="container">
+  <div class="er-glance">
+    <div class="er-reveal">
+      <span class="er-eyebrow">с первого вдоха</span>
+      <h2 class="er-h2">Роза, которую носят каждый день</h2>
+      <p>«Эра розы» открывается ярко и по-современному: сочная малина и щепотка розового перца, ни грамма театральной пыли. В сердце распускается живая дамасская роза — не «бабушкин комод», а свежесрезанный цветок.</p>
+      <p>Тёплые пачули, белый мускус и капля амбры держат шлейф близко к коже: мягко, по-взрослому, надолго. Унисекс, чистая формула — для тех, кто переключается в режим «расцвет» по кнопке.</p>
+      <div class="er-pills">
+        <span class="er-pill er-pill--hl">малина</span>
+        <span class="er-pill">розовый перец</span>
+        <span class="er-pill">дамасская роза</span>
+        <span class="er-pill">пион</span>
+        <span class="er-pill">фрезия</span>
+        <span class="er-pill">пачули</span>
+        <span class="er-pill">белый мускус</span>
+        <span class="er-pill">амбра</span>
+      </div>
+    </div>
+    <aside class="er-side er-reveal">
+      <h4>Чистая формула</h4>
+      <div class="er-attrs">
+        <span class="er-attr">веган</span>
+        <span class="er-attr">без жестокости</span>
+        <span class="er-attr">без парабенов</span>
+        <span class="er-attr">без фталатов</span>
+        <span class="er-attr">без консервантов</span>
+        <span class="er-attr">без синт. красителей</span>
+      </div>
+      <div class="er-credits">
+        <div>нос: <b>лаборатория CTRL home × Полина Шуэ</b></div>
+        <div>концентрация: <b>Eau de Parfum, 18%</b></div>
+        <div>итерация: <b>14</b></div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- АККОРДЕОН -->
+<section class="container">
+  <div class="er-acc" id="erAcc">
+    <div class="er-acc-item is-open">
+      <button class="er-acc-head" type="button">Чистая формула <span class="er-acc-sign">+</span></button>
+      <div class="er-acc-body"><div>Веган и без тестов на животных, по индустриальным clean-стандартам: без парабенов, фталатов, консервантов и синтетических красителей. Никакого нафталина и «тяжёлой» парфюмерной пудры.</div></div>
+    </div>
+    <div class="er-acc-item">
+      <button class="er-acc-head" type="button">Стойкость <span class="er-acc-sign">+</span></button>
+      <div class="er-acc-body"><div>Eau de Parfum — собранная концентрация для стойкого, но не оглушающего звучания. 8–10 часов на коже, мягкий шлейф на расстоянии вытянутой руки.</div></div>
+    </div>
+    <div class="er-acc-item">
+      <button class="er-acc-head" type="button">Состав <span class="er-acc-sign">+</span></button>
+      <div class="er-acc-body"><div>Alcohol Denat., Parfum (Fragrance), Aqua. Высокий процент натуральных компонентов и безопасных синтетиков. Формула без орехов; если переживаете за конкретные аллергены — напишите нам, пришлём полный список.</div></div>
+    </div>
+    <div class="er-acc-item">
+      <button class="er-acc-head" type="button">Как наносить <span class="er-acc-sign">+</span></button>
+      <div class="er-acc-body"><div>2–3 пшика на пульсовые точки — запястья, шея, сгиб локтя. Не растирайте: роза любит раскрываться сама. Для усиления шлейфа добавьте пшик на одежду или волосы.</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- АПСЕЛЛ -->
+<section class="container">
+  <div class="er-upsell er-reveal">
+    <span class="er-eyebrow">добавьте к заказу</span>
+    <h2 class="er-h2">С чем носить</h2>
+    <div class="er-up-grid">
+      <article class="er-up-card">
+        <img src="images/aromat-3.png" alt="" onerror="this.style.visibility='hidden'">
+        <div>
+          <div class="er-up-name">CTRL № 3 — Сумерки</div>
+          <div class="er-up-note">ирис · сандал · амбра</div>
+          <div class="er-up-price">10 мл · 2 200 ₽</div>
+        </div>
+        <button class="er-up-add" data-add-id="3" data-add-ml="10" data-add-price="2200">+ в корзину</button>
+      </article>
+      <article class="er-up-card">
+        <img src="images/aromat-2.png" alt="" onerror="this.style.visibility='hidden'">
+        <div>
+          <div class="er-up-name">CTRL № 1 — Рассвет</div>
+          <div class="er-up-note">бергамот · нероли · белый чай</div>
+          <div class="er-up-price">10 мл · 2 150 ₽</div>
+        </div>
+        <button class="er-up-add" data-add-id="1" data-add-ml="10" data-add-price="2150">+ в корзину</button>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ДИП-ДАЙВ: ВИДЕО + ЦИТАТА -->
+<section class="container">
+  <div class="er-deep">
+    <div class="er-video er-reveal">
+      <span class="er-video-tag">разбор аромата</span>
+      <video src="videos/hero.mp4" poster="images/hero-rassvet.png" controls playsinline preload="metadata"></video>
+    </div>
+    <div class="er-reveal">
+      <span class="er-eyebrow">скрытый разбор</span>
+      <p class="er-quote"><span class="er-quote-mark">«</span>С первого пшика — сочно и ярко. Через час — бархат и тепло, очень близко к коже. Это роза, которая взрослеет прямо на тебе.<span class="er-quote-mark">»</span>
+        <span class="er-quote-by">— команда CTRL home о «Эре розы»</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- МЕДИА-ПОЛОСА -->
+<section class="container">
+  <div class="er-media">
+    <div class="ph ph--pink er-reveal"><span>[ кампания · эра розы ]</span></div>
+    <div class="ph er-reveal"><img src="images/hero-photo-v2.png" alt="" loading="lazy" onerror="this.style.display='none'"><span>[ кадр · настроение ]</span></div>
+  </div>
+</section>
+
+<!-- В ЧЁМ РАЗНИЦА CTRL -->
+<section class="container">
+  <div class="er-diff">
+    <span class="er-eyebrow">в чём разница</span>
+    <h2 class="er-h2">Почему «Эра розы» — это CTRL</h2>
+    <div class="er-diff-grid">
+      <ul class="er-diff-list er-reveal">
+        <li><span class="er-diff-num">01</span><div><b>Без гендера</b><small>Роза, которую носят все. Не «женский» и не «мужской» — просто хороший.</small></div></li>
+        <li><span class="er-diff-num">02</span><div><b>Чистая формула</b><small>Без парабенов, фталатов и синтетических красителей.</small></div></li>
+        <li><span class="er-diff-num">03</span><div><b>Флакон-компаньон 10 мл</b><small>Мини в сумку — чтобы переключаться в «расцвет» где угодно.</small></div></li>
+        <li><span class="er-diff-num">04</span><div><b>Веган и без жестокости</b><small>Мускусы синтетические, этичные, устойчивые.</small></div></li>
+        <li><span class="er-diff-num">05</span><div><b>Понятная цена</b><small>10 / 30 / 50 мл — от 2 200 ₽, плюс пробник в подарок.</small></div></li>
+      </ul>
+      <div class="er-video er-reveal">
+        <span class="er-video-tag">CTRL+BLOOM</span>
+        <video src="videos/hero.mp4" poster="images/hero-photo-v2.png" autoplay muted loop playsinline preload="metadata"></video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- БОЛЬШАЯ ЦИТАТА -->
+<section class="er-band">
+  <div class="container">
+    <p>Роза, после которой не чувствуешь себя букетом со свадьбы.</p>
+  </div>
+</section>
+
+<!-- ШИРОКИЙ ТРИПТИХ: горизонтальная фотография из 3 кадров -->
+<section class="er-trip-sec">
+  <div class="container er-trip-head">
+    <span class="er-eyebrow">кампания</span>
+    <h2 class="er-h2">Эра розы в кадре</h2>
+  </div>
+  <div class="er-trip er-reveal">
+    <figure><img src="images/aromat-1.png" alt="Эра розы — кадр 1" loading="lazy" onerror="this.style.display='none'"><figcaption>[ кадр 1 ]</figcaption></figure>
+    <figure><img src="images/aromat-2.png" alt="Эра розы — кадр 2" loading="lazy" onerror="this.style.display='none'"><figcaption>[ кадр 2 ]</figcaption></figure>
+    <figure><img src="images/aromat-3.png" alt="Эра розы — кадр 3" loading="lazy" onerror="this.style.display='none'"><figcaption>[ кадр 3 ]</figcaption></figure>
+  </div>
+</section>
+
+<!-- ПИРАМИДА АРОМАТА (в конце, перед отзывами) -->
+<section class="er-stack">
+  <div class="container">
+    <span class="er-eyebrow">пирамида аромата</span>
+    <h2 class="er-h2">Как раскрывается «Эра розы»</h2>
+    <p class="er-stack-lead">Сырьё подбирали по чистоте и характеру: яркий фруктовый старт наверху, живое цветочное сердце и тёплая база, которая держит розу близко к коже.</p>
+
+    <div class="er-pyr">
+      <div class="er-pyr-tier er-pyr-tier--top"><b>Верхние ноты</b><span>малина · розовый перец · бергамот</span></div>
+      <div class="er-pyr-tier er-pyr-tier--heart"><b>Ноты сердца</b><span>дамасская роза · пион · фрезия</span></div>
+      <div class="er-pyr-tier er-pyr-tier--base"><b>База</b><span>пачули · белый мускус · амбра</span></div>
+    </div>
+
+    <div class="er-notes" id="erNotes">
+      <div class="er-note">
+        <div class="er-note-top"><span class="er-note-name">Дамасская роза</span><span class="er-note-plus">+</span></div>
+        <div class="er-note-tag">сердце · цветочная</div>
+        <div class="er-note-body"><div><em>что это</em>Королева цветочных нот — болгарская дамасская роза. <em>как пахнет</em>Свежий, чуть медовый цветок без пудры и пыли: яркий, сочный, живой — как только что срезанный бутон.</div></div>
+      </div>
+      <div class="er-note">
+        <div class="er-note-top"><span class="er-note-name">Малина</span><span class="er-note-plus">+</span></div>
+        <div class="er-note-tag">верх · фруктовая</div>
+        <div class="er-note-body"><div><em>что это</em>Спелая садовая малина. <em>как пахнет</em>Сочно и по-летнему сладко, с лёгкой кислинкой — делает розу дерзкой и современной вместо «нарядной».</div></div>
+      </div>
+      <div class="er-note">
+        <div class="er-note-top"><span class="er-note-name">Розовый перец</span><span class="er-note-plus">+</span></div>
+        <div class="er-note-tag">верх · пряная</div>
+        <div class="er-note-body"><div><em>что это</em>Ягоды розового перца. <em>как пахнет</em>Игристая пряность с розовым отблеском: добавляет искру и объём первым минутам.</div></div>
+      </div>
+      <div class="er-note">
+        <div class="er-note-top"><span class="er-note-name">Пион</span><span class="er-note-plus">+</span></div>
+        <div class="er-note-tag">сердце · цветочная</div>
+        <div class="er-note-body"><div><em>что это</em>Прозрачный розово-белый цветок. <em>как пахнет</em>Водянистая свежесть и нежность — раскрывает розу, не утяжеляя её.</div></div>
+      </div>
+      <div class="er-note">
+        <div class="er-note-top"><span class="er-note-name">Пачули</span><span class="er-note-plus">+</span></div>
+        <div class="er-note-tag">база · древесная</div>
+        <div class="er-note-body"><div><em>что это</em>Очищенное современное пачули. <em>как пахнет</em>Тёплая земляная древесность без «дыма» — даёт глубину и притягивает розу к коже.</div></div>
+      </div>
+      <div class="er-note">
+        <div class="er-note-top"><span class="er-note-name">Белый мускус</span><span class="er-note-plus">+</span></div>
+        <div class="er-note-tag">база · мускус</div>
+        <div class="er-note-body"><div><em>что это</em>Веган-мускус. <em>как пахнет</em>Чистое, мягкое тепло «второй кожи» — продлевает шлейф и делает его уютным. Получен синтетически, этично и без жестокости.</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ОТЗЫВЫ (заглушка) -->
+<section class="container">
+  <div class="er-reviews">
+    <span class="er-eyebrow">отзывы</span>
+    <h2 class="er-h2">Что говорят</h2>
+    <div class="er-rev-grid">
+      <article class="er-rev-card er-reveal">
+        <div class="er-rev-stars">★★★★★</div>
+        <p class="er-rev-text">[ место для отзыва покупателя ]</p>
+        <div class="er-rev-by">— имя · город</div>
+      </article>
+      <article class="er-rev-card er-reveal">
+        <div class="er-rev-stars">★★★★★</div>
+        <p class="er-rev-text">[ место для отзыва покупателя ]</p>
+        <div class="er-rev-by">— имя · город</div>
+      </article>
+      <article class="er-rev-card er-reveal">
+        <div class="er-rev-stars">★★★★☆</div>
+        <p class="er-rev-text">[ место для отзыва покупателя ]</p>
+        <div class="er-rev-by">— имя · город</div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<div data-site-footer></div>
+
+<script src="site-chrome.js?v=2"></script>
+<script src="page-data.js?v=9"></script>
+<script src="cart.js?v=1"></script>
+<script src="menu.js?v=7"></script>
+<script>
+(function () {
+  var PID = 5;                 // «Эра розы» в page-data.js
+  var fmt = function (n) { return Number(n).toLocaleString('ru-RU') + ' ₽'; };
+
+  /* ---------- объём + тип покупки + цена ---------- */
+  var vols = Array.prototype.slice.call(document.querySelectorAll('#erVols .pdp-vol-btn'));
+  var sel = vols.find(function (b) { return b.classList.contains('is-active'); }) || vols[vols.length - 1];
+  var addBtn = document.getElementById('erAdd');
+  var priceEl = document.getElementById('erPrice');
+  var artEl = document.getElementById('erArt');
+  var segOnce = document.getElementById('erSegOnce');
+  var segSub = document.getElementById('erSegSub');
+  var subType = 'once';
+
+  function curML() { return Number(sel.getAttribute('data-ml')); }
+  function curPrice() { return Number(sel.getAttribute('data-price')); }
+
+  function render() {
+    var price = curPrice();
+    priceEl.textContent = fmt(price);
+    artEl.textContent = 'арт. CTL-05-' + curML();
+    segOnce.textContent = fmt(price);
+    segSub.textContent = fmt(Math.round(price * 0.9)) + ' / повтор';
+    if (!addBtn.classList.contains('is-added')) {
+      addBtn.textContent = 'В корзину — ' + fmt(subType === 'sub' ? Math.round(price * 0.9) : price);
+    }
+  }
+
+  vols.forEach(function (b) {
+    b.addEventListener('click', function () {
+      vols.forEach(function (x) { x.classList.remove('is-active'); });
+      b.classList.add('is-active'); sel = b; render();
+    });
+  });
+
+  document.querySelectorAll('#erSeg .er-seg-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      document.querySelectorAll('#erSeg .er-seg-btn').forEach(function (x) { x.classList.remove('is-active'); });
+      b.classList.add('is-active'); subType = b.getAttribute('data-type'); render();
+    });
+  });
+  render();
+
+  /* ---------- подарок ---------- */
+  var giftToggle = document.getElementById('erGiftToggle');
+  var giftFields = document.getElementById('erGiftFields');
+  giftToggle.addEventListener('change', function () { giftFields.classList.toggle('is-open', giftToggle.checked); });
+
+  /* ---------- в корзину (общая корзина cart.js) ---------- */
+  addBtn.addEventListener('click', function () {
+    var price = subType === 'sub' ? Math.round(curPrice() * 0.9) : curPrice();
+    if (window.CTRLCart) window.CTRLCart.add(PID, curML(), price);
+    addBtn.classList.add('is-added');
+    addBtn.textContent = 'Добавлено ✓';
+    setTimeout(function () { addBtn.classList.remove('is-added'); render(); }, 1500);
+  });
+
+  /* ---------- апселл ---------- */
+  document.querySelectorAll('.er-up-add').forEach(function (b) {
+    b.addEventListener('click', function () {
+      if (window.CTRLCart) window.CTRLCart.add(Number(b.getAttribute('data-add-id')), Number(b.getAttribute('data-add-ml')), Number(b.getAttribute('data-add-price')));
+      b.classList.add('is-added'); var t = b.textContent; b.textContent = 'Добавлено ✓';
+      setTimeout(function () { b.classList.remove('is-added'); b.textContent = t; }, 1400);
+    });
+  });
+
+  /* ---------- избранное ---------- */
+  var fav = document.getElementById('erFav');
+  function readFav() { try { return JSON.parse(localStorage.getItem('ctrlHomeWishlist') || '[]'); } catch (e) { return []; } }
+  function paintFav() { var on = readFav().indexOf(PID) !== -1; fav.textContent = on ? '♥' : '♡'; fav.classList.toggle('is-on', on); fav.setAttribute('aria-pressed', on ? 'true' : 'false'); }
+  fav.addEventListener('click', function () {
+    var list = readFav(), i = list.indexOf(PID);
+    if (i === -1) list.push(PID); else list.splice(i, 1);
+    try { localStorage.setItem('ctrlHomeWishlist', JSON.stringify(list)); } catch (e) {}
+    paintFav();
+  });
+  paintFav();
+
+  /* ---------- аккордеон ---------- */
+  function setAcc(item, open) {
+    var body = item.querySelector('.er-acc-body');
+    item.classList.toggle('is-open', open);
+    body.style.maxHeight = open ? body.scrollHeight + 'px' : '0px';
+  }
+  document.querySelectorAll('#erAcc .er-acc-item').forEach(function (item) {
+    setAcc(item, item.classList.contains('is-open'));
+    item.querySelector('.er-acc-head').addEventListener('click', function () {
+      setAcc(item, !item.classList.contains('is-open'));
+    });
+  });
+
+  /* ---------- карточки нот ---------- */
+  document.querySelectorAll('#erNotes .er-note').forEach(function (note) {
+    var body = note.querySelector('.er-note-body');
+    note.addEventListener('click', function () {
+      var open = !note.classList.contains('is-open');
+      note.classList.toggle('is-open', open);
+      body.style.maxHeight = open ? body.scrollHeight + 'px' : '0px';
+    });
+  });
+
+  /* ---------- появление при скролле ---------- */
+  var rev = document.querySelectorAll('.er-reveal');
+  if ('IntersectionObserver' in window) {
+    var io = new IntersectionObserver(function (entries) {
+      entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('er-in'); io.unobserve(e.target); } });
+    }, { threshold: 0.12 });
+    rev.forEach(function (el) { io.observe(el); });
+  } else {
+    rev.forEach(function (el) { el.classList.add('er-in'); });
+  }
+})();
+</script>
+</body>
+</html>

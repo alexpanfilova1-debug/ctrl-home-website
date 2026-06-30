@@ -11,9 +11,9 @@
     {
       trigger: 'Парфюмерия', id: 'subFragrance',
       feature: 'Эра розы', kicker: 'парфюм', img: 'images/aromat-1.png',
-      allHref: 'parfumeriya.html', allLabel: 'Посмотреть всю парфюмерию',
+      allHref: 'parfumeriya.html', allLabel: 'Посмотреть всю парфюмерию', featureHref: 'era-rozy.html',
       groups: [
-        { title: 'Фруктовые и цветочные', items: ['Эра розы', 'Коко-шайн', 'Цитрусовая фантазия', 'Тарт-деко', 'Медовый люкс', 'Солнечный день'] },
+        { title: 'Фруктовые и цветочные', items: [{ label: 'Эра розы', href: 'era-rozy.html' }, 'Коко-шайн', 'Цитрусовая фантазия', 'Тарт-деко', 'Медовый люкс', 'Солнечный день'] },
         { title: 'Сладкие и тёплые', items: ['Ванильный порок', 'Горячая карамель', 'Тёплый пряник', 'Сахарная дымка', 'Медовый бархат'] },
         { title: 'Ароматы чистоты и комфорта', items: ['Чистый хлопок', 'Белый мускус', 'Свежее утро', 'Лёгкий бриз'] }
       ],
@@ -78,7 +78,7 @@
   function buildSub(cfg) {
     var groups = cfg.groups.map(function (g) {
       return '<div class="nav-sub-group"><h5>' + g.title + '</h5>' +
-        g.items.map(function (n) { return '<a href="' + cfg.allHref + '">' + n + '</a>'; }).join('') + '</div>';
+        g.items.map(function (n) { var lbl = (typeof n === 'string') ? n : n.label; var hrf = (typeof n === 'string') ? cfg.allHref : (n.href || cfg.allHref); return '<a href="' + hrf + '">' + lbl + '</a>'; }).join('') + '</div>';
     }).join('');
     var sizes = cfg.sizes.map(function (s) {
       var item = typeof s === 'string' ? { label: s } : s;
@@ -88,7 +88,7 @@
     return '<div class="nav-subpanel" id="' + cfg.id + '">' +
         '<button class="nav-sub-back" data-back>‹ Назад</button>' +
         '<div class="nav-sub-scroll">' +
-          '<a class="nav-sub-feature" href="' + cfg.allHref + '">' +
+          '<a class="nav-sub-feature" href="' + (cfg.featureHref || cfg.allHref) + '">' +
             '<img src="' + cfg.img + '" alt="" onerror="this.style.display=\'none\'">' +
             '<div class="nm">' + cfg.feature + '</div><div class="tp">' + cfg.kicker + '</div>' +
           '</a>' +

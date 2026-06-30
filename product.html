@@ -98,7 +98,7 @@
 </footer>
 
 <script src="site-chrome.js?v=2"></script>
-<script src="page-data.js?v=8"></script>
+<script src="page-data.js?v=9"></script>
 <script src="cart.js?v=1"></script>
 <script src="menu.js?v=7"></script>
 <script>
@@ -132,7 +132,7 @@
   document.title = p.name + ' — CTRL home';
   elTitle.textContent = p.name;
   document.getElementById('pdpCrumbName').textContent = p.name;
-  document.getElementById('pdpSub').textContent = [p.type, p.gender, 'стойкость ' + p.longevity].filter(Boolean).join(' · ');
+  document.getElementById('pdpSub').textContent = [p.type, p.gender, (p.longevity ? 'стойкость ' + p.longevity : '')].filter(Boolean).join(' · ');
   document.getElementById('pdpDesc').textContent = p.desc || p.note || '';
 
   /* картинка + бейджи */

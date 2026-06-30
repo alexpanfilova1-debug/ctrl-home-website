@@ -4,20 +4,303 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Аккаунт — CTRL home</title>
-<meta name="description" content="Личный кабинет CTRL home: будущие заказы, избранное и бонусы.">
+<meta name="description" content="Личный кабинет CTRL home: избранное, история заказов и бонусы.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=24">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
+<style>
+  /* ---- личный кабинет: точечные стили поверх дизайн-системы ---- */
+  .acc-intro-note{max-width:60ch;color:var(--ink-soft);font-size:1rem;margin:-1.6rem 0 2.2rem}
+  .acc-nav{display:flex;gap:.6rem;flex-wrap:wrap;margin:0 0 3.4rem}
+  .acc-nav a{
+    display:inline-flex;align-items:center;gap:.5rem;
+    border:1px solid var(--ink);padding:.55rem .85rem;background:#fff;color:var(--ink);
+    font-family:var(--font-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;
+    transition:background .15s var(--ease),color .15s var(--ease)
+  }
+  .acc-nav a:hover{background:var(--lime)}
+  .acc-nav a b{font-weight:700;font-size:.78rem}
+  .acc-sec{margin:0 0 4.2rem;scroll-margin-top:calc(var(--header-h) + 1.6rem)}
+  .acc-sec-head{
+    display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+    border-bottom:2px solid var(--ink);padding-bottom:.8rem;margin-bottom:1.9rem
+  }
+  .acc-sec-head h2{font-family:var(--font-display);font-size:clamp(1.4rem,2.6vw,2rem);line-height:1.1;margin:0}
+  .acc-sec-count{font-family:var(--font-mono);font-size:.78rem;letter-spacing:.06em;color:var(--ink-soft);white-space:nowrap}
+  .acc-empty{
+    border:1px dashed var(--line);background:var(--bg-soft);
+    padding:2.3rem 1.5rem;text-align:center;color:var(--ink-soft)
+  }
+  .acc-empty p{margin:0 0 1.3rem;font-size:1rem;max-width:46ch;margin-inline:auto}
+  /* избранное: используем общую сетку .products и карточку .product */
+  .fav-remove{
+    position:absolute;top:14px;right:14px;z-index:5;
+    width:34px;height:34px;border-radius:50%;
+    border:1px solid var(--ink);background:#fff;color:var(--pink);
+    font-size:1rem;line-height:1;display:flex;align-items:center;justify-content:center;
+    cursor:pointer;transition:background .15s var(--ease),color .15s var(--ease)
+  }
+  .fav-remove:hover{background:var(--pink);color:#fff}
+  /* заказы */
+  .acc-order{
+    border:2px solid var(--ink);border-radius:12px;background:#fff;
+    box-shadow:5px 5px 0 var(--ink);overflow:hidden;margin-bottom:1.4rem
+  }
+  .acc-order-top{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;
+    padding:1.1rem 1.3rem;background:var(--bg-soft);border-bottom:1px solid var(--line)
+  }
+  .acc-order-id{font-family:var(--font-mono);font-weight:700;letter-spacing:.04em}
+  .acc-order-date{display:block;font-size:.82rem;color:var(--ink-soft);margin-top:.15rem}
+  .acc-order-status{
+    font-family:var(--font-mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;
+    background:var(--lime);color:var(--ink);padding:.35rem .6rem;border:1px solid var(--ink);white-space:nowrap
+  }
+  .acc-order-items{padding:.8rem 1.3rem}
+  .acc-order-line{
+    display:flex;justify-content:space-between;gap:1rem;
+    padding:.45rem 0;font-size:.95rem;border-bottom:1px dashed var(--line)
+  }
+  .acc-order-line:last-child{border-bottom:0}
+  .acc-order-line span:last-child{white-space:nowrap;color:var(--ink-soft)}
+  .acc-order-foot{
+    display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+    padding:1rem 1.3rem;border-top:1px solid var(--line)
+  }
+  .acc-order-total{font-family:var(--font-display);font-weight:600;font-size:1.05rem}
+  .acc-repeat{margin-top:0}
+  /* бонусы (тизер) */
+  .acc-bonus{
+    display:grid;grid-template-columns:1fr 1fr;gap:1.6rem;align-items:start;
+    border:2px dashed var(--ink);border-radius:12px;padding:1.9rem;
+    background:linear-gradient(180deg,#fff,var(--bg-soft))
+  }
+  .acc-bonus h2{font-family:var(--font-display);font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.15;margin:0 0 .6rem}
+  .acc-bonus p{color:var(--ink-soft);margin:0 0 1.3rem;max-width:46ch}
+  .acc-bonus .page-list{margin:0}
+  @media(max-width:760px){
+    .acc-bonus{grid-template-columns:1fr}
+    .acc-order-top{flex-wrap:wrap}
+  }
+</style>
 </head>
 <body>
 <div data-site-chrome></div>
-<main class="section container page-shell" data-page="account"></main>
+<main class="section container page-shell" id="accountRoot"></main>
 <div data-site-footer></div>
 <script src="site-chrome.js?v=2"></script>
-<script src="page-data.js?v=8"></script>
+<script src="page-data.js?v=9"></script>
 <script src="cart.js?v=1"></script>
 <script src="menu.js?v=7"></script>
+<script>
+/* ============================================================================
+   ACCOUNT — личный кабинет CTRL home (MVP без бэкенда, всё в localStorage)
+   • Избранное:  ctrlHomeWishlist = [ id, ... ]            (пишется на product.html)
+   • Заказы:     ctrlHomeOrders   = [ { id, date, items[], bundles[], total, ... } ]
+                 (пишется на oformlenie.html при подтверждении заказа)
+   • Корзина:    ctrlHomeCart / ctrlHomeSamplePacks        (управляет cart.js / CTRLCart)
+   Переиспользует window.CTRL_PRODUCTS (page-data.js) и window.CTRLCart (cart.js).
+   ========================================================================== */
+(function () {
+  function ready(fn) {
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', fn);
+    else fn();
+  }
+  ready(function () {
+    var root = document.getElementById('accountRoot');
+    if (!root) return;
+
+    var P = window.CTRL_PRODUCTS || {};
+    var C = window.CTRLCart || null;
+
+    var WKEY = 'ctrlHomeWishlist';
+    var OKEY = 'ctrlHomeOrders';
+    var CARTKEY = 'ctrlHomeCart';
+    var BKEY = 'ctrlHomeSamplePacks';
+
+    function read(k) {
+      try { var v = JSON.parse(localStorage.getItem(k) || '[]'); return Array.isArray(v) ? v : []; }
+      catch (e) { return []; }
+    }
+    function write(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+
+    function money(n) {
+      if (C && C.money) return C.money(n);
+      return (Number(n) || 0).toLocaleString('ru-RU') + ' ₽';
+    }
+    function esc(s) {
+      return String(s == null ? '' : s).replace(/[&<>"]/g, function (c) {
+        return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c];
+      });
+    }
+    function plural(n, f) {
+      n = Math.abs(n) % 100; var d = n % 10;
+      if (n > 10 && n < 20) return f[2];
+      if (d > 1 && d < 5) return f[1];
+      if (d === 1) return f[0];
+      return f[2];
+    }
+    function fmtDate(iso) {
+      try { var d = new Date(iso); if (isNaN(d.getTime())) return '';
+        return d.toLocaleDateString('ru-RU', { day: '2-digit', month: '2-digit', year: 'numeric' });
+      } catch (e) { return ''; }
+    }
+
+    /* избранное: только существующие товары, без дублей */
+    function favIds() {
+      return read(WKEY).map(Number).filter(function (id, i, a) {
+        return P[id] && a.indexOf(id) === i;
+      });
+    }
+    function orders() { return read(OKEY); }
+
+    /* ---------- секции ---------- */
+    function intro() {
+      var os = orders();
+      var name = (os[0] && os[0].name) ? String(os[0].name).trim().split(' ')[0] : '';
+      var favN = favIds().length;
+      var ordN = os.length;
+      var title = name
+        ? 'С возвращением, <em>' + esc(name) + '</em>'
+        : 'Личный <em>кабинет</em>';
+      return '' +
+        '<div class="philosophy-label">Аккаунт</div>' +
+        '<h1 class="section-title">' + title + '</h1>' +
+        '<p class="acc-intro-note">Избранное, история заказов и бонусы. Данные хранятся только в этом браузере — без регистрации.</p>' +
+        '<nav class="acc-nav">' +
+          '<a href="#fav">Избранное <b>' + favN + '</b></a>' +
+          '<a href="#orders">Заказы <b>' + ordN + '</b></a>' +
+          '<a href="#bonus">Бонусы</a>' +
+        '</nav>';
+    }
+
+    function favCard(id) {
+      var p = P[id];
+      return '<article class="product" data-id="' + id + '">' +
+        (p.moodLabel ? '<span class="product-badge" data-state="' + (p.mood || '') + '">' + esc(p.moodLabel) + '</span>' : '') +
+        '<button class="fav-remove" type="button" data-fav-remove="' + id + '" title="Убрать из избранного" aria-label="Убрать из избранного">♥</button>' +
+        '<a class="product-link" href="product.html?id=' + id + '" aria-label="' + esc(p.name) + '"></a>' +
+        '<div class="product-img">' +
+          '<img src="' + (p.img || '') + '" alt="' + esc(p.name) + '" loading="lazy" onerror="this.onerror=null;this.src=\'https://picsum.photos/seed/ctrl' + id + '/900/1200\'">' +
+          '<button class="product-add" type="button" data-fav-add="' + id + '" aria-label="В корзину">В корзину</button>' +
+        '</div>' +
+        '<div class="product-info">' +
+          '<div><div class="product-name">' + esc(p.name) + '</div><div class="product-note">' + esc(p.note || '') + '</div></div>' +
+          '<div class="product-price">' + money(p.price) + '</div>' +
+        '</div>' +
+      '</article>';
+    }
+
+    function favSection() {
+      var ids = favIds();
+      var head = '<div class="acc-sec-head"><h2>Избранное</h2>' +
+        '<span class="acc-sec-count">' + ids.length + ' ' + plural(ids.length, ['аромат', 'аромата', 'ароматов']) + '</span></div>';
+      var body = ids.length
+        ? '<div class="products">' + ids.map(favCard).join('') + '</div>'
+        : '<div class="acc-empty"><p>Пока ничего не сохранено. Нажмите ♡ на карточке аромата — и он появится здесь.</p>' +
+            '<div class="page-actions" style="justify-content:center"><a class="btn" href="catalog.html">Выбрать аромат</a></div></div>';
+      return '<section class="acc-sec" id="fav">' + head + body + '</section>';
+    }
+
+    function orderCard(o, idx) {
+      var lines = (o.items || []).map(function (it) {
+        return '<div class="acc-order-line"><span>' + esc(it.name || 'Товар') + ' · ' + esc(String(it.ml || 50)) + ' мл</span>' +
+          '<span>' + money(it.price) + '</span></div>';
+      }).join('');
+      var blines = (o.bundles || []).map(function (b) {
+        var n = (b.scents && b.scents.length) || 6;
+        return '<div class="acc-order-line"><span>' + esc(b.title || 'Пробный набор CTRL home') + ' · ' + n + ' × 10 мл</span>' +
+          '<span>' + money(b.price) + '</span></div>';
+      }).join('');
+      return '<article class="acc-order">' +
+        '<div class="acc-order-top">' +
+          '<div><span class="acc-order-id">' + esc(o.id || 'CTRL') + '</span>' +
+            (fmtDate(o.date) ? '<span class="acc-order-date">' + fmtDate(o.date) + '</span>' : '') + '</div>' +
+          '<span class="acc-order-status">Принят</span>' +
+        '</div>' +
+        '<div class="acc-order-items">' + lines + blines + '</div>' +
+        '<div class="acc-order-foot">' +
+          '<span class="acc-order-total">Итого ' + money(o.total) + '</span>' +
+          '<button class="btn btn--ghost acc-repeat" type="button" data-repeat="' + idx + '">Повторить заказ</button>' +
+        '</div>' +
+      '</article>';
+    }
+
+    function ordersSection() {
+      var list = orders();
+      var head = '<div class="acc-sec-head"><h2>История заказов</h2>' +
+        '<span class="acc-sec-count">' + list.length + ' ' + plural(list.length, ['заказ', 'заказа', 'заказов']) + '</span></div>';
+      var body = list.length
+        ? list.map(orderCard).join('')
+        : '<div class="acc-empty"><p>Здесь появятся ваши заказы. Оформите первый — и сможете повторить его в один клик.</p>' +
+            '<div class="page-actions" style="justify-content:center"><a class="btn" href="catalog.html">Перейти в каталог</a></div></div>';
+      return '<section class="acc-sec" id="orders">' + head + body + '</section>';
+    }
+
+    function bonusSection() {
+      return '<section class="acc-sec" id="bonus">' +
+        '<div class="acc-sec-head"><h2>Бонусы</h2><span class="acc-sec-count">скоро</span></div>' +
+        '<div class="acc-bonus">' +
+          '<div><h2>Клуб CTRL home</h2>' +
+            '<p>Баллы за каждый заказ, ранний доступ к новинкам и закрытые предложения. Подключим, когда появится профиль с авторизацией.</p>' +
+            '<a class="btn" href="soobshestvo.html">В сообщество</a></div>' +
+          '<ul class="page-list">' +
+            '<li><strong>Баллы</strong>Кешбэк с заказов на следующую покупку.</li>' +
+            '<li><strong>Ранний доступ</strong>Новинки и лимитки — раньше всех.</li>' +
+            '<li><strong>Закрытые цены</strong>Предложения только для участников клуба.</li>' +
+          '</ul>' +
+        '</div></section>';
+    }
+
+    function render() {
+      root.innerHTML = intro() + favSection() + ordersSection() + bonusSection();
+    }
+    render();
+
+    /* ---------- действия (делегирование) ---------- */
+    root.addEventListener('click', function (e) {
+      var t = e.target.closest('[data-fav-remove],[data-fav-add],[data-repeat]');
+      if (!t) return;
+
+      if (t.hasAttribute('data-fav-remove')) {
+        e.preventDefault();
+        var rid = Number(t.getAttribute('data-fav-remove'));
+        write(WKEY, read(WKEY).map(Number).filter(function (x) { return x !== rid; }));
+        render();
+        return;
+      }
+
+      if (t.hasAttribute('data-fav-add')) {
+        e.preventDefault();
+        var aid = Number(t.getAttribute('data-fav-add'));
+        if (C && C.add) C.add(aid, 50, 0);   // 50 мл / базовая цена, открывает корзину
+        return;
+      }
+
+      if (t.hasAttribute('data-repeat')) {
+        e.preventDefault();
+        var o = orders()[Number(t.getAttribute('data-repeat'))];
+        if (!o) return;
+        var cart = read(CARTKEY);
+        (o.items || []).forEach(function (it) {
+          if (P[it.id]) cart.push({ id: Number(it.id), ml: Number(it.ml) || 50, price: Number(it.price) || 0 });
+        });
+        write(CARTKEY, cart);
+        if (o.bundles && o.bundles.length) {
+          var packs = read(BKEY);
+          o.bundles.forEach(function (b) {
+            packs.push({ title: b.title || 'Пробный набор CTRL home', price: Number(b.price) || 0, scents: b.scents || [] });
+          });
+          write(BKEY, packs);
+        }
+        if (C) { C.refresh(); C.open(); }
+        return;
+      }
+    });
+  });
+})();
+</script>
 </body>
 </html>

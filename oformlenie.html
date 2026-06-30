@@ -23,7 +23,7 @@
 <div data-site-footer></div>
 
 <script src="site-chrome.js?v=2"></script>
-<script src="page-data.js?v=8"></script>
+<script src="page-data.js?v=9"></script>
 <script src="cart.js?v=1"></script>
 <script src="menu.js?v=7"></script>
 <script>
@@ -176,6 +176,29 @@
       }
 
       var orderId = 'CTRL-' + Date.now().toString(36).toUpperCase().slice(-6);
+
+      /* сохраняем заказ в историю личного кабинета (account.html) ДО очистки корзины */
+      try {
+        var PRD = window.CTRL_PRODUCTS || {};
+        var order = {
+          id: orderId,
+          date: new Date().toISOString(),
+          items: C.getItems().map(function (it) {
+            var p = PRD[it.id] || {};
+            return { id: it.id, name: p.name || 'Товар', ml: it.ml, price: it.price };
+          }),
+          bundles: C.getBundles().map(function (pk) {
+            return { title: pk.title || 'Пробный набор CTRL home', price: pk.price, scents: pk.scents || [] };
+          }),
+          total: C.total(),
+          name: name, phone: phone, email: email, delivery: delivery, address: address
+        };
+        var hist = JSON.parse(localStorage.getItem('ctrlHomeOrders') || '[]');
+        if (!Array.isArray(hist)) hist = [];
+        hist.unshift(order);
+        localStorage.setItem('ctrlHomeOrders', JSON.stringify(hist));
+      } catch (e) {}
+
       confirmed = true;
       C.clear();   // очищаем корзину (обновляет счётчик и панель)
       root.innerHTML =
