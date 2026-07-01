@@ -13,9 +13,9 @@
       feature: 'Эра розы', kicker: 'парфюм', img: 'images/aromat-1.png',
       allHref: 'parfumeriya.html', allLabel: 'Посмотреть всю парфюмерию', featureHref: 'era-rozy.html',
       groups: [
-        { title: 'Фруктовые и цветочные', items: [{ label: 'Эра розы', href: 'era-rozy.html' }, 'Коко-шайн', 'Цитрусовая фантазия', 'Тарт-деко', 'Медовый люкс', 'Солнечный день'] },
-        { title: 'Сладкие и тёплые', items: ['Ванильный порок', 'Горячая карамель', 'Тёплый пряник', 'Сахарная дымка', 'Медовый бархат'] },
-        { title: 'Ароматы чистоты и комфорта', items: ['Чистый хлопок', 'Белый мускус', 'Свежее утро', 'Лёгкий бриз'] }
+        { title: 'Фруктовые и цветочные', items: [{ label: 'Эра розы', href: 'era-rozy.html' }, { label: 'Коко-шайн', href: 'koko-shine.html' }, { label: 'Цитрусовая фантазия', href: 'citrusovaya-fantaziya.html' }, { label: 'Тарт-деко', href: 'tart-deko.html' }, { label: 'Медовый люкс', href: 'medovyy-lyuks.html' }, { label: 'Солнечный день', href: 'solnechnyy-den.html' }] },
+        { title: 'Сладкие и тёплые', items: [{ label: 'Ванильный порок', href: 'vanilnyy-porok.html' }, { label: 'Горячая карамель', href: 'goryachaya-karamel.html' }, { label: 'Тёплый пряник', href: 'teplyy-pryanik.html' }, { label: 'Сахарная дымка', href: 'saharnaya-dymka.html' }, { label: 'Медовый бархат', href: 'medovyy-barhat.html' }] },
+        { title: 'Ароматы чистоты и комфорта', items: [{ label: 'Чистый хлопок', href: 'chistyy-hlopok.html' }, { label: 'Белый мускус', href: 'belyy-muskus.html' }, { label: 'Свежее утро', href: 'svezhee-utro.html' }, 'Лёгкий бриз'] }
       ],
       sizeTitle: 'Выбрать по типу',
       sizes: [

@@ -29,11 +29,104 @@
       gallery: ['https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop']
     },
     5: {
-      name: 'Эра розы', price: 7900, note: 'малина · дамасская роза · пачули', img: 'images/aromat-1.png',
+      name: 'Эра розы', price: 7900, note: 'малина · дамасская роза · пачули', img: 'images/aromat-1.png', href: 'era-rozy.html',
       type: 'Eau de Parfum', gender: 'унисекс', longevity: '8–10 ч', article: 'CTL-05', badge: 'NEW', mood: 'bloom', moodLabel: 'CTRL+BLOOM',
       desc: 'Дерзкая роза без пудры и нафталина: сочная малина и розовый перец на входе, живая дамасская роза в сердце, тёплые пачули и белый мускус в основе.',
       volumes: [ { ml: 10, price: 2200 }, { ml: 30, price: 4900 }, { ml: 50, price: 7900 } ],
       gallery: ['images/aromat-1.png', 'images/aromat-2.png', 'images/aromat-3.png', 'images/sample-vial-10ml.png']
+    },
+
+    /* ——— Парфюмерия: расширенная линейка (кастомные страницы, id 30–42; временные цены/фото-заглушки) ——— */
+    30: {
+      name: 'Коко-шайн', price: 7200, note: 'кокос · тиаре · белый мускус', img: 'images/koko-shine-1.png', href: 'koko-shine.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '6–8 ч', article: 'CTL-06', badge: 'NEW', mood: 'energy', moodLabel: 'CTRL+GLOW',
+      desc: 'Кокос, который сияет, а не пахнет пляжным маслом: прохладная кокосовая вода и бергамот сверху, солнечные тиаре и иланг-иланг в сердце, сливочная кокосово-мускусная база.',
+      volumes: [ { ml: 10, price: 2100 }, { ml: 30, price: 4600 }, { ml: 50, price: 7200 } ],
+      gallery: ['images/koko-shine-1.png', 'images/koko-shine-2.png', 'images/koko-shine-3.png']
+    },
+    31: {
+      name: 'Цитрусовая фантазия', price: 6900, note: 'лимон · нероли · кедр', img: 'images/citrusovaya-fantaziya-1.png', href: 'citrusovaya-fantaziya.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '5–7 ч', article: 'CTL-07', badge: '', mood: 'focus', moodLabel: 'CTRL+ZEST',
+      desc: 'Газированная цитрусовая свежесть: сицилийский лимон и грейпфрут сверху, медовый нероли в сердце, лёгкая кедрово-мускусная база. Аромат «умытого» дня.',
+      volumes: [ { ml: 10, price: 2000 }, { ml: 30, price: 4400 }, { ml: 50, price: 6900 } ],
+      gallery: ['images/citrusovaya-fantaziya-1.png', 'images/citrusovaya-fantaziya-2.png', 'images/citrusovaya-fantaziya-3.png']
+    },
+    32: {
+      name: 'Тарт-деко', price: 8600, note: 'ревень · роза · пачули', img: 'images/tart-deko-1.png', href: 'tart-deko.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '8–10 ч', article: 'CTL-08', badge: 'NEW', mood: 'night', moodLabel: 'CTRL+CHIC',
+      desc: 'Терпкий фруктовый шипр в стиле ар-деко: ревень и чёрная смородина сверху, прохладная роза и ирис в сердце, пачули и дубовый мох в основе. Строго и модно.',
+      volumes: [ { ml: 10, price: 2500 }, { ml: 30, price: 5300 }, { ml: 50, price: 8600 } ],
+      gallery: ['images/tart-deko-1.png', 'images/tart-deko-2.png', 'images/tart-deko-3.png']
+    },
+    33: {
+      name: 'Медовый люкс', price: 9200, note: 'мёд · жасмин · амбра', img: 'images/medovyy-lyuks-1.png', href: 'medovyy-lyuks.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '8–10 ч', article: 'CTL-09', badge: '', mood: 'calm', moodLabel: 'CTRL+LUXE',
+      desc: 'Золотой медовый люкс: густой мёд и шафран сверху, роза и жасмин самбак в сердце, амбра с сандалом в основе. Звучит дороже, чем «просто сладко».',
+      volumes: [ { ml: 10, price: 2600 }, { ml: 30, price: 5600 }, { ml: 50, price: 9200 } ],
+      gallery: ['images/medovyy-lyuks-1.png', 'images/medovyy-lyuks-2.png', 'images/medovyy-lyuks-3.png']
+    },
+    34: {
+      name: 'Солнечный день', price: 6800, note: 'груша · фрезия · мускус', img: 'images/solnechnyy-den-1.png', href: 'solnechnyy-den.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '5–7 ч', article: 'CTL-10', badge: '', mood: 'focus', moodLabel: 'CTRL+SUN',
+      desc: 'Аромат хорошего настроения: сочная груша и мандарин сверху, воздушные фрезия и пион в сердце, чистый мускус в основе. Лёгкий, солнечный, на каждый день.',
+      volumes: [ { ml: 10, price: 2000 }, { ml: 30, price: 4400 }, { ml: 50, price: 6800 } ],
+      gallery: ['images/solnechnyy-den-1.png', 'images/solnechnyy-den-2.png', 'images/solnechnyy-den-3.png']
+    },
+    35: {
+      name: 'Ванильный порок', price: 8800, note: 'ваниль · гелиотроп · тонка', img: 'images/vanilnyy-porok-1.png', href: 'vanilnyy-porok.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '8–10 ч', article: 'CTL-11', badge: 'NEW', mood: 'night', moodLabel: 'CTRL+VICE',
+      desc: 'Гурманская ваниль с характером: сочная груша и розовый перец сверху, кремовая ваниль и гелиотроп в сердце, тонка и бензоин в основе. Сладко, но в балансе.',
+      volumes: [ { ml: 10, price: 2500 }, { ml: 30, price: 5400 }, { ml: 50, price: 8800 } ],
+      gallery: ['images/vanilnyy-porok-1.png', 'images/vanilnyy-porok-2.png', 'images/vanilnyy-porok-3.png']
+    },
+    36: {
+      name: 'Горячая карамель', price: 7600, note: 'карамель · ирис · тонка', img: 'images/goryachaya-karamel-1.png', href: 'goryachaya-karamel.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '7–9 ч', article: 'CTL-12', badge: '', mood: 'night', moodLabel: 'CTRL+MELT',
+      desc: 'Тягучая солёная карамель: карамель и апельсин сверху, пудровый ирис и кофе в сердце, тонка с ванилью в основе. Гурманика с горячим характером.',
+      volumes: [ { ml: 10, price: 2200 }, { ml: 30, price: 4800 }, { ml: 50, price: 7600 } ],
+      gallery: ['images/goryachaya-karamel-1.png', 'images/goryachaya-karamel-2.png', 'images/goryachaya-karamel-3.png']
+    },
+    37: {
+      name: 'Тёплый пряник', price: 7400, note: 'имбирь · корица · ваниль', img: 'images/teplyy-pryanik-1.png', href: 'teplyy-pryanik.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '7–9 ч', article: 'CTL-13', badge: '', mood: 'calm', moodLabel: 'CTRL+SPICE',
+      desc: 'Аромат имбирного пряника: имбирь, корица и кардамон сверху, мёд и мускат в сердце, ваниль с тонка в основе. Тёплый, пряный, уютный.',
+      volumes: [ { ml: 10, price: 2200 }, { ml: 30, price: 4700 }, { ml: 50, price: 7400 } ],
+      gallery: ['images/teplyy-pryanik-1.png', 'images/teplyy-pryanik-2.png', 'images/teplyy-pryanik-3.png']
+    },
+    38: {
+      name: 'Сахарная дымка', price: 7000, note: 'сахарная вата · ирис · мускус', img: 'images/saharnaya-dymka-1.png', href: 'saharnaya-dymka.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '6–8 ч', article: 'CTL-14', badge: '', mood: 'bloom', moodLabel: 'CTRL+HAZE',
+      desc: 'Пудрово-сахарное облако: сахарная вата и малина сверху, ирис и фиалка в сердце, белый мускус с ванилью в основе. Лёгкая сладкая дымка на каждый день.',
+      volumes: [ { ml: 10, price: 2100 }, { ml: 30, price: 4500 }, { ml: 50, price: 7000 } ],
+      gallery: ['images/saharnaya-dymka-1.png', 'images/saharnaya-dymka-2.png', 'images/saharnaya-dymka-3.png']
+    },
+    39: {
+      name: 'Медовый бархат', price: 8900, note: 'мёд · замша · сандал', img: 'images/medovyy-barhat-1.png', href: 'medovyy-barhat.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '8–10 ч', article: 'CTL-15', badge: '', mood: 'night', moodLabel: 'CTRL+VELVET',
+      desc: 'Бархатный медовый аромат: тёмный мёд и слива сверху, роза и замша в сердце, сандал с амброй в основе. Плотный, тёплый, роскошный.',
+      volumes: [ { ml: 10, price: 2600 }, { ml: 30, price: 5500 }, { ml: 50, price: 8900 } ],
+      gallery: ['images/medovyy-barhat-1.png', 'images/medovyy-barhat-2.png', 'images/medovyy-barhat-3.png']
+    },
+    40: {
+      name: 'Чистый хлопок', price: 6600, note: 'хлопок · ландыш · мускус', img: 'images/chistyy-hlopok-1.png', href: 'chistyy-hlopok.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '5–7 ч', article: 'CTL-16', badge: '', mood: 'focus', moodLabel: 'CTRL+CLEAN',
+      desc: 'Аромат свежего белья: альдегиды и бергамот сверху, ландыш и фрезия в сердце, хлопковый мускус в основе. Чисто, мягко, спокойно.',
+      volumes: [ { ml: 10, price: 1900 }, { ml: 30, price: 4300 }, { ml: 50, price: 6600 } ],
+      gallery: ['images/chistyy-hlopok-1.png', 'images/chistyy-hlopok-2.png', 'images/chistyy-hlopok-3.png']
+    },
+    41: {
+      name: 'Белый мускус', price: 7100, note: 'мускус · ирис · кашмеран', img: 'images/belyy-muskus-1.png', href: 'belyy-muskus.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '6–8 ч', article: 'CTL-17', badge: '', mood: 'calm', moodLabel: 'CTRL+SKIN',
+      desc: 'Мускус как «вторая кожа»: бергамот и груша сверху, пудровый ирис в сердце, белый мускус с кашмераном в основе. Чистый, тёплый, обволакивающий.',
+      volumes: [ { ml: 10, price: 2100 }, { ml: 30, price: 4600 }, { ml: 50, price: 7100 } ],
+      gallery: ['images/belyy-muskus-1.png', 'images/belyy-muskus-2.png', 'images/belyy-muskus-3.png']
+    },
+    42: {
+      name: 'Свежее утро', price: 6700, note: 'мята · зелёный чай · мускус', img: 'images/svezhee-utro-1.png', href: 'svezhee-utro.html',
+      type: 'Eau de Parfum', gender: 'унисекс', longevity: '5–7 ч', article: 'CTL-18', badge: 'NEW', mood: 'focus', moodLabel: 'CTRL+DAWN',
+      desc: 'Аромат умытого утра: мята и лимон сверху, зелёный чай и фрезия в сердце, мускус с ветивером в основе. Свежо, ясно, бодро.',
+      volumes: [ { ml: 10, price: 1900 }, { ml: 30, price: 4300 }, { ml: 50, price: 6700 } ],
+      gallery: ['images/svezhee-utro-1.png', 'images/svezhee-utro-2.png', 'images/svezhee-utro-3.png']
     },
 
     /* ——— Свечи (имена из меню; временные цены-заглушки, реальные фото позже) ——— */
@@ -147,7 +240,7 @@
       title: 'Парфюмерия <em>настроения</em>',
       lead: 'Основная линейка CTRL home: ароматы как переключатели состояния — от чистого утра до глубокого вечернего шлейфа.',
       tags: ['30 мл', '10 мл', 'пробники', 'наборы'],
-      shelf: [1, 2, 3, 4],
+      shelf: [5, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42, 1, 2, 3, 4],
       cards: [
         { title: 'Фруктовые и цветочные', text: 'Легкие, понятные, но не плоские композиции для дневного звучания.', img: 'images/aromat-1.png', href: 'catalog.html' },
         { title: 'Сладкие и теплые', text: 'Ваниль, карамель, мед и мягкие гурманские ноты без липкой перегрузки.', img: 'https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
@@ -451,7 +544,7 @@
       var ph = phData(kind, i);
       return '<article class="product reveal" data-id="' + id + '">' +
         (p.moodLabel ? '<span class="product-badge" data-state="' + (p.mood || '') + '">' + p.moodLabel + '</span>' : '') +
-        '<a class="product-link" href="product.html?id=' + id + '" aria-label="' + p.name + '"></a>' +
+        '<a class="product-link" href="' + (p.href || ('product.html?id=' + id)) + '" aria-label="' + p.name + '"></a>' +
         '<div class="product-img">' +
           '<img src="' + p.img + '" alt="' + p.name + '" loading="lazy" data-ph="' + ph + '" onerror="this.onerror=null;this.src=this.getAttribute(\'data-ph\')">' +
           '<button class="product-add" data-add="' + id + '" aria-label="В корзину">В корзину</button>' +
