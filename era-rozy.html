@@ -207,6 +207,18 @@
   letter-spacing:.04em; padding:.55rem 1.1rem; border:2px solid var(--ink); border-radius:99px; background:var(--pink);
   color:var(--ink); box-shadow:3px 3px 0 var(--ink); cursor:pointer; transition:transform .1s ease, box-shadow .1s ease; }
 .er-card-back-btn:hover{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
+/* фото ингредиента на лицевой стороне карточки */
+.er-card-photo{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; z-index:0; }
+.er-card-front.has-photo{ background:var(--ink-surface); }
+.er-card-front.has-photo::before{ content:''; position:absolute; inset:0; z-index:1;
+  background:linear-gradient(to top, rgba(26,25,22,.82) 6%, rgba(26,25,22,.4) 38%, rgba(26,25,22,0) 72%); }
+.er-card-front.has-photo .er-card-tier,
+.er-card-front.has-photo .er-card-name,
+.er-card-front.has-photo .er-card-tap{ position:relative; z-index:2; }
+.er-card-front.has-photo .er-card-name{ color:var(--paper); text-shadow:0 1px 10px rgba(26,25,22,.35); }
+.er-card-front.has-photo .er-card-tier,
+.er-card-front.has-photo .er-card-tap{ color:var(--n-300); }
+.er-card-front.has-photo::after{ color:var(--paper); opacity:.34; z-index:2; }
 
 /* — закрывающий блок: лёгкое завершение страницы перед футером — */
 .er-close{ max-width:760px; margin:0 auto; padding:clamp(3rem,6vw,5rem) 0; border-top:2px solid var(--ink); text-align:center; }
@@ -464,23 +476,23 @@
     </div>
     <div class="er-cards" id="erCards">
       <article class="er-card" data-accent="pink">
-        <div class="er-card-front"><span class="er-card-tier">верх</span><span class="er-card-name">Малина</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-front has-photo"><img class="er-card-photo" src="images/nota-malina.png" alt="Нота: спелая малина" loading="lazy" onerror="this.style.display='none'"><span class="er-card-tier">верх</span><span class="er-card-name">Малина</span><span class="er-card-tap">нажмите ↗</span></div>
         <div class="er-card-back"><div class="er-card-back-name">Малина</div><div class="er-card-back-scroll"><em>что это</em><p>Спелая садовая малина.</p><em>как пахнет</em><p>Сочно и по-летнему сладко, с лёгкой кислинкой — делает розу дерзкой и современной вместо «нарядной».</p></div><button class="er-card-back-btn" type="button">назад</button></div>
       </article>
       <article class="er-card" data-accent="lime">
-        <div class="er-card-front"><span class="er-card-tier">верх</span><span class="er-card-name">Розовый перец</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-front has-photo"><img class="er-card-photo" src="images/nota-rozovyy-perets.png" alt="Нота: розовый перец" loading="lazy" onerror="this.style.display='none'"><span class="er-card-tier">верх</span><span class="er-card-name">Розовый перец</span><span class="er-card-tap">нажмите ↗</span></div>
         <div class="er-card-back"><div class="er-card-back-name">Розовый перец</div><div class="er-card-back-scroll"><em>что это</em><p>Ягоды розового перца.</p><em>как пахнет</em><p>Игристая пряность с розовым отблеском: добавляет искру и объём первым минутам.</p></div><button class="er-card-back-btn" type="button">назад</button></div>
       </article>
       <article class="er-card" data-accent="paper">
-        <div class="er-card-front"><span class="er-card-tier">сердце</span><span class="er-card-name">Дамасская роза</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-front has-photo"><img class="er-card-photo" src="images/nota-damasskaya-roza.png" alt="Нота: дамасская роза" loading="lazy" onerror="this.style.display='none'"><span class="er-card-tier">сердце</span><span class="er-card-name">Дамасская роза</span><span class="er-card-tap">нажмите ↗</span></div>
         <div class="er-card-back"><div class="er-card-back-name">Дамасская роза</div><div class="er-card-back-scroll"><em>что это</em><p>Королева цветочных нот — болгарская дамасская роза.</p><em>как пахнет</em><p>Свежий, чуть медовый цветок без пудры и пыли: яркий, сочный, живой — как только что срезанный бутон.</p></div><button class="er-card-back-btn" type="button">назад</button></div>
       </article>
       <article class="er-card" data-accent="ink">
-        <div class="er-card-front"><span class="er-card-tier">сердце</span><span class="er-card-name">Пион</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-front has-photo"><img class="er-card-photo" src="images/nota-pion.png" alt="Нота: пион" loading="lazy" onerror="this.style.display='none'"><span class="er-card-tier">сердце</span><span class="er-card-name">Пион</span><span class="er-card-tap">нажмите ↗</span></div>
         <div class="er-card-back"><div class="er-card-back-name">Пион</div><div class="er-card-back-scroll"><em>что это</em><p>Прозрачный розово-белый цветок.</p><em>как пахнет</em><p>Водянистая свежесть и нежность — раскрывает розу, не утяжеляя её.</p></div><button class="er-card-back-btn" type="button">назад</button></div>
       </article>
       <article class="er-card" data-accent="lime">
-        <div class="er-card-front"><span class="er-card-tier">база</span><span class="er-card-name">Пачули</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-front has-photo"><img class="er-card-photo" src="images/nota-pachuli.png" alt="Нота: пачули" loading="lazy" onerror="this.style.display='none'"><span class="er-card-tier">база</span><span class="er-card-name">Пачули</span><span class="er-card-tap">нажмите ↗</span></div>
         <div class="er-card-back"><div class="er-card-back-name">Пачули</div><div class="er-card-back-scroll"><em>что это</em><p>Очищенное современное пачули.</p><em>как пахнет</em><p>Тёплая земляная древесность без «дыма» — даёт глубину и притягивает розу к коже.</p></div><button class="er-card-back-btn" type="button">назад</button></div>
       </article>
       <article class="er-card" data-accent="pink">
