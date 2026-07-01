@@ -1,0 +1,587 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CTRL home Brand Board</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F7F5EF;
+      --paper-soft: #EDEAE2;
+      --ink: #1A1916;
+      --muted: #6B675E;
+      --lime: #CCF400;
+      --pink: #FF2D9E;
+      --line: rgba(26, 25, 22, .16);
+      --body: "Manrope", Arial, sans-serif;
+      --display: "Space Grotesk", Arial, sans-serif;
+      --mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #d9d5cc;
+      color: var(--ink);
+      font-family: var(--body);
+    }
+
+    .board {
+      width: 1600px;
+      height: 1000px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(26, 25, 22, .045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(26, 25, 22, .045) 1px, transparent 1px),
+        var(--paper);
+      background-size: 40px 40px;
+      box-shadow: 0 34px 90px rgba(26, 25, 22, .22);
+    }
+
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, transparent 0 72%, rgba(26,25,22,.98) 72% 100%),
+        linear-gradient(180deg, rgba(255,255,255,.34), transparent 42%);
+    }
+
+    .topbar {
+      position: absolute;
+      z-index: 5;
+      left: 54px;
+      right: 54px;
+      top: 38px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 16px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .topbar span:last-child {
+      color: var(--paper);
+    }
+
+    .main {
+      position: relative;
+      z-index: 3;
+      width: 1144px;
+      height: 100%;
+      padding: 92px 54px 54px;
+      display: grid;
+      grid-template-columns: 650px 350px;
+      grid-template-rows: 406px 250px 150px;
+      gap: 24px;
+    }
+
+    .hero {
+      grid-column: 1 / 2;
+      grid-row: 1 / 2;
+      padding-top: 10px;
+    }
+
+    .lockup {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      margin-bottom: 28px;
+    }
+
+    .keycap {
+      width: 104px;
+      height: 86px;
+      display: grid;
+      place-items: center;
+      background: var(--ink);
+      color: var(--lime);
+      border: 3px solid var(--ink);
+      border-radius: 8px;
+      box-shadow: inset 0 -10px 0 rgba(255,255,255,.08), 9px 9px 0 var(--lime);
+      font-family: var(--mono);
+      font-size: 42px;
+      line-height: 1;
+      transform: rotate(-2deg);
+    }
+
+    .wordmark {
+      font-family: var(--display);
+      font-size: 64px;
+      font-weight: 700;
+      line-height: .88;
+      letter-spacing: 0;
+    }
+
+    .wordmark small {
+      display: block;
+      color: var(--pink);
+      font-size: 34px;
+      line-height: .9;
+    }
+
+    h1 {
+      max-width: 650px;
+      margin: 0;
+      font-family: var(--display);
+      font-size: 72px;
+      line-height: .9;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    h1 em {
+      display: inline-block;
+      padding: 0 .1em .06em;
+      background: var(--lime);
+      color: var(--ink);
+      font-style: normal;
+    }
+
+    .lead {
+      max-width: 590px;
+      margin: 20px 0 0;
+      font-size: 22px;
+      line-height: 1.22;
+      color: var(--muted);
+    }
+
+    .lead strong {
+      color: var(--ink);
+      font-weight: 800;
+    }
+
+    .principles {
+      grid-column: 2 / 3;
+      grid-row: 1 / 2;
+      align-self: end;
+      display: grid;
+      gap: 12px;
+    }
+
+    .pill {
+      min-height: 58px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 13px 16px;
+      border: 1.5px solid var(--ink);
+      background: rgba(247,245,239,.92);
+      font-family: var(--mono);
+      font-size: 16px;
+      line-height: 1.1;
+      text-transform: uppercase;
+    }
+
+    .pill strong {
+      color: var(--pink);
+      font-size: 24px;
+    }
+
+    .panel {
+      border: 1.5px solid var(--line);
+      background: rgba(247,245,239,.88);
+      padding: 18px;
+    }
+
+    .panel-title {
+      margin-bottom: 14px;
+      font-family: var(--mono);
+      font-size: 14px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .type {
+      grid-column: 1 / 2;
+      grid-row: 2 / 3;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-content: start;
+    }
+
+    .type-sample-large {
+      font-family: var(--display);
+      font-size: 54px;
+      font-weight: 700;
+      line-height: .9;
+    }
+
+    .type-line {
+      margin-top: 10px;
+      font-size: 14px;
+      line-height: 1.3;
+      color: var(--muted);
+    }
+
+    .type-line strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 15px;
+      text-transform: uppercase;
+    }
+
+    .mono-card {
+      padding: 14px;
+      background: var(--ink);
+      color: var(--paper);
+      font-family: var(--mono);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .mono-card b {
+      color: var(--lime);
+    }
+
+    .palette {
+      grid-column: 2 / 3;
+      grid-row: 2 / 3;
+    }
+
+    .swatches {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .swatch {
+      min-height: 76px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1.5px solid rgba(26,25,22,.2);
+      font-family: var(--mono);
+      font-size: 13px;
+      line-height: 1.05;
+      text-transform: uppercase;
+    }
+
+    .swatch.dark {
+      color: var(--paper);
+    }
+
+    .components {
+      grid-column: 1 / 3;
+      grid-row: 3 / 4;
+      display: grid;
+      grid-template-columns: 260px 260px 1fr;
+      gap: 16px;
+    }
+
+    .button-demo {
+      display: grid;
+      gap: 12px;
+      align-content: start;
+    }
+
+    .btn {
+      height: 46px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 18px;
+      border: 2px solid var(--ink);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .btn.primary {
+      background: var(--pink);
+      color: var(--ink);
+    }
+
+    .btn.secondary {
+      background: var(--lime);
+      color: var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+    }
+
+    .badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 9px;
+      align-content: start;
+    }
+
+    .badge {
+      padding: 8px 10px;
+      border: 1.5px solid var(--ink);
+      background: var(--paper);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .badge.lime {
+      background: var(--lime);
+    }
+
+    .badge.pink {
+      background: var(--pink);
+      color: var(--ink);
+    }
+
+    .rules {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .rules b {
+      display: block;
+      margin-bottom: 8px;
+      font-family: var(--mono);
+      font-size: 13px;
+      text-transform: uppercase;
+    }
+
+    .rules p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .visual {
+      position: absolute;
+      z-index: 4;
+      right: 54px;
+      top: 98px;
+      bottom: 54px;
+      width: 392px;
+      color: var(--paper);
+    }
+
+    .photo-frame {
+      position: absolute;
+      inset: 0 0 196px 0;
+      overflow: hidden;
+      border: 1.5px solid rgba(247,245,239,.22);
+      background: #2a2721;
+    }
+
+    .photo-frame img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 48%;
+      filter: saturate(.72) contrast(1.08) brightness(.86);
+    }
+
+    .photo-frame::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(26,25,22,.08), rgba(26,25,22,.54)),
+        linear-gradient(90deg, rgba(255,45,158,.22), transparent 38%, rgba(204,244,0,.16));
+      mix-blend-mode: normal;
+    }
+
+    .product-card {
+      position: absolute;
+      left: 28px;
+      right: 28px;
+      bottom: 118px;
+      z-index: 6;
+      padding: 20px;
+      background: var(--paper);
+      color: var(--ink);
+      border: 2px solid var(--ink);
+      box-shadow: 10px 10px 0 var(--lime);
+    }
+
+    .product-card .mode {
+      display: inline-flex;
+      margin-bottom: 16px;
+      padding: 7px 9px;
+      background: var(--pink);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .product-card h2 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: 38px;
+      line-height: .92;
+    }
+
+    .product-card p {
+      margin: 12px 0 0;
+      font-family: var(--mono);
+      font-size: 15px;
+      color: var(--muted);
+    }
+
+    .photo-note {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding-top: 24px;
+      border-top: 1px solid rgba(247,245,239,.22);
+      font-size: 16px;
+      line-height: 1.26;
+      color: rgba(247,245,239,.72);
+    }
+
+    .photo-note strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--lime);
+      font-family: var(--mono);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .corner-code {
+      position: absolute;
+      right: 54px;
+      bottom: 34px;
+      z-index: 7;
+      display: none;
+      color: rgba(247,245,239,.48);
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.35;
+      text-transform: uppercase;
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+  <main class="board" aria-label="CTRL home brand board">
+    <div class="topbar">
+      <span>brand summary / CTRL home</span>
+      <span>state control fragrance system</span>
+    </div>
+
+    <section class="main">
+      <div class="hero">
+        <div class="lockup">
+          <div class="keycap" aria-hidden="true">⌃</div>
+          <div class="wordmark">CTRL<small>home</small></div>
+        </div>
+        <h1>Аромат как <em>кнопка</em> состояния</h1>
+        <p class="lead">
+          Нишевая парфюмерия для дома и тела, которая звучит не «дорого-богато»,
+          а <strong>графично, свежо и управляемо</strong>: фокус, спокойствие,
+          подъем, вечер без уведомлений.
+        </p>
+      </div>
+
+      <div class="principles" aria-label="Brand principles">
+        <div class="pill"><span>не классическая парфюмерия</span><strong>01</strong></div>
+        <div class="pill"><span>много воздуха, неон дозированно</span><strong>02</strong></div>
+        <div class="pill"><span>keycap, команды, режимы</span><strong>03</strong></div>
+        <div class="pill"><span>Gen Z: смело, но без AI-глянца</span><strong>04</strong></div>
+      </div>
+
+      <section class="panel type">
+        <div>
+          <div class="panel-title">Typography</div>
+          <div class="type-sample-large">Space<br>Grotesk</div>
+          <div class="type-line"><strong>Display / H1-H4</strong>Крупно, плотно, характерно. Типографика держит бренд.</div>
+        </div>
+        <div>
+          <div class="mono-card"><b>Space Mono</b><br>CTRL+FOCUS<br>SKU: CH-042<br>6 900 RUB</div>
+          <div class="type-line"><strong>Body / Manrope</strong>Чистый текст для карточек, описаний, навигации и UX-состояний.</div>
+        </div>
+      </section>
+
+      <section class="panel palette">
+        <div class="panel-title">Palette tokens</div>
+        <div class="swatches">
+          <div class="swatch" style="background:#F7F5EF"><span>Paper</span><span>#F7F5EF</span></div>
+          <div class="swatch dark" style="background:#1A1916"><span>Ink</span><span>#1A1916</span></div>
+          <div class="swatch" style="background:#CCF400"><span>Acid Lime</span><span>#CCF400</span></div>
+          <div class="swatch" style="background:#FF2D9E"><span>Neon Pink</span><span>#FF2D9E</span></div>
+        </div>
+      </section>
+
+      <section class="components">
+        <div class="panel button-demo">
+          <div class="panel-title">Buttons</div>
+          <div class="btn primary">выбрать режим</div>
+          <div class="btn secondary">CTRL+ADD</div>
+        </div>
+
+        <div class="panel">
+          <div class="panel-title">Status badges</div>
+          <div class="badges">
+            <span class="badge lime">новинка</span>
+            <span class="badge pink">лимитка</span>
+            <span class="badge">скоро</span>
+            <span class="badge">CTRL+CALM</span>
+            <span class="badge lime">CTRL+FOCUS</span>
+            <span class="badge pink">CTRL+NIGHT</span>
+          </div>
+        </div>
+
+        <div class="panel rules">
+          <div>
+            <b>делать</b>
+            <p>Плоские заливки, левое выравнивание, зигзаг/бенто, реальные предметные кадры, живые названия режимов.</p>
+          </div>
+          <div>
+            <b>убрать</b>
+            <p>Prata, золото #9a7b4f, «люксовый» serif, одинаковые ряды карточек, стоковую парфюмерную сладость.</p>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <aside class="visual">
+      <div class="photo-frame">
+        <img src="../../images/aromat-2.png" alt="">
+      </div>
+      <div class="product-card">
+        <span class="mode">CTRL+ENERGY</span>
+        <h2>Полдень<br>без автопилота</h2>
+        <p>инжир / кедр / морская соль</p>
+      </div>
+      <div class="photo-note">
+        <strong>Photo direction</strong>
+        Настоящие флаконы и текстуры, но с цифровыми акцентами: лайм, розовый,
+        keycap-лейблы, резкая графика. Не «ванильный люкс», а режим управления.
+      </div>
+    </aside>
+
+    <div class="corner-code">
+      base grid: 4/8/12/16/24/32/48/64<br>
+      container: 1200-1280 px<br>
+      motif: keycap + CTRL state labels
+    </div>
+  </main>
+</body>
+</html>

@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CTRL home Color Variants Summary</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Space+Grotesk:wght@500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F7F5EF;
+      --paper-soft: #EEEAE1;
+      --ink: #1A1916;
+      --muted: #69645B;
+      --line: rgba(26, 25, 22, .16);
+      --lime: #CCF400;
+      --orange: #FF6F2F;
+      --lilac: #DF88FF;
+      --cool-blue: #A8DFFF;
+      --chrome: #C9D0D8;
+      --plum: #241127;
+      --body: "Manrope", Arial, sans-serif;
+      --display: "Space Grotesk", Arial, sans-serif;
+      --mono: "Space Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #d8d4cb;
+      color: var(--ink);
+      font-family: var(--body);
+    }
+
+    .board {
+      width: 1600px;
+      height: 1000px;
+      position: relative;
+      overflow: hidden;
+      background:
+        linear-gradient(90deg, rgba(26, 25, 22, .045) 1px, transparent 1px),
+        linear-gradient(180deg, rgba(26, 25, 22, .045) 1px, transparent 1px),
+        var(--paper);
+      background-size: 40px 40px;
+      box-shadow: 0 34px 90px rgba(26, 25, 22, .22);
+    }
+
+    .board::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 18% 16%, rgba(204, 244, 0, .25), transparent 25%),
+        radial-gradient(circle at 47% 0%, rgba(255, 111, 47, .18), transparent 28%),
+        radial-gradient(circle at 83% 6%, rgba(223, 136, 255, .22), transparent 28%);
+      pointer-events: none;
+    }
+
+    .topbar {
+      position: absolute;
+      z-index: 5;
+      left: 54px;
+      right: 54px;
+      top: 36px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 15px;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      height: 100%;
+      padding: 74px 54px 34px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 204px 510px 120px;
+      gap: 24px;
+    }
+
+    .hero {
+      grid-column: 1 / 3;
+      display: grid;
+      grid-template-columns: 1fr 480px;
+      gap: 42px;
+      align-items: end;
+    }
+
+    .lockup {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+      margin-bottom: 18px;
+    }
+
+    .keycap {
+      width: 82px;
+      height: 68px;
+      display: grid;
+      place-items: center;
+      border: 3px solid var(--ink);
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--lime);
+      box-shadow: 7px 7px 0 var(--orange);
+      font-family: var(--mono);
+      font-size: 34px;
+      line-height: 1;
+      transform: rotate(-2deg);
+    }
+
+    .wordmark {
+      font-family: var(--display);
+      font-size: 52px;
+      font-weight: 700;
+      line-height: .88;
+      letter-spacing: 0;
+    }
+
+    .wordmark small {
+      display: block;
+      color: var(--ink);
+      font-size: 28px;
+      line-height: .9;
+    }
+
+    h1 {
+      margin: 0;
+      max-width: 960px;
+      font-family: var(--display);
+      font-size: 54px;
+      line-height: .9;
+      letter-spacing: 0;
+    }
+
+    h1 em {
+      display: inline-block;
+      padding: 0 .1em .06em;
+      background: var(--lime);
+      color: var(--ink);
+      font-style: normal;
+    }
+
+    .hero-note {
+      padding: 18px;
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: 9px 9px 0 var(--lime);
+    }
+
+    .hero-note b {
+      display: block;
+      margin-bottom: 9px;
+      color: var(--lime);
+      font-family: var(--mono);
+      font-size: 13px;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .hero-note p {
+      margin: 0;
+      color: rgba(247, 245, 239, .78);
+      font-size: 16px;
+      line-height: 1.24;
+    }
+
+    .variant {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 274px;
+      grid-template-rows: auto 1fr;
+      gap: 16px;
+      padding: 22px;
+      border: 1.5px solid var(--line);
+      background: rgba(247, 245, 239, .9);
+      overflow: hidden;
+    }
+
+    .variant::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: linear-gradient(120deg, transparent 0 62%, var(--tone-soft));
+      opacity: .85;
+    }
+
+    .variant > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .variant.orange {
+      --tone: var(--orange);
+      --tone-soft: rgba(255, 111, 47, .24);
+      --tone-contrast: var(--ink);
+    }
+
+    .variant.lilac {
+      --tone: var(--lilac);
+      --tone-soft: rgba(223, 136, 255, .26);
+      --tone-contrast: var(--ink);
+    }
+
+    .variant-head {
+      grid-column: 1 / 3;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 18px;
+      align-items: start;
+    }
+
+    .tag {
+      display: inline-flex;
+      margin-bottom: 14px;
+      padding: 8px 10px;
+      border: 1.5px solid var(--ink);
+      background: var(--tone);
+      color: var(--tone-contrast);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    h2 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: 39px;
+      line-height: .94;
+      letter-spacing: 0;
+    }
+
+    .score {
+      width: 82px;
+      height: 82px;
+      display: grid;
+      place-items: center;
+      border: 2px solid var(--ink);
+      background: var(--ink);
+      color: var(--tone);
+      font-family: var(--mono);
+      font-size: 30px;
+      font-weight: 700;
+      box-shadow: 6px 6px 0 var(--lime);
+    }
+
+    .left {
+      display: grid;
+      grid-template-rows: auto auto 1fr;
+      gap: 16px;
+    }
+
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+    }
+
+    .swatch {
+      min-height: 72px;
+      padding: 9px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border: 1.5px solid rgba(26, 25, 22, .18);
+      font-family: var(--mono);
+      font-size: 11px;
+      line-height: 1.08;
+      text-transform: uppercase;
+    }
+
+    .swatch.dark {
+      color: var(--paper);
+    }
+
+    .logic {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+    }
+
+    .logic-card {
+      min-height: 96px;
+      padding: 11px;
+      border: 1.5px solid var(--line);
+      background: rgba(255,255,255,.26);
+    }
+
+    .logic-card b {
+      display: block;
+      margin-bottom: 8px;
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .logic-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.22;
+    }
+
+    .roles {
+      display: grid;
+      gap: 8px;
+      align-content: start;
+    }
+
+    .role {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 12px;
+      min-height: 36px;
+      align-items: center;
+      border: 1.5px solid var(--ink);
+      background: rgba(247,245,239,.88);
+      padding: 8px 10px;
+    }
+
+    .role b {
+      font-family: var(--mono);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .role span {
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.14;
+    }
+
+    .mockup {
+      position: relative;
+      min-height: 330px;
+      overflow: hidden;
+      border: 1.5px solid var(--ink);
+      background:
+        linear-gradient(140deg, var(--tone), rgba(168,223,255,.55) 45%, rgba(204,244,0,.62)),
+        var(--ink);
+    }
+
+    .mockup img {
+      position: absolute;
+      right: -44px;
+      bottom: -62px;
+      width: 248px;
+      filter: saturate(.7) contrast(1.06) brightness(.84);
+    }
+
+    .product-card {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      top: 20px;
+      padding: 17px;
+      border: 2px solid var(--ink);
+      background: var(--paper);
+      box-shadow: 7px 7px 0 var(--lime);
+    }
+
+    .mode {
+      display: inline-flex;
+      margin-bottom: 15px;
+      padding: 7px 9px;
+      background: var(--tone);
+      color: var(--tone-contrast);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .product-card h3 {
+      margin: 0;
+      font-family: var(--display);
+      font-size: 29px;
+      line-height: .92;
+    }
+
+    .product-card p {
+      margin: 12px 0 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .ui-strip {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    .ui {
+      min-height: 52px;
+      padding: 10px;
+      border: 1.5px solid var(--ink);
+      background: var(--paper);
+      font-family: var(--mono);
+      font-size: 11px;
+      text-transform: uppercase;
+    }
+
+    .ui.active {
+      background: var(--lime);
+    }
+
+    .conclusion {
+      grid-column: 1 / 3;
+      display: grid;
+      grid-template-columns: 280px 1fr 320px;
+      gap: 20px;
+      align-items: stretch;
+      padding: 18px;
+      background: var(--ink);
+      color: var(--paper);
+      box-shadow: 0 -8px 0 var(--lime);
+    }
+
+    .conclusion-title {
+      font-family: var(--display);
+      font-size: 33px;
+      line-height: .92;
+      font-weight: 700;
+    }
+
+    .conclusion-copy {
+      color: rgba(247, 245, 239, .76);
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
+    .conclusion-copy strong {
+      color: var(--lime);
+    }
+
+    .winner {
+      display: grid;
+      gap: 8px;
+      align-content: center;
+      padding: 14px;
+      background: var(--orange);
+      color: var(--ink);
+      font-family: var(--mono);
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .winner span {
+      font-family: var(--display);
+      font-size: 31px;
+      line-height: .9;
+      text-transform: none;
+    }
+  </style>
+</head>
+<body>
+  <main class="board" aria-label="CTRL home color variants summary">
+    <div class="topbar">
+      <span>CTRL home / secondary color test</span>
+      <span>#ff6f2f vs #df88ff</span>
+    </div>
+
+    <section class="content">
+      <header class="hero">
+        <div>
+          <div class="lockup">
+            <div class="keycap" aria-hidden="true">⌃</div>
+            <div class="wordmark">CTRL<small>home</small></div>
+          </div>
+          <h1>Два варианта вместо <em>розового</em></h1>
+        </div>
+        <div class="hero-note">
+          <b>decision frame</b>
+          <p>Проверяем не «какой цвет красивее», а какой лучше держит идею: аромат как кнопка состояния, digital-система, Gen Z без избитого beauty-клише.</p>
+        </div>
+      </header>
+
+      <section class="variant orange">
+        <div class="variant-head">
+          <div>
+            <span class="tag">variant 01 / #ff6f2f</span>
+            <h2>Lime + Signal Orange</h2>
+          </div>
+          <div class="score">8.7</div>
+        </div>
+
+        <div class="left">
+          <div class="palette">
+            <div class="swatch" style="background:#F7F5EF"><span>Paper</span><span>#F7F5EF</span></div>
+            <div class="swatch dark" style="background:#1A1916"><span>Ink</span><span>#1A1916</span></div>
+            <div class="swatch" style="background:#CCF400"><span>CTRL Lime</span><span>#CCF400</span></div>
+            <div class="swatch" style="background:#FF6F2F"><span>Signal Orange</span><span>#FF6F2F</span></div>
+            <div class="swatch" style="background:#C9D0D8"><span>Chrome</span><span>#C9D0D8</span></div>
+          </div>
+
+          <div class="logic">
+            <div class="logic-card">
+              <b>почему работает</b>
+              <p>Даёт энергию, цитрус, действие и живой продуктовый аппетит. Уходит от розового клише.</p>
+            </div>
+            <div class="logic-card">
+              <b>риск</b>
+              <p>Может уйти в лимонад, спорт или summer drink. Спасает строгий Ink и много Paper.</p>
+            </div>
+          </div>
+
+          <div class="roles">
+            <div class="role"><b>Lime</b><span>кнопка, активное состояние, CTA</span></div>
+            <div class="role"><b>Orange</b><span>energy/drop/launch/цитрусовая линия</span></div>
+            <div class="role"><b>Chrome</b><span>флакон как устройство, не еда</span></div>
+          </div>
+        </div>
+
+        <div class="mockup">
+          <img src="../../images/aromat-2.png" alt="">
+          <div class="product-card">
+            <span class="mode">CTRL+ENERGY</span>
+            <h3>Полдень<br>без автопилота</h3>
+            <p>инжир / кедр / морская соль</p>
+          </div>
+          <div class="ui-strip">
+            <div class="ui active">выбрать режим</div>
+            <div class="ui">new drop</div>
+          </div>
+        </div>
+      </section>
+
+      <section class="variant lilac">
+        <div class="variant-head">
+          <div>
+            <span class="tag">variant 02 / #df88ff</span>
+            <h2>Lime + Electric Lilac</h2>
+          </div>
+          <div class="score">7.4</div>
+        </div>
+
+        <div class="left">
+          <div class="palette">
+            <div class="swatch" style="background:#F7F5EF"><span>Paper</span><span>#F7F5EF</span></div>
+            <div class="swatch dark" style="background:#1A1916"><span>Ink</span><span>#1A1916</span></div>
+            <div class="swatch" style="background:#CCF400"><span>CTRL Lime</span><span>#CCF400</span></div>
+            <div class="swatch" style="background:#DF88FF"><span>Electric Lilac</span><span>#DF88FF</span></div>
+            <div class="swatch dark" style="background:#241127"><span>Plum Noir</span><span>#241127</span></div>
+          </div>
+
+          <div class="logic">
+            <div class="logic-card">
+              <b>почему работает</b>
+              <p>Даёт dreamy digital, ночь, мягкость, ароматную фантазию. Хорош для Calm/Night.</p>
+            </div>
+            <div class="logic-card">
+              <b>риск</b>
+              <p>Слишком близко к beauty-сладости. Может заменить розовый, но не выйти из его ловушки.</p>
+            </div>
+          </div>
+
+          <div class="roles">
+            <div class="role"><b>Lime</b><span>режим, sharp-сигнал, интерфейс</span></div>
+            <div class="role"><b>Lilac</b><span>dream/night/soft mood/лимитки</span></div>
+            <div class="role"><b>Plum</b><span>глубина и взрослость вместо конфетности</span></div>
+          </div>
+        </div>
+
+        <div class="mockup">
+          <img src="../../images/aromat-2.png" alt="">
+          <div class="product-card">
+            <span class="mode">CTRL+NIGHT</span>
+            <h3>Вечер<br>без уведомлений</h3>
+            <p>ирис / сандал / черный чай</p>
+          </div>
+          <div class="ui-strip">
+            <div class="ui active">calm mode</div>
+            <div class="ui">limited</div>
+          </div>
+        </div>
+      </section>
+
+      <footer class="conclusion">
+        <div class="conclusion-title">Мой вывод</div>
+        <div class="conclusion-copy">
+          Если выбирать именно из этих двух, для основной системы CTRL home сильнее <strong>#FF6F2F</strong>.
+          Он лучше поддерживает действие, цитрусовую свежесть и команду «переключить состояние».
+          <strong>#DF88FF</strong> оставить как красивый вторичный код для Night/Calm/limited, но не делать главным вторым цветом.
+        </div>
+        <div class="winner">
+          winner for core brand
+          <span>#FF6F2F</span>
+        </div>
+      </footer>
+    </section>
+  </main>
+</body>
+</html>

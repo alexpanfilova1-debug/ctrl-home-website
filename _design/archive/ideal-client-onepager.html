@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Ideal Client One-Page Summary</title>
+  <style>
+    :root {
+      --ivory: #f3eee6;
+      --paper: #fbf7ef;
+      --taupe: #9b8d7b;
+      --stone: #d7cfc3;
+      --ink: #191512;
+      --muted: #6e6256;
+      --berry: #682b38;
+      --olive: #6d725e;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #ded8ce;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+    }
+
+    .page {
+      width: 1600px;
+      height: 1000px;
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 24% 18%, rgba(255,255,255,.86), transparent 32%),
+        linear-gradient(130deg, var(--paper) 0%, var(--ivory) 46%, #cfc3b4 100%);
+      box-shadow: 0 30px 90px rgba(33, 27, 21, .24);
+    }
+
+    .grain {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      opacity: .13;
+      mix-blend-mode: multiply;
+      background-image:
+        linear-gradient(90deg, rgba(25,21,18,.06) 1px, transparent 1px),
+        linear-gradient(rgba(25,21,18,.04) 1px, transparent 1px);
+      background-size: 26px 26px;
+    }
+
+    .photo {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 725px;
+      height: 100%;
+      background-image:
+        linear-gradient(90deg, rgba(251,247,239,.98) 0%, rgba(251,247,239,.64) 13%, transparent 36%),
+        url("ideal-client-reference.png");
+      background-size: cover;
+      background-position: 57% center;
+    }
+
+    .photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(25,21,18,0) 45%, rgba(25,21,18,.18) 100%);
+    }
+
+    .content {
+      position: relative;
+      z-index: 2;
+      width: 960px;
+      height: 100%;
+      padding: 72px 76px 58px 82px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 30px;
+      color: var(--berry);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 48px;
+      height: 1px;
+      background: var(--berry);
+    }
+
+    h1 {
+      max-width: 780px;
+      margin: 0;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 74px;
+      line-height: .94;
+      font-weight: 500;
+      letter-spacing: 0;
+    }
+
+    .lead {
+      max-width: 760px;
+      margin: 26px 0 38px;
+      font-size: 25px;
+      line-height: 1.22;
+      color: #2e2822;
+    }
+
+    .lead strong {
+      color: var(--berry);
+      font-weight: 700;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      max-width: 790px;
+    }
+
+    .block {
+      min-height: 150px;
+      border-top: 1px solid rgba(25,21,18,.24);
+      padding: 18px 18px 0 0;
+    }
+
+    .block h2 {
+      margin: 0 0 11px;
+      font-size: 17px;
+      line-height: 1.1;
+      text-transform: uppercase;
+      letter-spacing: .07em;
+      color: var(--berry);
+    }
+
+    .block p {
+      margin: 0;
+      font-size: 19px;
+      line-height: 1.28;
+      color: var(--muted);
+    }
+
+    .bottom {
+      margin-top: auto;
+      display: grid;
+      grid-template-columns: 1.15fr .85fr;
+      gap: 32px;
+      align-items: end;
+      max-width: 830px;
+    }
+
+    .promise {
+      border-left: 4px solid var(--berry);
+      padding-left: 22px;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 31px;
+      line-height: 1.06;
+      color: #241d18;
+    }
+
+    .promise span {
+      color: var(--berry);
+      font-style: italic;
+    }
+
+    .palette {
+      display: grid;
+      gap: 13px;
+    }
+
+    .palette-title {
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--muted);
+    }
+
+    .swatches {
+      display: flex;
+      gap: 10px;
+    }
+
+    .swatch {
+      width: 46px;
+      height: 46px;
+      border: 1px solid rgba(25,21,18,.14);
+    }
+
+    .tags {
+      position: absolute;
+      right: 66px;
+      bottom: 58px;
+      z-index: 3;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      width: 410px;
+    }
+
+    .tag {
+      padding: 10px 13px;
+      background: rgba(251,247,239,.78);
+      border: 1px solid rgba(251,247,239,.82);
+      color: #221b17;
+      font-size: 15px;
+      line-height: 1;
+      backdrop-filter: blur(10px);
+    }
+
+    .avoid {
+      position: absolute;
+      left: 82px;
+      bottom: 32px;
+      z-index: 3;
+      font-size: 13px;
+      line-height: 1;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      color: rgba(25,21,18,.48);
+    }
+  </style>
+</head>
+<body>
+  <main class="page" aria-label="Ideal client visual summary">
+    <div class="photo" aria-hidden="true"></div>
+    <section class="content">
+      <div class="eyebrow">Ideal client archetype</div>
+      <h1>Девушка, чей образ уже капитал</h1>
+      <p class="lead">
+        У нее есть лицо, вкус, эстетика и потенциал. Мы собираем это в
+        <strong>digital-систему</strong>, чтобы онлайн-образ выглядел на том же уровне.
+      </p>
+
+      <div class="grid">
+        <article class="block">
+          <h2>Кто она</h2>
+          <p>Визуально сильная, современная, амбициозная. Не обязательно актриса: модель, блогер, стилистка, founder, beauty/fashion creative.</p>
+        </article>
+
+        <article class="block">
+          <h2>Где сейчас</h2>
+          <p>Уже есть фото, соцсети, проекты, клиенты или аудитория. Но все разложено по кускам и не дает ощущения цельного уровня.</p>
+        </article>
+
+        <article class="block">
+          <h2>Что болит</h2>
+          <p>Ее вайб сильнее, чем упаковка. Хочется выглядеть дороже, взрослее и убедительнее без розовых клише и дешевого гламура.</p>
+        </article>
+
+        <article class="block">
+          <h2>Что покупает</h2>
+          <p>Не сайт как страницу, а контроль первого впечатления: портфолио, история, услуги, медиа и контакты в одной красивой системе.</p>
+        </article>
+      </div>
+
+      <div class="bottom">
+        <div class="promise">
+          Digital atelier для девушек, чей <span>визуальный потенциал</span> должен выглядеть как профессиональный актив.
+        </div>
+        <div class="palette">
+          <div class="palette-title">Brand mood palette</div>
+          <div class="swatches" aria-label="Color palette">
+            <div class="swatch" style="background:#fbf7ef"></div>
+            <div class="swatch" style="background:#9b8d7b"></div>
+            <div class="swatch" style="background:#191512"></div>
+            <div class="swatch" style="background:#682b38"></div>
+            <div class="swatch" style="background:#6d725e"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <div class="tags" aria-hidden="true">
+      <span class="tag">editorial</span>
+      <span class="tag">cinematic</span>
+      <span class="tag">clean beauty</span>
+      <span class="tag">soft power</span>
+      <span class="tag">modern feminine</span>
+      <span class="tag">quiet confidence</span>
+    </div>
+
+    <div class="avoid">Avoid: girlboss, pink clichés, cheap glam, corporate coldness</div>
+    <div class="grain" aria-hidden="true"></div>
+  </main>
+</body>
+</html>
