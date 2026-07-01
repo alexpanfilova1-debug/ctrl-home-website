@@ -22,12 +22,17 @@
 /* HERO: первым блоком после chrome гасим глобальный -header-h,
    чтобы видео-герой стоял ПОД залипающей шапкой, как на главной */
 .era [data-site-chrome] + .er-hero{ margin-top:0; }
+/* Видео-герой ниже на высоту двух бегущих строк: −2×42px (десктоп) / −2×34px (мобайл) */
+.er-hero{ min-height:calc(clamp(400px,42vw,600px) - 84px); }
 .er-hero .phero-media video{ position:absolute; inset:0; width:100%; height:100%;
   object-fit:cover; object-position:center 45%; }
 .er-hero .phero-scrim{
   background:linear-gradient(90deg,rgba(12,11,9,.82) 0%,rgba(12,11,9,.62) 18%,rgba(12,11,9,.34) 32%,rgba(12,11,9,.08) 44%,rgba(12,11,9,0) 52%);
 }
-@media (max-width:768px){ .er-hero .phero-media video{ object-position:56% center; } }
+@media (max-width:768px){
+  .er-hero .phero-media{ height:calc(360px - 68px); }
+  .er-hero .phero-media video{ object-position:56% center; }
+}
 
 /* — байбокс + стопка фото — */
 .era .pdp{ padding-top:clamp(1.6rem,3vw,2.4rem); }
@@ -122,111 +127,93 @@
 .er-up-add:hover{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
 .er-up-add.is-added{ background:var(--pink); }
 
-/* — заглушки фото/медиа — */
-.ph{ position:relative; display:flex; align-items:flex-end; overflow:hidden;
-  border:2px solid var(--ink); border-radius:14px; background:var(--n-100); min-height:220px; }
-.ph::after{ content:'⌃'; position:absolute; inset:0; display:grid; place-items:center;
-  font-size:clamp(4rem,12vw,8rem); color:rgba(26,25,22,.10); font-family:var(--font-mono); pointer-events:none; }
-.ph span{ position:relative; z-index:1; margin:1rem; font-family:var(--font-mono); font-size:.76rem;
-  letter-spacing:.06em; text-transform:uppercase; color:var(--ink);
-  background:var(--paper); border:2px solid var(--ink); border-radius:7px; padding:.35rem .55rem; }
-.ph--lime{ background:var(--lime); } .ph--lime::after{ color:rgba(26,25,22,.16); }
-.ph--pink{ background:var(--pink); } .ph--pink::after{ color:rgba(26,25,22,.18); }
-.ph--ink{ background:var(--ink-surface); border-color:var(--ink); }
-.ph--ink span{ color:var(--paper); background:var(--ink); border-color:var(--ink-line); }
-.ph--ink::after{ color:rgba(247,245,239,.10); }
-.ph img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:0; }
+/* — ФОТО НАСТРОЕНИЯ: широкая горизонтальная полоса из 3 кадров, без рамок/подписей — */
+.er-mood-sec{ padding:clamp(2rem,4vw,3.5rem) 0 0; }
+.er-mood{ display:grid; grid-template-columns:repeat(3,1fr); gap:0; height:clamp(260px,34vw,520px); }
+.er-mood figure{ margin:0; overflow:hidden; background:var(--n-100); }
+.er-mood img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .9s var(--ease); }
+.er-mood figure:hover img{ transform:scale(1.05); }
 
-/* — видео-блоки — */
-.er-video{ position:relative; border:2px solid var(--ink); border-radius:16px; overflow:hidden;
-  box-shadow:10px 10px 0 var(--pink); background:var(--ink); }
-.er-video video{ display:block; width:100%; height:100%; object-fit:cover; }
-.er-video-tag{ position:absolute; left:14px; top:14px; z-index:2; font-family:var(--font-mono); font-weight:700;
-  font-size:.72rem; letter-spacing:.04em; padding:.4rem .6rem; border:2px solid var(--ink); border-radius:7px;
-  background:var(--lime); color:var(--ink); }
+/* — ПИРАМИДА АРОМАТА (светлая секция; фото-башня + ноты справа) — */
+.er-stack{ background:#EAE8CB; color:var(--ink); padding:clamp(2.5rem,4vw,4rem) 0 clamp(3.5rem,7vw,6rem); }
+.er-stack .er-eyebrow{ background:var(--pink); border-color:var(--ink); color:var(--ink); }
+.er-stack .er-h2{ color:var(--ink); }
+.er-stack-lead{ max-width:44ch; margin-top:1.1rem; color:var(--n-700); line-height:1.7; }
 
-/* — дип-дайв: видео + цитата — */
-.er-deep{ padding:clamp(3rem,6vw,5.5rem) 0; border-top:2px solid var(--ink); display:grid;
-  grid-template-columns:1.1fr .9fr; gap:clamp(1.5rem,4vw,3rem); align-items:center; }
-.er-deep .er-video{ aspect-ratio:4/5; }
-.er-quote{ font-family:var(--font-display); font-weight:600; font-size:clamp(1.4rem,3vw,2.2rem);
-  line-height:1.2; letter-spacing:-.01em; }
-.er-quote-mark{ color:var(--pink); }
-.er-quote-by{ display:block; margin-top:1.2rem; font-family:var(--font-mono); font-size:.8rem;
-  letter-spacing:.04em; color:var(--n-600); }
+/* фото-башня как фон + текст поверх справа (на пустом поле снимка) */
+.er-stack-hero{ position:relative; min-height:clamp(420px,46vw,660px); display:flex; align-items:center;
+  margin-bottom:clamp(2rem,4vw,3rem); overflow:hidden; }
+.er-stack-photo{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:left center; z-index:0; }
+.er-stack-hero::after{ content:''; position:absolute; inset:0; z-index:1; pointer-events:none;
+  background:linear-gradient(90deg, rgba(234,232,203,0) 42%, rgba(234,232,203,.82) 70%); }
+.er-stack-hero .container{ position:relative; z-index:2; width:100%; }
+.er-stack-copy{ margin-left:auto; width:min(46%,540px); }
+@media (max-width:768px){
+  .er-stack-hero{ display:block; min-height:0; margin-bottom:1.6rem; }
+  .er-stack-photo{ position:static; height:clamp(280px,66vw,420px); }
+  .er-stack-hero::after{ display:none; }
+  .er-stack-hero .container{ padding-top:1.6rem; }
+  .er-stack-copy{ width:auto; margin:0; }
+}
 
-/* — медиа-полоса — */
-.er-media{ display:grid; grid-template-columns:1fr 1fr; gap:1rem; padding:clamp(2rem,4vw,3rem) 0; }
-.er-media .ph{ min-height:300px; }
+/* ноты по уровням */
+.er-tiers{ margin-top:1.9rem; }
+.er-tier{ display:grid; grid-template-columns:96px 1fr; gap:1rem; align-items:center;
+  padding:.9rem 0; border-top:1px solid rgba(26,25,22,.16); }
+.er-tier:first-child{ border-top:0; }
+.er-tier > b{ font-family:var(--font-mono); font-size:.74rem; letter-spacing:.14em; text-transform:uppercase; color:var(--pink-shadow); }
+.er-tier:nth-child(2) > b{ color:var(--pink); }
+.er-tier:nth-child(3) > b{ color:var(--n-600); }
+.er-tier-pills{ display:flex; flex-wrap:wrap; gap:.45rem; }
+.er-tier-pills span{ font-family:var(--font-mono); font-size:.8rem; padding:.42rem .8rem; border-radius:999px;
+  background:#fff; border:2px solid var(--ink); color:var(--ink); }
 
-/* — «в чём разница» — */
-.er-diff{ padding:clamp(3rem,6vw,5.5rem) 0; border-top:2px solid var(--ink); }
-.er-diff-grid{ display:grid; grid-template-columns:1fr 1fr; gap:clamp(1.5rem,4vw,3rem); align-items:center; margin-top:1.6rem; }
-.er-diff-list{ list-style:none; padding:0; margin:0; display:grid; gap:.7rem; }
-.er-diff-list li{ display:flex; gap:.9rem; align-items:flex-start; border:2px solid var(--ink); border-radius:11px;
-  background:#fff; padding:.95rem 1.1rem; }
-.er-diff-num{ font-family:var(--font-mono); font-weight:700; color:var(--pink-shadow); }
-.er-diff-list b{ font-family:var(--font-display); }
-.er-diff-list small{ display:block; font-family:var(--font-body); font-weight:400; color:var(--n-700); font-size:.88rem; margin-top:.15rem; }
-.er-diff .er-video{ aspect-ratio:1/1; box-shadow:10px 10px 0 var(--ink); }
+/* лента карточек нот — горизонтальный скролл + флип */
+.er-cards-head{ display:flex; align-items:baseline; justify-content:space-between; gap:1rem; margin-top:2.6rem; }
+.er-cards-head h3{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.2rem,2.6vw,1.7rem); color:var(--ink); }
+.er-cards-hint{ font-family:var(--font-mono); font-size:.74rem; letter-spacing:.04em; color:var(--n-600); white-space:nowrap; }
+.er-cards{ margin-top:1.1rem; display:flex; gap:1rem; overflow-x:auto; scroll-snap-type:x mandatory;
+  padding-bottom:1rem; -webkit-overflow-scrolling:touch; scrollbar-width:thin; scrollbar-color:rgba(26,25,22,.32) transparent;
+  cursor:grab; user-select:none; -webkit-user-select:none; }
+.er-cards:active{ cursor:grabbing; }
+.er-cards::-webkit-scrollbar{ height:8px; }
+.er-cards::-webkit-scrollbar-track{ background:transparent; }
+.er-cards::-webkit-scrollbar-thumb{ background:rgba(26,25,22,.3); border-radius:99px; }
+.er-card{ position:relative; flex:0 0 clamp(230px,72vw,280px); aspect-ratio:3/4; scroll-snap-align:start;
+  border-radius:18px; overflow:hidden; cursor:pointer; border:2px solid var(--ink); }
+.er-card-front,.er-card-back{ position:absolute; inset:0; transition:opacity .35s var(--ease); }
+.er-card-front{ display:flex; flex-direction:column; justify-content:flex-end; padding:1.3rem; background:var(--ink-surface); }
+.er-card-front::after{ content:'⌃'; position:absolute; top:14px; right:18px; font-family:var(--font-mono);
+  font-size:2.4rem; opacity:.2; }
+.er-card[data-accent="pink"] .er-card-front{ background:var(--pink); }
+.er-card[data-accent="lime"] .er-card-front{ background:var(--lime); }
+.er-card[data-accent="paper"] .er-card-front{ background:var(--paper); }
+.er-card-tier{ font-family:var(--font-mono); font-size:.72rem; letter-spacing:.1em; text-transform:uppercase; color:rgba(26,25,22,.65); }
+.er-card-name{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.7rem,4.4vw,2.2rem); line-height:1;
+  color:var(--ink); margin-top:.35rem; }
+.er-card-tap{ margin-top:.7rem; font-family:var(--font-mono); font-size:.72rem; color:rgba(26,25,22,.65); }
+.er-card[data-accent="ink"] .er-card-tier,.er-card[data-accent="ink"] .er-card-name,.er-card[data-accent="ink"] .er-card-tap{ color:var(--paper); }
+.er-card[data-accent="ink"] .er-card-tier,.er-card[data-accent="ink"] .er-card-tap{ color:var(--n-300); }
+.er-card-back{ opacity:0; pointer-events:none; background:var(--paper); color:var(--ink); padding:1.3rem;
+  display:flex; flex-direction:column; }
+.er-card.is-flipped .er-card-front{ opacity:0; pointer-events:none; }
+.er-card.is-flipped .er-card-back{ opacity:1; pointer-events:auto; }
+.er-card-back-name{ font-family:var(--font-display); font-weight:700; font-size:1.2rem; }
+.er-card-back-scroll{ flex:1; overflow-y:auto; margin-top:.4rem; }
+.er-card-back em{ font-style:normal; display:block; font-family:var(--font-mono); font-size:.7rem; letter-spacing:.08em;
+  text-transform:uppercase; color:var(--pink-shadow); margin:.7rem 0 .15rem; }
+.er-card-back p{ font-size:.9rem; line-height:1.5; color:var(--n-800); }
+.er-card-back-btn{ margin-top:.9rem; align-self:flex-start; font-family:var(--font-mono); font-weight:700; font-size:.76rem;
+  letter-spacing:.04em; padding:.55rem 1.1rem; border:2px solid var(--ink); border-radius:99px; background:var(--pink);
+  color:var(--ink); box-shadow:3px 3px 0 var(--ink); cursor:pointer; transition:transform .1s ease, box-shadow .1s ease; }
+.er-card-back-btn:hover{ transform:translate(-1px,-1px); box-shadow:5px 5px 0 var(--ink); }
 
-/* — большая цитата на акценте — */
-.er-band{ background:var(--lime); border-block:2px solid var(--ink); padding:clamp(3rem,6vw,5rem) 0; text-align:center; }
-.er-band p{ font-family:var(--font-display); font-weight:700; font-size:clamp(1.6rem,4vw,3rem); line-height:1.08;
-  letter-spacing:-.01em; max-width:20ch; margin:0 auto; }
-
-/* — ШИРОКИЙ ТРИПТИХ: одна горизонтальная фотография из 3 кадров — */
-.er-trip-sec{ padding:clamp(2.5rem,5vw,4rem) 0 0; }
-.er-trip-head{ margin-bottom:1.3rem; }
-.er-trip{ display:grid; grid-template-columns:repeat(3,1fr); gap:5px; background:var(--ink);
-  border-block:3px solid var(--ink); height:clamp(240px,32vw,460px); }
-.er-trip figure{ position:relative; margin:0; overflow:hidden; background:var(--n-100); }
-.er-trip img{ width:100%; height:100%; object-fit:cover; display:block; transition:transform .6s var(--ease); }
-.er-trip figure:hover img{ transform:scale(1.04); }
-.er-trip figcaption{ position:absolute; left:12px; bottom:12px; z-index:1; font-family:var(--font-mono);
-  font-size:.7rem; letter-spacing:.04em; text-transform:uppercase; color:var(--ink);
-  background:var(--paper); border:2px solid var(--ink); border-radius:7px; padding:.3rem .5rem; }
-
-/* — ПИРАМИДА АРОМАТА (тёмная секция, в конце) — */
-.er-stack{ background:var(--ink); color:var(--paper); padding:clamp(3.5rem,7vw,6rem) 0; }
-.er-stack .er-eyebrow{ background:var(--pink); border-color:var(--paper); color:var(--ink); }
-.er-stack .er-h2{ color:var(--paper); }
-.er-stack-lead{ max-width:60ch; margin-top:1.1rem; color:#D7D4CC; line-height:1.7; }
-.er-pyr{ margin:2.4rem auto 0; max-width:780px; display:flex; flex-direction:column; align-items:center; gap:.7rem; }
-.er-pyr-tier{ border:2px solid var(--ink-line); border-radius:14px; background:var(--ink-surface);
-  padding:1.05rem 1.3rem; text-align:center; transition:transform .14s ease, border-color .2s ease; }
-.er-pyr-tier:hover{ transform:translateY(-2px); border-color:var(--lime); }
-.er-pyr-tier b{ display:block; font-family:var(--font-mono); font-size:.72rem; letter-spacing:.14em;
-  text-transform:uppercase; margin-bottom:.35rem; }
-.er-pyr-tier span{ font-family:var(--font-display); font-weight:600; color:var(--paper);
-  font-size:clamp(1.05rem,2.2vw,1.55rem); }
-.er-pyr-tier--top{ width:56%; } .er-pyr-tier--top b{ color:var(--lime); }
-.er-pyr-tier--heart{ width:78%; } .er-pyr-tier--heart b{ color:var(--pink); }
-.er-pyr-tier--base{ width:100%; } .er-pyr-tier--base b{ color:#D7D4CC; }
-
-.er-notes{ margin-top:2.2rem; display:grid; grid-template-columns:repeat(3,1fr); gap:.9rem; }
-.er-note{ border:2px solid var(--ink-line); border-radius:12px; background:var(--ink-surface); padding:1.1rem;
-  cursor:pointer; transition:border-color .2s ease, transform .12s ease; }
-.er-note:hover{ transform:translateY(-2px); border-color:var(--lime); }
-.er-note-top{ display:flex; align-items:center; justify-content:space-between; gap:.6rem; }
-.er-note-name{ font-family:var(--font-display); font-weight:700; font-size:1.12rem; color:var(--paper); }
-.er-note-plus{ font-family:var(--font-mono); color:var(--lime); transition:transform .2s ease; }
-.er-note.is-open .er-note-plus{ transform:rotate(45deg); }
-.er-note-tag{ font-family:var(--font-mono); font-size:.72rem; color:var(--n-400); margin-top:.2rem; }
-.er-note-body{ max-height:0; overflow:hidden; transition:max-height .3s var(--ease); }
-.er-note-body > div{ padding-top:.85rem; color:#CFCcC4; font-size:.92rem; line-height:1.6; }
-.er-note-body em{ font-style:normal; color:var(--lime); font-family:var(--font-mono); font-size:.72rem;
-  letter-spacing:.08em; text-transform:uppercase; display:block; margin-bottom:.2rem; }
-
-/* — отзывы (заглушка) — */
-.er-reviews{ padding:clamp(3rem,6vw,5rem) 0; }
-.er-rev-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.6rem; }
-.er-rev-card{ border:2px solid var(--ink); border-radius:12px; background:#fff; padding:1.2rem;
-  box-shadow:6px 6px 0 var(--ink); }
-.er-rev-stars{ color:var(--pink); letter-spacing:.12em; }
-.er-rev-text{ margin:.7rem 0 1rem; color:var(--n-800); line-height:1.55; min-height:3.2em;
-  font-family:var(--font-mono); font-size:.82rem; }
-.er-rev-by{ font-family:var(--font-mono); font-size:.76rem; color:var(--n-600); }
+/* — закрывающий блок: лёгкое завершение страницы перед футером — */
+.er-close{ max-width:760px; margin:0 auto; padding:clamp(3rem,6vw,5rem) 0; border-top:2px solid var(--ink); text-align:center; }
+.er-close .er-h2{ margin:0; }
+.er-close p{ margin:1rem auto 0; max-width:48ch; color:var(--n-700); line-height:1.7; font-size:clamp(1rem,1.4vw,1.12rem); }
+.er-close-actions{ display:flex; gap:.9rem; justify-content:center; flex-wrap:wrap; margin-top:1.9rem; }
+.er-close-actions .btn{ margin-top:0; }
 
 /* — мягкое появление — */
 .era .er-reveal{ opacity:0; transform:translateY(28px); transition:opacity .8s var(--ease), transform .8s var(--ease); }
@@ -237,21 +224,19 @@
 @media (max-width:900px){
   .er-pdp-grid{ grid-template-columns:1fr; }
   .er-buybox{ position:static; order:-1; }
-  .er-glance, .er-deep, .er-diff-grid{ grid-template-columns:1fr; }
+  .er-glance{ grid-template-columns:1fr; }
   .er-side{ position:static; }
 }
 @media (max-width:680px){
-  .er-up-grid, .er-media, .er-notes, .er-rev-grid{ grid-template-columns:1fr; }
-  .er-notes, .er-rev-grid{ grid-template-columns:1fr 1fr; }
+  .er-up-grid{ grid-template-columns:1fr; }
   .er-up-card{ grid-template-columns:72px 1fr; }
   .er-up-card img{ width:72px; height:72px; }
   .er-up-add{ grid-column:2; justify-self:start; }
+  .er-tier{ grid-template-columns:1fr; gap:.45rem; }
 }
 @media (max-width:560px){
-  .er-pyr-tier{ width:100% !important; }
-  .er-notes, .er-rev-grid{ grid-template-columns:1fr; }
-  .er-trip{ height:auto; grid-template-columns:1fr; gap:5px; }
-  .er-trip figure{ height:62vw; }
+  .er-mood{ grid-template-columns:1fr; height:auto; }
+  .er-mood figure{ height:64vw; }
 }
 </style>
 </head>
@@ -442,140 +427,78 @@
   </div>
 </section>
 
-<!-- ДИП-ДАЙВ: ВИДЕО + ЦИТАТА -->
-<section class="container">
-  <div class="er-deep">
-    <div class="er-video er-reveal">
-      <span class="er-video-tag">разбор аромата</span>
-      <video src="videos/hero.mp4" poster="images/hero-rassvet.png" controls playsinline preload="metadata"></video>
-    </div>
-    <div class="er-reveal">
-      <span class="er-eyebrow">скрытый разбор</span>
-      <p class="er-quote"><span class="er-quote-mark">«</span>С первого пшика — сочно и ярко. Через час — бархат и тепло, очень близко к коже. Это роза, которая взрослеет прямо на тебе.<span class="er-quote-mark">»</span>
-        <span class="er-quote-by">— команда CTRL home о «Эре розы»</span>
-      </p>
-    </div>
+<!-- ФОТО НАСТРОЕНИЯ: широкая горизонтальная полоса из 3 кадров -->
+<section class="er-mood-sec">
+  <div class="er-mood er-reveal">
+    <figure><img src="images/hero.jpg" alt="Эра розы — настроение 1" loading="lazy" onerror="this.style.display='none'"></figure>
+    <figure><img src="images/hero-photo-v2.png" alt="Эра розы — настроение 2" loading="lazy" onerror="this.style.display='none'"></figure>
+    <figure><img src="images/hero-rassvet.png" alt="Эра розы — настроение 3" loading="lazy" onerror="this.style.display='none'"></figure>
   </div>
 </section>
 
-<!-- МЕДИА-ПОЛОСА -->
-<section class="container">
-  <div class="er-media">
-    <div class="ph ph--pink er-reveal"><span>[ кампания · эра розы ]</span></div>
-    <div class="ph er-reveal"><img src="images/hero-photo-v2.png" alt="" loading="lazy" onerror="this.style.display='none'"><span>[ кадр · настроение ]</span></div>
-  </div>
-</section>
-
-<!-- В ЧЁМ РАЗНИЦА CTRL -->
-<section class="container">
-  <div class="er-diff">
-    <span class="er-eyebrow">в чём разница</span>
-    <h2 class="er-h2">Почему «Эра розы» — это CTRL</h2>
-    <div class="er-diff-grid">
-      <ul class="er-diff-list er-reveal">
-        <li><span class="er-diff-num">01</span><div><b>Без гендера</b><small>Роза, которую носят все. Не «женский» и не «мужской» — просто хороший.</small></div></li>
-        <li><span class="er-diff-num">02</span><div><b>Чистая формула</b><small>Без парабенов, фталатов и синтетических красителей.</small></div></li>
-        <li><span class="er-diff-num">03</span><div><b>Флакон-компаньон 10 мл</b><small>Мини в сумку — чтобы переключаться в «расцвет» где угодно.</small></div></li>
-        <li><span class="er-diff-num">04</span><div><b>Веган и без жестокости</b><small>Мускусы синтетические, этичные, устойчивые.</small></div></li>
-        <li><span class="er-diff-num">05</span><div><b>Понятная цена</b><small>10 / 30 / 50 мл — от 2 200 ₽, плюс пробник в подарок.</small></div></li>
-      </ul>
-      <div class="er-video er-reveal">
-        <span class="er-video-tag">CTRL+BLOOM</span>
-        <video src="videos/hero.mp4" poster="images/hero-photo-v2.png" autoplay muted loop playsinline preload="metadata"></video>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- БОЛЬШАЯ ЦИТАТА -->
-<section class="er-band">
-  <div class="container">
-    <p>Роза, после которой не чувствуешь себя букетом со свадьбы.</p>
-  </div>
-</section>
-
-<!-- ШИРОКИЙ ТРИПТИХ: горизонтальная фотография из 3 кадров -->
-<section class="er-trip-sec">
-  <div class="container er-trip-head">
-    <span class="er-eyebrow">кампания</span>
-    <h2 class="er-h2">Эра розы в кадре</h2>
-  </div>
-  <div class="er-trip er-reveal">
-    <figure><img src="images/aromat-1.png" alt="Эра розы — кадр 1" loading="lazy" onerror="this.style.display='none'"><figcaption>[ кадр 1 ]</figcaption></figure>
-    <figure><img src="images/aromat-2.png" alt="Эра розы — кадр 2" loading="lazy" onerror="this.style.display='none'"><figcaption>[ кадр 2 ]</figcaption></figure>
-    <figure><img src="images/aromat-3.png" alt="Эра розы — кадр 3" loading="lazy" onerror="this.style.display='none'"><figcaption>[ кадр 3 ]</figcaption></figure>
-  </div>
-</section>
-
-<!-- ПИРАМИДА АРОМАТА (в конце, перед отзывами) -->
+<!-- ПИРАМИДА АРОМАТА -->
 <section class="er-stack">
-  <div class="container">
-    <span class="er-eyebrow">пирамида аромата</span>
-    <h2 class="er-h2">Как раскрывается «Эра розы»</h2>
-    <p class="er-stack-lead">Сырьё подбирали по чистоте и характеру: яркий фруктовый старт наверху, живое цветочное сердце и тёплая база, которая держит розу близко к коже.</p>
-
-    <div class="er-pyr">
-      <div class="er-pyr-tier er-pyr-tier--top"><b>Верхние ноты</b><span>малина · розовый перец · бергамот</span></div>
-      <div class="er-pyr-tier er-pyr-tier--heart"><b>Ноты сердца</b><span>дамасская роза · пион · фрезия</span></div>
-      <div class="er-pyr-tier er-pyr-tier--base"><b>База</b><span>пачули · белый мускус · амбра</span></div>
+  <!-- фото-башня как фон + ноты справа. Положите файл в images/piramida-aromata.jpg (или .png) -->
+  <div class="er-stack-hero">
+    <img class="er-stack-photo" src="images/piramida-aromata.png" loading="lazy"
+         alt="Композиция из ингредиентов аромата: грейпфрут, лаванда, бергамот, корица, жасмин, роза, карамель, ваниль"
+         onerror="this.style.display='none'">
+    <div class="container">
+      <div class="er-stack-copy er-reveal">
+        <span class="er-eyebrow">пирамида аромата</span>
+        <h2 class="er-h2">Как раскрывается «Эра розы»</h2>
+        <p class="er-stack-lead">Сырьё подбирали по чистоте и характеру: яркий фруктовый старт наверху, живое цветочное сердце и тёплая база, которая держит розу близко к коже.</p>
+        <div class="er-tiers">
+          <div class="er-tier"><b>верхние</b><div class="er-tier-pills"><span>малина</span><span>розовый перец</span><span>бергамот</span></div></div>
+          <div class="er-tier"><b>сердце</b><div class="er-tier-pills"><span>дамасская роза</span><span>пион</span><span>фрезия</span></div></div>
+          <div class="er-tier"><b>база</b><div class="er-tier-pills"><span>пачули</span><span>белый мускус</span><span>амбра</span></div></div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <div class="er-notes" id="erNotes">
-      <div class="er-note">
-        <div class="er-note-top"><span class="er-note-name">Дамасская роза</span><span class="er-note-plus">+</span></div>
-        <div class="er-note-tag">сердце · цветочная</div>
-        <div class="er-note-body"><div><em>что это</em>Королева цветочных нот — болгарская дамасская роза. <em>как пахнет</em>Свежий, чуть медовый цветок без пудры и пыли: яркий, сочный, живой — как только что срезанный бутон.</div></div>
-      </div>
-      <div class="er-note">
-        <div class="er-note-top"><span class="er-note-name">Малина</span><span class="er-note-plus">+</span></div>
-        <div class="er-note-tag">верх · фруктовая</div>
-        <div class="er-note-body"><div><em>что это</em>Спелая садовая малина. <em>как пахнет</em>Сочно и по-летнему сладко, с лёгкой кислинкой — делает розу дерзкой и современной вместо «нарядной».</div></div>
-      </div>
-      <div class="er-note">
-        <div class="er-note-top"><span class="er-note-name">Розовый перец</span><span class="er-note-plus">+</span></div>
-        <div class="er-note-tag">верх · пряная</div>
-        <div class="er-note-body"><div><em>что это</em>Ягоды розового перца. <em>как пахнет</em>Игристая пряность с розовым отблеском: добавляет искру и объём первым минутам.</div></div>
-      </div>
-      <div class="er-note">
-        <div class="er-note-top"><span class="er-note-name">Пион</span><span class="er-note-plus">+</span></div>
-        <div class="er-note-tag">сердце · цветочная</div>
-        <div class="er-note-body"><div><em>что это</em>Прозрачный розово-белый цветок. <em>как пахнет</em>Водянистая свежесть и нежность — раскрывает розу, не утяжеляя её.</div></div>
-      </div>
-      <div class="er-note">
-        <div class="er-note-top"><span class="er-note-name">Пачули</span><span class="er-note-plus">+</span></div>
-        <div class="er-note-tag">база · древесная</div>
-        <div class="er-note-body"><div><em>что это</em>Очищенное современное пачули. <em>как пахнет</em>Тёплая земляная древесность без «дыма» — даёт глубину и притягивает розу к коже.</div></div>
-      </div>
-      <div class="er-note">
-        <div class="er-note-top"><span class="er-note-name">Белый мускус</span><span class="er-note-plus">+</span></div>
-        <div class="er-note-tag">база · мускус</div>
-        <div class="er-note-body"><div><em>что это</em>Веган-мускус. <em>как пахнет</em>Чистое, мягкое тепло «второй кожи» — продлевает шлейф и делает его уютным. Получен синтетически, этично и без жестокости.</div></div>
-      </div>
+  <div class="container">
+    <div class="er-cards-head">
+      <h3>Разбор по нотам</h3>
+      <span class="er-cards-hint">листайте вбок →</span>
+    </div>
+    <div class="er-cards" id="erCards">
+      <article class="er-card" data-accent="pink">
+        <div class="er-card-front"><span class="er-card-tier">верх</span><span class="er-card-name">Малина</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-back"><div class="er-card-back-name">Малина</div><div class="er-card-back-scroll"><em>что это</em><p>Спелая садовая малина.</p><em>как пахнет</em><p>Сочно и по-летнему сладко, с лёгкой кислинкой — делает розу дерзкой и современной вместо «нарядной».</p></div><button class="er-card-back-btn" type="button">назад</button></div>
+      </article>
+      <article class="er-card" data-accent="lime">
+        <div class="er-card-front"><span class="er-card-tier">верх</span><span class="er-card-name">Розовый перец</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-back"><div class="er-card-back-name">Розовый перец</div><div class="er-card-back-scroll"><em>что это</em><p>Ягоды розового перца.</p><em>как пахнет</em><p>Игристая пряность с розовым отблеском: добавляет искру и объём первым минутам.</p></div><button class="er-card-back-btn" type="button">назад</button></div>
+      </article>
+      <article class="er-card" data-accent="paper">
+        <div class="er-card-front"><span class="er-card-tier">сердце</span><span class="er-card-name">Дамасская роза</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-back"><div class="er-card-back-name">Дамасская роза</div><div class="er-card-back-scroll"><em>что это</em><p>Королева цветочных нот — болгарская дамасская роза.</p><em>как пахнет</em><p>Свежий, чуть медовый цветок без пудры и пыли: яркий, сочный, живой — как только что срезанный бутон.</p></div><button class="er-card-back-btn" type="button">назад</button></div>
+      </article>
+      <article class="er-card" data-accent="ink">
+        <div class="er-card-front"><span class="er-card-tier">сердце</span><span class="er-card-name">Пион</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-back"><div class="er-card-back-name">Пион</div><div class="er-card-back-scroll"><em>что это</em><p>Прозрачный розово-белый цветок.</p><em>как пахнет</em><p>Водянистая свежесть и нежность — раскрывает розу, не утяжеляя её.</p></div><button class="er-card-back-btn" type="button">назад</button></div>
+      </article>
+      <article class="er-card" data-accent="lime">
+        <div class="er-card-front"><span class="er-card-tier">база</span><span class="er-card-name">Пачули</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-back"><div class="er-card-back-name">Пачули</div><div class="er-card-back-scroll"><em>что это</em><p>Очищенное современное пачули.</p><em>как пахнет</em><p>Тёплая земляная древесность без «дыма» — даёт глубину и притягивает розу к коже.</p></div><button class="er-card-back-btn" type="button">назад</button></div>
+      </article>
+      <article class="er-card" data-accent="pink">
+        <div class="er-card-front"><span class="er-card-tier">база</span><span class="er-card-name">Белый мускус</span><span class="er-card-tap">нажмите ↗</span></div>
+        <div class="er-card-back"><div class="er-card-back-name">Белый мускус</div><div class="er-card-back-scroll"><em>что это</em><p>Веган-мускус.</p><em>как пахнет</em><p>Чистое, мягкое тепло «второй кожи» — продлевает шлейф и делает его уютным. Получен синтетически, этично и без жестокости.</p></div><button class="er-card-back-btn" type="button">назад</button></div>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- ОТЗЫВЫ (заглушка) -->
+<!-- ЗАКРЫВАЮЩИЙ БЛОК -->
 <section class="container">
-  <div class="er-reviews">
-    <span class="er-eyebrow">отзывы</span>
-    <h2 class="er-h2">Что говорят</h2>
-    <div class="er-rev-grid">
-      <article class="er-rev-card er-reveal">
-        <div class="er-rev-stars">★★★★★</div>
-        <p class="er-rev-text">[ место для отзыва покупателя ]</p>
-        <div class="er-rev-by">— имя · город</div>
-      </article>
-      <article class="er-rev-card er-reveal">
-        <div class="er-rev-stars">★★★★★</div>
-        <p class="er-rev-text">[ место для отзыва покупателя ]</p>
-        <div class="er-rev-by">— имя · город</div>
-      </article>
-      <article class="er-rev-card er-reveal">
-        <div class="er-rev-stars">★★★★☆</div>
-        <p class="er-rev-text">[ место для отзыва покупателя ]</p>
-        <div class="er-rev-by">— имя · город</div>
-      </article>
+  <div class="er-close er-reveal">
+    <h2 class="er-h2">Включи свою эру розы</h2>
+    <p>Дерзкая роза без пудры, на каждый день. Выбери объём или собери набор из миниатюр.</p>
+    <div class="er-close-actions">
+      <a class="btn" href="#buy">В корзину</a>
+      <a class="btn btn--ghost" href="sobrat-nabor.html">Собрать набор</a>
     </div>
   </div>
 </section>
@@ -678,14 +601,37 @@
     });
   });
 
-  /* ---------- карточки нот ---------- */
-  document.querySelectorAll('#erNotes .er-note').forEach(function (note) {
-    var body = note.querySelector('.er-note-body');
-    note.addEventListener('click', function () {
-      var open = !note.classList.contains('is-open');
-      note.classList.toggle('is-open', open);
-      body.style.maxHeight = open ? body.scrollHeight + 'px' : '0px';
+  /* ---------- карточки нот: флип по клику + перетаскивание мышью вбок ----------
+     Колесо мыши НЕ перехватываем — иначе вертикальный скролл страницы застревает
+     над лентой. Лента листается: перетаскиванием мышью, тачпадом вбок, скроллбаром,
+     свайпом на тач-устройствах. */
+  var cardsRow = document.getElementById('erCards');
+  var dragMoved = false;
+  if (cardsRow) {
+    var down = false, startX = 0, startScroll = 0;
+    cardsRow.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0 || e.pointerType !== 'mouse') return;   // drag только мышью; тач/тачпад — нативный скролл
+      down = true; dragMoved = false; startX = e.clientX; startScroll = cardsRow.scrollLeft;
     });
+    cardsRow.addEventListener('pointermove', function (e) {
+      if (!down) return;
+      var dx = e.clientX - startX;
+      if (Math.abs(dx) > 6) dragMoved = true;
+      cardsRow.scrollLeft = startScroll - dx;
+    });
+    var endDrag = function () { down = false; };
+    cardsRow.addEventListener('pointerup', endDrag);
+    cardsRow.addEventListener('pointerleave', endDrag);
+    cardsRow.addEventListener('pointercancel', endDrag);
+    cardsRow.addEventListener('dragstart', function (e) { e.preventDefault(); });
+  }
+  document.querySelectorAll('#erCards .er-card').forEach(function (card) {
+    card.addEventListener('click', function () {
+      if (dragMoved) { dragMoved = false; return; }   // это было перетаскивание, а не клик — не переворачиваем
+      card.classList.add('is-flipped');
+    });
+    var back = card.querySelector('.er-card-back-btn');
+    if (back) back.addEventListener('click', function (e) { e.stopPropagation(); card.classList.remove('is-flipped'); });
   });
 
   /* ---------- появление при скролле ---------- */
