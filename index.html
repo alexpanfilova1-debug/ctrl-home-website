@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=24">
+<link rel="stylesheet" href="philosophy.css?v=4">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script>document.documentElement.classList.add('js-reveal')</script>
 </head>
@@ -114,22 +115,28 @@
   </div>
 </section>
 
-<!-- ФИЛОСОФИЯ + МОЛЕКУЛА -->
-<section class="philosophy" id="philosophy">
-  <div class="container philosophy-grid">
-    <div>
-      <div class="philosophy-label reveal">Наша философия</div>
-      <h2 class="reveal" data-delay="1">Наши ароматы созданы как инструменты настроения</h2>
-      <div class="philosophy-points">
-        <p class="reveal" data-delay="1"><strong>СОЗДАЮТ</strong> атмосферу и задают тон дню</p>
-        <p class="reveal" data-delay="2"><strong>ВОЗВРАЩАЮТ</strong> к спокойствию и балансу</p>
-        <p class="reveal" data-delay="3"><strong>ПОДЧЁРКИВАЮТ</strong> вашу индивидуальность каждый день</p>
-      </div>
-      <a class="btn reveal" data-delay="3" href="#collection">Смотреть ароматы</a>
+<!-- ФИЛОСОФИЯ — сетка-текстуры 5×3 + большой вордмарк (раскладка по matcha) -->
+<section class="philo" id="philosophy" data-philo>
+  <div class="philo-wrap">
+
+    <!-- СЕТКА 5×3 (заполняет высоту экрана) + правый текст: тэглайн + описание ноты -->
+    <div class="philo-body">
+      <div class="philo-grid" data-philo-grid></div>
+      <aside class="philo-side">
+        <p class="philo-tag">Управление атмосферой.<br>Не просто аромат.</p>
+        <div class="philo-note" data-philo-panel></div>
+      </aside>
     </div>
-    <div class="philosophy-molecule-stage reveal" data-delay="2" id="philosophyMolecule" aria-label="Интерактивная молекула аромата">
-      <canvas class="philosophy-molecule-canvas" aria-hidden="true"></canvas>
+
+    <!-- НИЗ: клавиша + большая «Философия» → «Дом под контролем» при наведении -->
+    <div class="philo-mark" data-philo-head tabindex="0" aria-label="Философия — дом под контролем">
+      <span class="philo-keycap" aria-hidden="true">⌃</span>
+      <span class="philo-word">
+        <span class="philo-word-b" aria-hidden="true">Дом под контролем</span>
+        <span class="philo-word-a">Философия</span>
+      </span>
     </div>
+
   </div>
 </section>
 
@@ -299,6 +306,6 @@ updateSteps();
 /* ============ ПУЗЫРИ В ХИРО — убраны вместе со старым hero ============ */
 
 </script>
-<script src="philosophy-molecule.js?v=1"></script>
+<script src="philosophy.js?v=4"></script>
 </body>
 </html>
