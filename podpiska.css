@@ -1,0 +1,320 @@
+/* ============================================================================
+   PODPISKA.CSS — страница «Подписка» (заменила «Качество»).
+   Три набора с фиксированной структурой (CTRL+S / CTRL+A / CTRL+HOME),
+   ароматы каждой вещи выбирает клиент. Дизайн-система CTRL home:
+   Paper/Ink, лайм и розовый только как акценты, жёсткие тени, mono-лейблы.
+   Референс структуры — tallow-ash (один якорный CTA, loss-framing разовой).
+   ========================================================================== */
+
+/* ---------- хиро: сплит по DNA референса (копия слева, продукт справа) ---------- */
+.pd-hero{padding-top:calc(var(--header-h) + clamp(2.2rem,5vw,3.6rem));padding-bottom:clamp(2.4rem,5vw,4rem)}
+.pd-hero-grid{
+  display:grid;grid-template-columns:minmax(0,11fr) minmax(0,9fr);
+  gap:clamp(2rem,5vw,4.5rem);align-items:center;
+}
+.pd-proof{
+  display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;align-items:baseline;
+  font-family:var(--font-mono);font-size:.78rem;font-weight:700;
+  letter-spacing:.06em;color:var(--n-600);margin-bottom:1.3rem;
+}
+.pd-proof span{display:inline-flex;align-items:baseline;gap:.4rem}
+.pd-proof b{color:var(--pink);font-size:1.15rem;line-height:1}
+.pd-hero .section-title{max-width:20ch;margin-bottom:1.6rem}
+.pd-keycap{
+  display:inline-grid;place-items:center;vertical-align:baseline;
+  padding:.02em .28em .08em;margin:0 .04em;
+  background:var(--ink);color:var(--lime);
+  border:2px solid var(--lime);border-radius:.18em;
+  box-shadow:inset 0 -.09em 0 rgba(204,244,0,.16),.09em .09em 0 var(--lime);
+  font-family:var(--font-mono);font-size:.82em;line-height:1.25;
+  transform:rotate(-2deg);white-space:nowrap;
+}
+.pd-hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1.5rem}
+.pd-hero-actions .btn{margin-top:0}
+.pd-btn-hero{
+  display:inline-flex;align-items:center;gap:.7rem;
+  padding:1.05rem 2.1rem;cursor:pointer;
+  background:var(--lime);color:var(--ink);border:2px solid var(--ink);
+  box-shadow:5px 5px 0 var(--ink);
+  font-size:.82rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  transition:var(--press);text-decoration:none;
+}
+.pd-btn-hero:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--ink)}
+.pd-btn-hero:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
+.pd-lead{max-width:44ch;color:var(--ink-soft);font-size:1.02rem}
+.pd-hero-media{position:relative}
+.pd-hero-photo{
+  aspect-ratio:4/5;overflow:hidden;
+  border:2px solid var(--ink);background:var(--n-100);
+  box-shadow:8px 8px 0 var(--lime);
+}
+.pd-hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
+.pd-hero-flag{
+  position:absolute;top:1.1rem;left:-.8rem;z-index:2;
+  font-family:var(--font-mono);font-size:.7rem;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  background:var(--pink);color:#fff;border:1.5px solid var(--ink);
+  box-shadow:2.5px 2.5px 0 var(--ink);padding:.35rem .6rem;
+  transform:rotate(-2deg);
+}
+
+/* маркиза-оффер под хиро — классы .marquee/.marquee--promo из styles.css */
+.pd-marquee{margin:0}
+
+/* ---------- шаги (общие заголовки) ---------- */
+.pd-stephead{display:flex;align-items:baseline;gap:.8rem;margin-bottom:.45rem}
+.pd-stepnum{font-family:var(--font-mono);font-weight:700;font-size:1.05rem;color:var(--pink)}
+.pd-stephead h3{font-family:var(--font-display);font-size:clamp(1.25rem,2.2vw,1.6rem)}
+.pd-stepsub{font-size:.95rem;color:var(--n-700);margin-bottom:1.2rem;max-width:58ch}
+
+/* ---------- шаг 1: карточки наборов ---------- */
+.pd-sets{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem);margin-bottom:clamp(1.8rem,3.5vw,2.6rem)}
+.pd-set{
+  position:relative;display:flex;flex-direction:column;text-align:left;
+  border:2px solid var(--line);background:transparent;
+  padding:1.1rem 1.15rem 1.15rem;transition:var(--press);cursor:pointer;
+}
+.pd-set:hover{border-color:var(--ink)}
+.pd-set:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.pd-set[aria-pressed="true"]{
+  border-color:var(--ink);background:#fff;
+  box-shadow:5px 5px 0 var(--ink);transform:translate(-1px,-1px);
+}
+.pd-set-cap{
+  align-self:flex-start;
+  font-family:var(--font-mono);font-weight:700;font-size:.86rem;letter-spacing:.06em;
+  background:var(--ink);color:var(--lime);
+  border:1.5px solid var(--lime);border-radius:6px;
+  box-shadow:inset 0 -3px 0 rgba(204,244,0,.14),2.5px 2.5px 0 var(--lime);
+  padding:.28rem .55rem .34rem;transform:rotate(-2deg);margin-bottom:.85rem;
+}
+.pd-set[aria-pressed="true"] .pd-set-cap{transform:rotate(0deg)}
+.pd-set-count{font-family:var(--font-display);font-weight:700;font-size:clamp(1.3rem,2.4vw,1.7rem);line-height:1.1}
+.pd-set-mood{font-size:.9rem;color:var(--n-600);margin:.15rem 0 .8rem}
+.pd-set-price{font-family:var(--font-display);font-weight:700;font-size:1.15rem}
+.pd-set-price small{font-family:var(--font-body);font-weight:500;font-size:.78rem;color:var(--n-600)}
+.pd-set-per{
+  display:inline-block;align-self:flex-start;margin-top:.35rem;
+  font-family:var(--font-mono);font-size:.7rem;font-weight:700;letter-spacing:.05em;
+  background:var(--lime);border:1.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink);
+  padding:.2rem .45rem;
+}
+.pd-set-icons{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.9rem}
+.pd-set-icons svg{
+  width:27px;height:27px;flex-shrink:0;
+  stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+  background:var(--n-100);border:1.5px solid var(--line);border-radius:6px;padding:3px;
+}
+.pd-set[aria-pressed="true"] .pd-set-icons svg{background:#fff;border-color:var(--ink)}
+.pd-set-list{list-style:none;margin-top:.9rem;padding-top:.75rem;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:.3rem}
+.pd-set-list li{font-size:.88rem;color:var(--n-700);padding-left:1.05rem;position:relative}
+.pd-set-list li::before{content:'+';position:absolute;left:0;top:0;font-family:var(--font-mono);font-weight:700;color:var(--pink)}
+.pd-set-strip{
+  position:absolute;top:-.85rem;right:.8rem;
+  font-family:var(--font-mono);font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
+  background:var(--pink);color:#fff;border:1.5px solid var(--ink);
+  box-shadow:2px 2px 0 var(--ink);padding:.22rem .5rem;
+}
+
+/* ---------- разовая покупка: через потери ---------- */
+.pd-once{
+  display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.6rem;
+  border:2px dashed var(--n-300);background:var(--bg-soft);
+  padding:1rem 1.2rem;margin-bottom:clamp(2.2rem,4.5vw,3.2rem);
+}
+.pd-once-title{font-family:var(--font-display);font-weight:700;font-size:.98rem;flex-basis:100%}
+.pd-once ul{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;flex:1;min-width:min(100%,340px)}
+.pd-once li{font-size:.88rem;color:var(--n-600);padding-left:1.15rem;position:relative}
+.pd-once li::before{content:'✕';position:absolute;left:0;top:0;font-family:var(--font-mono);font-weight:700;color:var(--pink)}
+.pd-once .btn{margin:0;flex-shrink:0}
+
+/* ---------- конфигуратор: слева ароматы, справа панель ---------- */
+.pd-config{
+  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap:clamp(1.5rem,4vw,3.5rem);align-items:start;
+}
+
+/* ряды выбора ароматов (по мотивам свотчей «Начни с CTRL») */
+.pd-prod{margin-bottom:1.15rem}
+.pd-prod:last-child{margin-bottom:0}
+.pd-prod-label{
+  display:inline-flex;align-items:center;gap:.5rem;
+  font-family:var(--font-mono);font-size:.68rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  background:var(--lime);border:1.5px solid var(--ink);
+  box-shadow:2px 2px 0 var(--ink);padding:.24rem .55rem;
+  margin-bottom:.6rem;
+}
+.pd-prod-need{font-family:var(--font-mono);font-size:.68rem;font-weight:700;color:var(--n-600);margin-left:.55rem;letter-spacing:.06em}
+.pd-prod-need.is-short{color:var(--pink)}
+.pd-scents{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:clamp(4px,.5vw,8px)}
+.pd-scents--few{grid-auto-columns:clamp(30px,2.55vw,40px);justify-content:start}
+.pd-scent{
+  width:100%;aspect-ratio:1/1;border-radius:6px;
+  border:1.5px solid var(--line);padding:0;cursor:pointer;
+  background-color:var(--n-100);background-size:cover;background-position:center;
+  transition:var(--press);position:relative;
+}
+.pd-scent:hover{border-color:var(--ink)}
+.pd-scent:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.pd-scent[aria-pressed="true"]{
+  border:2px solid var(--ink);
+  box-shadow:2px 2px 0 var(--ink);transform:translate(-1px,-1px);
+}
+.pd-scent[aria-pressed="true"]::after{
+  content:'';position:absolute;right:-4px;top:-4px;width:10px;height:10px;
+  background:var(--pink);border:1.5px solid var(--ink);border-radius:50%;
+}
+.pd-row-name{margin-top:.5rem;font-size:.92rem;line-height:1.45}
+.pd-row-name b{font-family:var(--font-display);font-weight:700}
+.pd-row-name span{color:var(--n-700)}
+
+/* ---------- панель итога ---------- */
+.pd-panel{
+  position:sticky;top:calc(var(--header-h) + 1.5rem);
+  border:2px solid var(--ink);background:#fff;
+  box-shadow:6px 6px 0 var(--lime);
+  padding:clamp(1.1rem,2vw,1.5rem);
+}
+.pd-panel-kicker{
+  font-family:var(--font-mono);font-size:.72rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--n-600);margin-bottom:.8rem;
+}
+.pd-panel-title{font-family:var(--font-display);font-size:1.35rem;margin-bottom:.2rem}
+.pd-panel-sub{font-size:.88rem;color:var(--n-600);margin-bottom:1rem}
+.pd-items{list-style:none;display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.1rem}
+.pd-items li{font-size:.9rem;padding-left:1.1rem;position:relative}
+.pd-items li::before{content:'⌃';position:absolute;left:0;top:.05rem;font-family:var(--font-mono);font-weight:700;color:var(--pink)}
+.pd-items li span{color:var(--n-600)}
+
+/* подарок */
+.pd-gift{
+  display:flex;gap:.8rem;align-items:center;
+  border:1.5px dashed var(--ink);background:var(--bg-soft);
+  padding:.6rem .7rem;margin-bottom:1.1rem;
+}
+.pd-gift img{width:52px;height:52px;object-fit:cover;border:1.5px solid var(--ink);flex-shrink:0}
+.pd-gift-title{font-size:.86rem;font-weight:700}
+.pd-gift-note{font-size:.78rem;color:var(--n-600)}
+
+/* ритм */
+.pd-freq{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.15rem}
+.pd-freq-btn{
+  font-family:var(--font-mono);font-size:.74rem;font-weight:700;letter-spacing:.05em;
+  border:1.5px solid var(--line);background:transparent;color:var(--ink);
+  padding:.42rem .7rem;cursor:pointer;transition:var(--press);
+}
+.pd-freq-btn:hover{border-color:var(--ink)}
+.pd-freq-btn[aria-pressed="true"]{
+  background:var(--ink);color:var(--lime);border-color:var(--ink);
+  box-shadow:2.5px 2.5px 0 var(--lime);
+}
+
+/* цена */
+.pd-price-wrap{border-top:1px solid var(--line);padding-top:1rem;margin-bottom:1.1rem}
+.pd-price{display:flex;align-items:baseline;gap:.7rem;flex-wrap:wrap}
+.pd-price-new{font-family:var(--font-display);font-weight:700;font-size:1.55rem}
+.pd-price-old{color:var(--n-500);text-decoration:line-through;font-size:1rem}
+.pd-save{
+  font-family:var(--font-mono);font-size:.7rem;font-weight:700;letter-spacing:.04em;
+  background:var(--lime);border:1.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink);
+  padding:.18rem .45rem;
+}
+.pd-per{font-size:.85rem;color:var(--n-600);margin-top:.45rem}
+.pd-next{font-size:.85rem;color:var(--n-700);margin-top:.3rem}
+
+/* CTA */
+.pd-cta{
+  display:block;width:100%;text-align:center;cursor:pointer;
+  font-family:var(--font-display);font-weight:700;font-size:1.02rem;
+  background:var(--ink);color:var(--paper);border:2px solid var(--ink);
+  padding:.95rem 1rem;box-shadow:4px 4px 0 var(--pink);
+  transition:var(--press);
+}
+.pd-cta:hover{background:var(--pink);border-color:var(--ink);color:#fff}
+.pd-cta:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--pink)}
+.pd-cta:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
+.pd-cta.is-added{background:var(--lime);color:var(--ink);box-shadow:4px 4px 0 var(--ink)}
+.pd-cta.is-error{background:var(--pink);color:#fff}
+.pd-trust{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin-top:1rem}
+.pd-trust li{font-size:.82rem;color:var(--n-700);padding-left:1.2rem;position:relative}
+.pd-trust li::before{content:'✓';position:absolute;left:0;font-family:var(--font-mono);font-weight:700;color:var(--ink)}
+.pd-acc{margin-top:1.1rem;border-top:1px solid var(--line)}
+.pd-acc details{border-bottom:1px solid var(--line)}
+.pd-acc summary{
+  cursor:pointer;list-style:none;position:relative;
+  font-size:.9rem;font-weight:700;padding:.7rem 1.6rem .7rem 0;
+}
+.pd-acc summary::after{content:'+';position:absolute;right:.2rem;top:.55rem;font-family:var(--font-mono);font-weight:700;color:var(--pink)}
+.pd-acc details[open] summary::after{content:'−'}
+.pd-acc p{font-size:.86rem;color:var(--n-700);padding-bottom:.8rem}
+
+/* ---------- «как это работает» ---------- */
+.pd-how{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.8rem,1.6vw,1.2rem)}
+.pd-how-card{border:2px solid var(--ink);background:#fff;padding:1.3rem 1.25rem;box-shadow:5px 5px 0 var(--n-200)}
+.pd-how-ico{
+  width:38px;height:38px;display:block;margin-bottom:.8rem;
+  stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
+}
+.pd-how-num{font-family:var(--font-mono);font-weight:700;font-size:1rem;color:var(--pink);display:block;margin-bottom:.55rem}
+.pd-how-card h4{font-family:var(--font-display);font-size:1.15rem;margin-bottom:.5rem}
+.pd-how-card p{font-size:.92rem;color:var(--n-700)}
+.pd-how-card em{font-style:normal;background:var(--lime);padding:0 .25rem;box-shadow:1.5px 1.5px 0 var(--ink)}
+
+/* ---------- членство: тёмная банда ---------- */
+.pd-member{background:var(--ink);color:var(--paper);border-top:2px solid var(--ink)}
+.pd-member .philosophy-label{color:var(--lime);border-color:var(--lime)}
+.pd-member .section-title{color:var(--paper)}
+.pd-member .section-title em{color:var(--lime)}
+.pd-member-lead{color:var(--n-300);max-width:56ch;font-size:1.02rem;margin-bottom:2.2rem}
+.pd-member-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink-line);border:1px solid var(--ink-line)}
+.pd-member-card{background:var(--ink-surface);padding:1.4rem 1.3rem}
+.pd-member-card .pd-member-num{font-family:var(--font-mono);font-size:.7rem;font-weight:700;letter-spacing:.14em;color:var(--pink);display:block;margin-bottom:.7rem}
+.pd-member-card h4{font-family:var(--font-display);font-size:1.08rem;color:var(--lime);margin-bottom:.45rem}
+.pd-member-card p{font-size:.88rem;color:var(--n-300)}
+.pd-member-foot{font-family:var(--font-mono);font-size:.74rem;letter-spacing:.08em;color:var(--n-400);margin-top:1.6rem}
+
+/* ---------- FAQ ---------- */
+.pd-faq{max-width:760px}
+.pd-faq details{border:2px solid var(--line);border-bottom:none;background:#fff}
+.pd-faq details:last-of-type{border-bottom:2px solid var(--line)}
+.pd-faq details[open]{border-color:var(--ink)}
+.pd-faq details[open] + details{border-top-color:var(--ink)}
+.pd-faq summary{
+  cursor:pointer;list-style:none;position:relative;
+  font-family:var(--font-display);font-weight:700;font-size:1.02rem;
+  padding:1rem 3rem 1rem 1.2rem;
+}
+.pd-faq summary::-webkit-details-marker{display:none}
+.pd-faq summary::after{
+  content:'+';position:absolute;right:1.1rem;top:.85rem;
+  font-family:var(--font-mono);font-weight:700;font-size:1.2rem;color:var(--pink);
+}
+.pd-faq details[open] summary::after{content:'−'}
+.pd-faq details p{padding:0 1.2rem 1.1rem;color:var(--n-700);font-size:.95rem;max-width:64ch}
+
+/* ---------- финальный CTA ---------- */
+.pd-final{text-align:center}
+.pd-final .section-title{margin-left:auto;margin-right:auto}
+.pd-final p{color:var(--ink-soft);max-width:44ch;margin:0 auto 2rem}
+
+/* ---------- адаптив ---------- */
+@media(max-width:960px){
+  .pd-hero-grid{grid-template-columns:1fr;gap:1.8rem}
+  .pd-hero-media{max-width:480px}
+  .pd-sets{grid-template-columns:1fr 1fr}
+  .pd-config{grid-template-columns:1fr}
+  .pd-panel{position:static}
+  .pd-member-grid{grid-template-columns:1fr 1fr}
+  .pd-how{grid-template-columns:1fr}
+}
+@media(max-width:640px){
+  .pd-hero-photo{aspect-ratio:1/1}
+  .pd-btn-hero{width:100%;justify-content:center}
+  .pd-sets{grid-template-columns:1fr}
+  .pd-set-strip{top:-.8rem}
+  .pd-scents{grid-auto-columns:44px;overflow-x:auto;padding-bottom:.35rem;scrollbar-width:thin}
+  .pd-scents--few{grid-auto-columns:44px}
+  .pd-member-grid{grid-template-columns:1fr}
+  .pd-once ul{flex-direction:column;gap:.35rem}
+}

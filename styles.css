@@ -305,49 +305,88 @@ html.js-reveal .reveal.visible{opacity:1;transform:none}
   display:block;
 }
 
-/* ============ 4 ШАГА ============ */
-.steps-wrap{position:relative}
-.steps-sticky{
-  position:sticky;top:0;min-height:100dvh;display:grid;
-  grid-template-columns:.9fr 1.1fr;align-items:center;
-  gap:clamp(2rem,4vw,4rem);padding:6rem clamp(1rem,4vw,3rem) 3rem;
-  max-width:1400px;margin:0 auto;
+/* ============ ПОЛКА-КАРУСЕЛЬ (бестселлеры на главной) ============ */
+/* секция отделяется ЦВЕТОМ фона (n-100), а не чёрной линией */
+#collection{background:var(--n-100);border-top:0}
+.shelf-stage{position:relative}
+.shelf-btn{
+  position:absolute;top:calc(50% - 1.5rem);z-index:6;
+  width:3rem;height:3rem;display:grid;place-items:center;
+  border:2px solid var(--ink);border-radius:10px;
+  background:#fff;color:var(--ink);cursor:pointer;
+  font-family:var(--font-mono);font-size:1.05rem;font-weight:700;line-height:1;
+  box-shadow:3px 3px 0 var(--ink);
+  transition:transform .12s ease,box-shadow .12s ease,background .2s ease;
 }
-.steps-intro .big-num{
-  font-family:var(--font-display);font-size:clamp(5rem,12vw,10rem);
-  line-height:1;color:var(--accent);
+.shelf-btn--prev{left:-1.1rem}
+.shelf-btn--next{right:-1.1rem}
+.shelf-btn:hover{background:var(--lime)}
+.shelf-btn:active{transform:translate(3px,3px);box-shadow:0 0 0 var(--ink)}
+.products--carousel{
+  display:flex;
+  overflow-x:auto;
+  scroll-snap-type:x proximity;
+  /* запас под жёсткие тени карточек, чтобы их не резал overflow */
+  margin:-10px -10px 0;
+  padding:10px 10px 16px;
+  scrollbar-width:none;
 }
-.steps-intro h2{
-  font-family:var(--font-display);
-  font-size:clamp(1.8rem,3.4vw,3rem);line-height:1.2;margin:.5rem 0 1rem;
+.products--carousel::-webkit-scrollbar{display:none}
+.products--carousel .product{
+  flex:0 0 clamp(232px,23.5vw,290px);
+  scroll-snap-align:start;
 }
-.steps-intro p{color:var(--ink-soft);max-width:38ch}
-.step-panels{position:relative;min-height:380px}
-.step{
-  position:absolute;inset:0;display:grid;align-content:center;gap:.8rem;
-  opacity:0;transform:translateY(50px);
-  transition:opacity .7s var(--ease),transform .7s var(--ease);
-  pointer-events:none;
+
+/* ============ НАБОР ПРОБНИКОВ (главная → sobrat-nabor.html) ============ */
+.sampler{background:var(--paper);border-top:2px solid var(--ink)}
+.sampler-band{
+  display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
+  gap:clamp(2rem,5vw,4.5rem);align-items:center;
 }
-.step.active{opacity:1;transform:none;pointer-events:auto}
-.step-num{
-  font-family:var(--font-display);font-size:1.4rem;color:var(--accent);
+.sampler-title{
+  font-family:var(--font-display);font-weight:700;
+  font-size:clamp(1.8rem,3.4vw,2.8rem);line-height:1.1;margin:.2rem 0 1rem;
 }
-.step h3{font-family:var(--font-display);font-size:clamp(1.5rem,2.6vw,2.2rem)}
-.step h4{
-  font-size:.8rem;letter-spacing:.2em;text-transform:uppercase;
-  color:var(--ink-soft);font-weight:600;
+.sampler-title em{font-style:normal;color:var(--pink)}
+.sampler-lead{color:var(--ink-soft);max-width:46ch}
+.sampler-facts{display:flex;flex-wrap:wrap;gap:.6rem;list-style:none;padding:0;margin:1.6rem 0 0}
+.sampler-facts li{
+  padding:.5rem .7rem;border:2px solid var(--ink);border-radius:8px;background:#fff;
+  font-family:var(--font-mono);font-size:.78rem;font-weight:700;letter-spacing:.03em;
+  box-shadow:3px 3px 0 var(--ink);
 }
-.step p{color:var(--ink-soft);max-width:48ch}
-.steps-progress{display:flex;gap:.5rem;margin-top:2rem}
-.steps-progress i{
-  width:2.4rem;height:2px;background:var(--line);border-radius:2px;overflow:hidden;position:relative;
+.sampler-facts li:last-child{background:var(--lime)}
+.sampler-visual{display:grid;gap:.9rem;justify-items:center;text-decoration:none}
+.sampler-vials{
+  display:flex;align-items:flex-end;gap:clamp(.55rem,1.2vw,.95rem);
+  padding:clamp(1.3rem,2.6vw,2.1rem) clamp(1.1rem,2.2vw,1.8rem) clamp(1rem,2vw,1.5rem);
+  border:2px solid var(--ink);border-radius:14px;background:#fff;
+  box-shadow:7px 7px 0 var(--lime);
+  transition:transform .25s var(--ease),box-shadow .25s var(--ease);
 }
-.steps-progress i::after{
-  content:'';position:absolute;inset:0;background:var(--ink);
-  transform:scaleX(0);transform-origin:left;transition:transform .5s var(--ease);
+.sampler-visual:hover .sampler-vials{transform:translate(-2px,-2px);box-shadow:9px 9px 0 var(--pink)}
+.vial{
+  position:relative;display:flex;align-items:flex-end;
+  width:clamp(38px,4.5vw,54px);height:clamp(88px,10vw,122px);
+  border:2px solid var(--ink);border-radius:8px 8px 10px 10px;
+  background:linear-gradient(180deg,#fff 0 32%,var(--c1,#EAF26B) 32%,var(--c2,#A6BE1C));
+  transform:rotate(var(--r,0deg));
+  transition:transform .25s var(--ease);
 }
-.steps-progress i.done::after{transform:none}
+.vial::before{ /* крышечка */
+  content:'';position:absolute;top:-11px;left:50%;transform:translateX(-50%);
+  width:52%;height:11px;background:var(--ink);border-radius:4px 4px 0 0;
+}
+.vial i{
+  font-style:normal;font-family:var(--font-mono);font-size:.58rem;font-weight:700;
+  background:#fff;border-top:2px solid var(--ink);width:100%;text-align:center;
+  padding:.22rem 0;border-radius:0 0 7px 7px;color:var(--ink);
+}
+.sampler-visual:hover .vial{transform:rotate(0) translateY(-5px)}
+.sampler-tag{
+  font-family:var(--font-mono);font-size:.72rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft);
+}
 
 /* ============ ПРОМО-БЛОК ============ */
 .promo{padding:0;background:var(--bg)}
@@ -479,15 +518,17 @@ html.js-reveal .reveal.visible{opacity:1;transform:none}
   .logo{text-align:left}
   .hero{grid-template-columns:1fr;align-content:end}
   .hero-sub{justify-self:start}
-  .steps-sticky{grid-template-columns:1fr;align-content:center;gap:1.5rem;padding-top:5rem}
-  .steps-intro .big-num{font-size:4.5rem}
-  .step-panels{min-height:320px}
+  .sampler-band{grid-template-columns:1fr;gap:2.2rem}
   .footer-grid{grid-template-columns:1fr;gap:2rem}
 }
 @media (max-width:520px){
   .products{grid-template-columns:1fr 1fr;gap:.8rem}
   .product-name{font-size:.8rem}
   .product-price{font-size:.8rem}
+  .products--carousel .product{flex-basis:74vw}
+  .shelf-btn{width:2.6rem;height:2.6rem;top:calc(50% - 1.3rem)}
+  .shelf-btn--prev{left:-.4rem}
+  .shelf-btn--next{right:-.4rem}
   .philosophy-molecule-stage{height:340px;min-height:300px}
 }
 @media (prefers-reduced-motion:reduce){
@@ -1670,41 +1711,6 @@ body{
   color:var(--ink);
   border-color:var(--ink);
 }
-
-.steps-wrap{background:var(--paper);border-top:2px solid var(--ink)}
-.steps-intro .big-num{
-  display:inline-grid;
-  place-items:center;
-  min-width:1.1em;
-  min-height:.9em;
-  padding:.05em .18em .12em;
-  border-radius:14px;
-  background:var(--ink);
-  color:var(--lime);
-  box-shadow:8px 8px 0 var(--pink);
-  font-family:var(--font-mono);
-}
-.steps-intro h2,
-.step h3{
-  font-family:var(--font-display);
-  font-weight:700;
-  line-height:1.02;
-}
-.step{
-  padding:2rem;
-  border:2px solid var(--ink);
-  border-radius:14px;
-  background:#fff;
-  box-shadow:6px 6px 0 var(--ink);
-}
-.step-num{
-  font-family:var(--font-mono);
-  color:var(--pink);
-  font-weight:700;
-}
-.step h4{font-family:var(--font-mono);letter-spacing:.04em}
-.steps-progress i{height:8px;border:2px solid var(--ink);background:#fff}
-.steps-progress i::after{background:var(--lime)}
 
 .footer{
   background:var(--ink);

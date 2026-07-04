@@ -1,10 +1,11 @@
 /* ============================================================
-   ФИЛОСОФИЯ — раскладка v3.1 (matcha 5×3 + описания нот)
-   Блок на всю высоту экрана: сетка 5×3 из 15 плиток (часть —
-   реальные фото ингредиентов, часть — фирменные заглушки),
-   справа тэглайн + описание активной ноты (меняется при
-   наведении), снизу клавиша ⌃ и большой вордмарк
-   «Философия» → «Дом под контролем». Префикс .philo.
+   ФИЛОСОФИЯ — раскладка v3.2 (matcha 5×3 + описания нот)
+   Высота блока — от контента (НЕ 100svh): сетка 5×3 из 15
+   квадратных плиток (часть — реальные фото ингредиентов, часть —
+   фирменные заглушки), справа тэглайн + описание активной ноты
+   (меняется при наведении), снизу — строго ПОД сеткой — клавиша ⌃
+   и большой вордмарк «Философия» → «Дом под контролем».
+   Префикс .philo.
    ============================================================ */
 
 .philo{
@@ -22,30 +23,30 @@
   --p-ease:cubic-bezier(.16,1,.3,1);
 
   position:relative;
-  min-height:100vh; min-height:100svh;
-  display:flex; flex-direction:column;
+  /* высота — ОТ КОНТЕНТА (сетка + вордмарк), а не от экрана:
+     раньше min-height:100svh + flex-ужатие выталкивали плитки
+     под вордмарк на невысоких окнах */
   background:var(--p-shell); color:var(--p-text); font-family:var(--p-body);
   padding:clamp(26px,4.5vh,64px) 0;
   border-block:2px solid var(--p-shell);
   overflow:hidden;
 }
 .philo-wrap{
-  flex:1 1 auto; min-height:0;
-  display:flex; flex-direction:column;
   width:100%; max-width:1280px; margin:0 auto;
   padding:0 clamp(20px,4vw,40px);
 }
 
 /* ---------- ОСНОВА: сетка + правый текст ---------- */
 .philo-body{
-  flex:1 1 auto; min-height:0;
   display:grid; grid-template-columns:minmax(0,1fr) clamp(200px,20vw,272px);
-  gap:clamp(20px,3vw,48px); align-items:stretch;
+  gap:clamp(20px,3vw,48px); align-items:start;
 }
 
 .philo-grid{
-  display:grid; grid-template-columns:repeat(5,1fr); grid-template-rows:repeat(3,1fr);
-  gap:clamp(9px,1vw,16px); min-height:0;
+  display:grid; grid-template-columns:repeat(5,1fr);
+  gap:clamp(9px,1vw,16px);
+  /* свой контекст наложения: плитки при hover (z-index:10) не выходят поверх вордмарка */
+  position:relative; z-index:1;
 }
 
 .philo-cell{position:relative; display:flex; flex-direction:column; min-height:0; cursor:pointer; outline:none; transition:transform .5s var(--p-ease)}
@@ -62,7 +63,8 @@
 .philo-cell.is-drop .philo-cell-num .d2{animation:philoDrop .44s cubic-bezier(.2,.75,.2,1) .12s both}
 
 .philo-cell-square{
-  position:relative; flex:1 1 auto; min-height:0; overflow:hidden; background:var(--p-panel);
+  /* фикс. пропорция вместо растяжения по экрану — высота сетки предсказуема */
+  position:relative; flex:none; aspect-ratio:1/1; overflow:hidden; background:var(--p-panel);
   transition:box-shadow .45s ease;
 }
 .philo-cell-media{
@@ -102,10 +104,13 @@
 .philo-note-en{font-family:var(--p-mono); font-weight:700; font-size:11px; letter-spacing:.2em; color:var(--p-muted); text-transform:uppercase; margin-bottom:16px}
 .philo-note-text{font-family:var(--p-body); font-size:1rem; line-height:1.5; color:rgba(247,245,239,.82); margin:0; text-wrap:pretty}
 
-/* ---------- НИЗ: клавиша + большой вордмарк ---------- */
+/* ---------- НИЗ: клавиша + большой вордмарк ----------
+   Вордмарк строго ПОД сеткой: увеличенный отступ (плитка при hover
+   растёт на 16% и раньше наезжала на слово) + z-index выше плиток */
 .philo-mark{
+  position:relative; z-index:2;
   display:flex; align-items:center; gap:clamp(14px,2vw,30px);
-  margin-top:clamp(20px,3.5vh,46px); cursor:default; outline:none; -webkit-tap-highlight-color:transparent;
+  margin-top:clamp(38px,6vh,72px); cursor:default; outline:none; -webkit-tap-highlight-color:transparent;
 }
 .philo-keycap{
   flex:0 0 auto; display:inline-grid; place-items:center;
@@ -139,9 +144,7 @@
   .philo-side{gap:20px}
 }
 @media (max-width:640px){
-  .philo{min-height:0}
-  .philo-grid{grid-template-columns:repeat(3,1fr); grid-template-rows:none; grid-auto-rows:1fr; gap:10px}
-  .philo-cell-square{flex:none; aspect-ratio:1/1}
+  .philo-grid{grid-template-columns:repeat(3,1fr); gap:10px}
   .philo-word{font-size:clamp(1.7rem,8.5vw,2.6rem)}
 }
 

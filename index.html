@@ -8,8 +8,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css?v=24">
-<link rel="stylesheet" href="philosophy.css?v=5">
+<link rel="stylesheet" href="styles.css?v=26">
+<link rel="stylesheet" href="philosophy.css?v=7">
 <link rel="stylesheet" href="get-started.css?v=10">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 <script>document.documentElement.classList.add('js-reveal')</script>
@@ -54,78 +54,16 @@
   </div>
 </section>
 
-<!-- КОЛЛЕКЦИЯ -->
-<section class="section container" id="collection">
-  <h2 class="section-title reveal">Бестселлеры</h2>
-  <div class="products">
-    <article class="product reveal" data-id="1">
-        <a class="product-link" href="product.html?id=1" aria-label="CTRL № 1 — Рассвет"></a>
-      <div class="product-img">
-        <img src="images/aromat-1.png" alt="CTRL № 1 — Рассвет" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl1/900/1200'">
-        <img class="img-alt" src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl1b/900/1200'">
-        <button class="product-add" data-add="1" aria-label="В корзину">В корзину</button>
-      </div>
-      <div class="product-info">
-        <div>
-          <div class="product-name">CTRL № 1 — Рассвет</div>
-          <div class="product-note">бергамот · нероли · белый чай</div>
-        </div>
-        <div class="product-price">6 900 ₽</div>
-      </div>
-    </article>
-    <article class="product reveal" data-delay="1" data-id="2">
-        <a class="product-link" href="product.html?id=2" aria-label="CTRL № 2 — Полдень"></a>
-      <div class="product-img">
-        <img src="images/aromat-2.png" alt="CTRL № 2 — Полдень" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl2/900/1200'">
-        <img class="img-alt" src="https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl2b/900/1200'">
-        <button class="product-add" data-add="2" aria-label="В корзину">В корзину</button>
-      </div>
-      <div class="product-info">
-        <div>
-          <div class="product-name">CTRL № 2 — Полдень</div>
-          <div class="product-note">инжир · кедр · морская соль</div>
-        </div>
-        <div class="product-price">7 400 ₽</div>
-      </div>
-    </article>
-    <article class="product reveal" data-delay="2" data-id="3">
-        <a class="product-link" href="product.html?id=3" aria-label="CTRL № 3 — Сумерки"></a>
-      <div class="product-img">
-        <img src="images/aromat-3.png" alt="CTRL № 3 — Сумерки" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl3/900/1200'">
-        <img class="img-alt" src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl3b/900/1200'">
-        <button class="product-add" data-add="3" aria-label="В корзину">В корзину</button>
-      </div>
-      <div class="product-info">
-        <div>
-          <div class="product-name">CTRL № 3 — Сумерки</div>
-          <div class="product-note">ирис · сандал · амбра</div>
-        </div>
-        <div class="product-price">8 200 ₽</div>
-      </div>
-    </article>
-    <article class="product reveal" data-delay="3" data-id="4">
-        <a class="product-link" href="product.html?id=4" aria-label="CTRL № 4 — Полночь"></a>
-      <div class="product-img">
-        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop" alt="CTRL № 4 — Полночь" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl4/900/1200'">
-        <img class="img-alt" src="https://images.unsplash.com/photo-1592842232655-e5d345cbc2d0?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl4b/900/1200'">
-        <button class="product-add" data-add="4" aria-label="В корзину">В корзину</button>
-      </div>
-      <div class="product-info">
-        <div>
-          <div class="product-name">CTRL № 4 — Полночь</div>
-          <div class="product-note">уд · ваниль · чёрный перец</div>
-        </div>
-        <div class="product-price">9 100 ₽</div>
-      </div>
-    </article>
+<!-- КОЛЛЕКЦИЯ: карусель бестселлеров (карточки — из page-data.js, вся линейка парфюмерии).
+     Фон n-100 отделяет секцию от бумажного фона ВМЕСТО чёрной линии; стрелки — по бокам карточек -->
+<section class="section" id="collection">
+  <div class="container">
+    <h2 class="section-title reveal">Бестселлеры</h2>
+    <div class="shelf-stage">
+      <button class="shelf-btn shelf-btn--prev" id="bestPrev" type="button" aria-label="Прокрутить влево">←</button>
+      <div class="products products--carousel" id="bestTrack" aria-label="Бестселлеры"></div>
+      <button class="shelf-btn shelf-btn--next" id="bestNext" type="button" aria-label="Прокрутить вправо">→</button>
+    </div>
   </div>
 </section>
 
@@ -134,7 +72,7 @@
 <section class="philo" id="philosophy" data-philo>
   <div class="philo-wrap">
 
-    <!-- СЕТКА 5×3 (заполняет высоту экрана) + правый текст: тэглайн + описание ноты -->
+    <!-- СЕТКА 5×3 (квадратные плитки, высота от контента) + правый текст: тэглайн + описание ноты -->
     <div class="philo-body">
       <div class="philo-grid" data-philo-grid></div>
       <aside class="philo-side">
@@ -191,42 +129,32 @@
 
 <!-- (вторая бегущая строка убрана — оставляем одну, под hero) -->
 
-<!-- 4 ШАГА -->
-<section class="steps-wrap" id="steps">
-  <div class="steps-sticky">
-    <div class="steps-intro">
-      <div class="big-num">4</div>
-      <h2>шага вашего парфюмерного ритуала</h2>
-      <p>от первого вдоха до шлейфа, который остаётся в памяти.</p>
-      <div class="steps-progress" id="stepsProgress">
-        <i></i><i></i><i></i><i></i>
+<!-- НАБОР ПРОБНИКОВ → sobrat-nabor.html -->
+<section class="sampler section" id="sampler">
+  <div class="container">
+    <div class="sampler-band reveal">
+      <div class="sampler-copy">
+        <p class="gs-kicker"><span class="key" aria-hidden="true">⌃</span> CTRL+SAMPLE</p>
+        <h2 class="sampler-title">Не угадывай. <em>Попробуй.</em></h2>
+        <p class="sampler-lead">Соберите свой набор пробников: 6 мини-флаконов по 2 мл из 14 ароматов линейки. Носите каждый на коже — и выбирайте полный флакон уже без сомнений.</p>
+        <ul class="sampler-facts">
+          <li>6 × 2 мл</li>
+          <li>14 ароматов на выбор</li>
+          <li>2 900 ₽</li>
+        </ul>
+        <a class="btn" href="sobrat-nabor.html">Собрать набор <span aria-hidden="true">→</span></a>
       </div>
-    </div>
-    <div class="step-panels" id="stepPanels">
-      <div class="step active">
-        <div class="step-num">1/</div>
-        <h3>Знакомство</h3>
-        <h4>CTRL № 1 — Рассвет</h4>
-        <p>Начните утро с лёгких цитрусовых нот. Бергамот и нероли мягко будят чувства, а белый чай оставляет ощущение чистоты и свежести — как первый луч солнца в окне.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">2/</div>
-        <h3>Активность</h3>
-        <h4>CTRL № 2 — Полдень</h4>
-        <p>Аромат для середины дня: сочный инжир даёт энергию, кедр — уверенность, а морская соль освежает. Идеален для работы, встреч и городских прогулок.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">3/</div>
-        <h3>Замедление</h3>
-        <h4>CTRL № 3 — Сумерки</h4>
-        <p>Вечерний переход: пудровый ирис успокаивает, сандал согревает, амбра окутывает. Аромат-выдох после длинного дня, помогающий замедлиться.</p>
-      </div>
-      <div class="step">
-        <div class="step-num">4/</div>
-        <h3>Шлейф</h3>
-        <h4>CTRL № 4 — Полночь</h4>
-        <p>Глубокий и обволакивающий: уд и ваниль с искрой чёрного перца. Аромат особенных вечеров, который остаётся в памяти дольше, чем сама ночь.</p>
-      </div>
+      <a class="sampler-visual" href="sobrat-nabor.html" aria-label="Собрать набор пробников">
+        <div class="sampler-vials" aria-hidden="true">
+          <span class="vial" style="--c1:#F2A0A0;--c2:#C13B4E;--r:-3deg"><i>№1</i></span>
+          <span class="vial" style="--c1:#EAF26B;--c2:#A6BE1C;--r:2deg"><i>№3</i></span>
+          <span class="vial" style="--c1:#9A5CA8;--c2:#3E2247;--r:-1.5deg"><i>№4</i></span>
+          <span class="vial" style="--c1:#FBEFCF;--c2:#E7C777;--r:2.5deg"><i>№7</i></span>
+          <span class="vial" style="--c1:#F4A98C;--c2:#C0442E;--r:-2deg"><i>№11</i></span>
+          <span class="vial" style="--c1:#9AA36B;--c2:#4F5A2C;--r:3deg"><i>№14</i></span>
+        </div>
+        <div class="sampler-tag">sample pack · выбери свои 6</div>
+      </a>
     </div>
   </div>
 </section>
@@ -243,7 +171,7 @@
         <nav class="footer-nav">
           <a href="#collection">Ароматы</a>
           <a href="#philosophy">Философия</a>
-          <a href="#steps">Ритуал</a>
+          <a href="#sampler">Набор пробников</a>
           <a href="dostavka-i-vozvrat.html">Доставка и возврат</a>
         </nav>
       </div>
@@ -270,8 +198,19 @@
 
 <!-- КОРЗИНА: выезжающая панель инжектится cart.js (общая для всех страниц) -->
 
-<script src="site-chrome.js?v=2"></script>
-<script src="page-data.js?v=12"></script>
+<script src="site-chrome.js?v=3"></script>
+<script src="page-data.js?v=13"></script>
+<script>
+/* БЕСТСЕЛЛЕРЫ: карточки из общей полки page-data.js.
+   Важно: ДО cart.js — иначе кнопки «В корзину» не получат обработчики */
+(function () {
+  var t = document.getElementById('bestTrack');
+  if (!t || !window.CTRL_SHELF_CARDS) return;
+  t.innerHTML = CTRL_SHELF_CARDS([5, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42], 'bottle');
+  /* в карусели карточки видимы сразу (reveal-анимация мешала бы горизонтальному скроллу) */
+  t.querySelectorAll('.reveal').forEach(function (el) { el.classList.add('visible'); });
+})();
+</script>
 <script src="cart.js?v=2"></script>
 <script src="menu.js?v=8"></script>
 <script src="get-started.js?v=9"></script>
@@ -279,10 +218,14 @@
 /* ============ ШАПКА ПРИ СКРОЛЛЕ — теперь в site-chrome.js · МЕНЮ-ШТОРКА — в menu.js ============ */
 
 /* ============ REVEAL ПРИ СКРОЛЛЕ ============ */
-const io = new IntersectionObserver(entries => {
-  entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
-},{threshold:.15});
-document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+if ('IntersectionObserver' in window) {
+  const io = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); } });
+  },{threshold:.15});
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+} else {
+  document.querySelectorAll('.reveal').forEach(el => el.classList.add('visible'));
+}
 
 /* ============ БЕГУЩАЯ СТРОКА (дублируем контент) ============ */
 document.querySelectorAll('.marquee-track').forEach(t => t.innerHTML += t.innerHTML);
@@ -299,27 +242,16 @@ document.getElementById('subscribeForm').addEventListener('submit', e => {
   e.target.reset();
 });
 
-/* ============ 4 ШАГА: STICKY-СКРОЛЛ ============ */
-const stepsWrap = document.getElementById('steps');
-const steps = [...document.querySelectorAll('#stepPanels .step')];
-const progress = [...document.querySelectorAll('#stepsProgress i')];
-stepsWrap.style.height = (steps.length * 100) + 'vh';
-let stepsTicking = false;
-function updateSteps(){
-  const r = stepsWrap.getBoundingClientRect();
-  const total = r.height - window.innerHeight;
-  const p = Math.min(Math.max(-r.top / total, 0), .999);
-  const idx = Math.floor(p * steps.length);
-  steps.forEach((s,i) => s.classList.toggle('active', i === idx));
-  progress.forEach((b,i) => b.classList.toggle('done', i <= idx));
-  stepsTicking = false;
+/* ============ БЕСТСЕЛЛЕРЫ: СТРЕЛКИ КАРУСЕЛИ ============ */
+const bestTrack = document.getElementById('bestTrack');
+function bestScroll(dir){
+  const card = bestTrack.querySelector('.product');
+  const gap = parseFloat(getComputedStyle(bestTrack).columnGap) || 24;
+  const step = card ? (card.getBoundingClientRect().width + gap) * 2 : bestTrack.clientWidth * .8;
+  bestTrack.scrollBy({ left: dir * step, behavior: 'smooth' });
 }
-window.addEventListener('scroll', () => {
-  if(!stepsTicking){ requestAnimationFrame(updateSteps); stepsTicking = true; }
-},{passive:true});
-updateSteps();
-
-/* ============ ПУЗЫРИ В ХИРО — убраны вместе со старым hero ============ */
+document.getElementById('bestPrev').addEventListener('click', () => bestScroll(-1));
+document.getElementById('bestNext').addEventListener('click', () => bestScroll(1));
 
 </script>
 <script src="philosophy.js?v=4"></script>

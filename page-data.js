@@ -534,10 +534,10 @@
     return 'bottle';
   }
 
-  // Товарная «полка»: интро + реальная сетка товаров из PRODUCTS по списку page.shelf
-  function renderShelf(page) {
-    var kind = phKind(page);
-    var cards = (page.shelf || []).map(function (id, i) {
+  // Карточки товарной «полки» (общая разметка) — используются и здесь (renderShelf),
+  // и на главной странице (карусель «Бестселлеры», window.CTRL_SHELF_CARDS)
+  function shelfCardsHTML(ids, kind) {
+    return (ids || []).map(function (id, i) {
       var p = PRODUCTS[id];
       if (!p) return '';
       var price = Number(p.price).toLocaleString('ru-RU');
@@ -558,6 +558,12 @@
         '</div>' +
       '</article>';
     }).join('');
+  }
+  window.CTRL_SHELF_CARDS = shelfCardsHTML;
+
+  // Товарная «полка»: интро + реальная сетка товаров из PRODUCTS по списку page.shelf
+  function renderShelf(page) {
+    var cards = shelfCardsHTML(page.shelf, phKind(page));
     var tags = (page.tags || []).map(function (tag) { return '<span>' + tag + '</span>'; }).join('');
     root.innerHTML =
       '<div class="philosophy-label">' + page.kicker + '</div>' +

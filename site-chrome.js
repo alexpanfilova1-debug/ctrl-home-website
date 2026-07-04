@@ -12,7 +12,7 @@
         '</button>' +
         '<nav class="header-nav">' +
           '<a href="o-nas.html" class="rlink" data-text="О нас"><span class="roll">О нас</span></a>' +
-          '<a href="kachestvo.html" class="rlink" data-text="Качество"><span class="roll">Качество</span></a>' +
+          '<a href="podpiska.html" class="rlink" data-text="Подписка"><span class="roll">Подписка</span></a>' +
           '<a href="soobshestvo.html" class="rlink" data-text="Сообщество"><span class="roll">Сообщество</span></a>' +
         '</nav>' +
       '</div>' +
