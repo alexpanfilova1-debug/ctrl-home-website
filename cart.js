@@ -150,10 +150,13 @@
 
   function bundleRow(pack, i) {
     var n = pack.scents ? pack.scents.length : 6;
+    var sub = pack.sub || (n + ' × 10 мл');           // кастомный состав (напр. «парфюм 50 мл + свеча + спрей»)
+    var img = pack.img || 'images/sample-vial-10ml.png';
     return '<div class="cart-item cart-item--bundle">' +
-      '<img src="images/sample-vial-10ml.png" alt="" onerror="this.style.visibility=\'hidden\'">' +
+      '<img src="' + img + '" alt="" onerror="this.style.visibility=\'hidden\'">' +
       '<div><div class="cart-item-name">' + (pack.title || 'Пробный набор CTRL home') + '</div>' +
-        '<div class="cart-item-price">' + n + ' × 10 мл · ' + money(pack.price) + '</div></div>' +
+        '<div class="cart-item-price">' + sub + ' · ' + money(pack.price) + '</div>' +
+        (pack.plan ? '<div class="cart-item-price">' + pack.plan + '</div>' : '') + '</div>' +
       '<button class="cart-remove" type="button" data-rm-bundle="' + i + '">Убрать</button>' +
     '</div>';
   }
@@ -231,10 +234,12 @@
 
     var bundleRows = bundles.map(function (pack, i) {
       var n = pack.scents ? pack.scents.length : 6;
+      var note = (pack.scents ? pack.scents.join(' · ') : '') +
+                 (pack.plan ? (pack.scents && pack.scents.length ? ' · ' : '') + pack.plan : '');
       return '<div class="cart-page-item cart-page-item--bundle">' +
         '<div class="cart-page-bundle-media">' + n + '</div>' +
         '<div><div class="product-name">' + (pack.title || 'Пробный набор CTRL home') + '</div>' +
-          '<div class="product-note">' + (pack.scents ? pack.scents.join(' · ') : '') + '</div>' +
+          '<div class="product-note">' + note + '</div>' +
           '<div class="product-price">' + money(pack.price) + '</div></div>' +
         '<button class="cart-page-remove" type="button" data-rm-bundle="' + i + '">Убрать</button>' +
       '</div>';

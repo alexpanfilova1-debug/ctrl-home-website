@@ -1,0 +1,290 @@
+/* ============================================================================
+   GET-STARTED.CSS — блок «Начни с CTRL» на главной (v6, после аудита).
+   Структура: оффер → шаг 1 аромат (свотчи) → шаг 2 ритм подписки →
+   панель покупки (подарок, состав, цена, CTA). Дизайн-система CTRL home:
+   Paper/Ink, лайм + розовый ТОЛЬКО как акценты, жёсткие тени, крупный
+   читабельный текст. Мобильные свотчи — горизонтальный скролл 44px.
+   ========================================================================== */
+
+.gs{border-top:2px solid var(--ink);background:var(--paper)}
+.gs.section{padding-top:clamp(2rem,4vw,3.2rem)}   /* верхний отступ меньше стандартной секции */
+.gs .container{position:relative}
+
+/* ---------- шапка блока: компактная, по центру ---------- */
+.gs-head{max-width:44ch;margin:0 auto clamp(1.4rem,3vw,2.2rem);text-align:center}
+.gs-kicker{
+  display:inline-flex;align-items:center;gap:.6rem;
+  font-family:var(--font-mono);font-size:.75rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--n-700);
+  margin-bottom:.9rem;
+}
+/* клавиша ⌃ — мини-версия философской: тёмная, скруглённая, лаймовая обводка */
+.gs-kicker .key{
+  display:inline-grid;place-items:center;
+  width:1.8rem;height:1.65rem;padding-bottom:2px;
+  background:var(--ink);color:var(--lime);
+  border:1.5px solid var(--lime);border-radius:7px;
+  box-shadow:inset 0 -3px 0 rgba(204,244,0,.14),2.5px 2.5px 0 var(--lime);
+  font-size:.95rem;line-height:1;transform:rotate(-2deg);
+}
+.gs-title{
+  font-family:var(--font-display);
+  font-size:clamp(1.8rem,3.4vw,2.8rem);line-height:1.16;margin-bottom:.7rem;
+}
+.gs-title em{font-style:normal;color:var(--pink)}
+.gs-title .hl-lime{
+  font-style:normal;background:var(--lime);box-shadow:2px 2px 0 var(--ink);
+  padding:0 .35rem;white-space:nowrap;
+}
+.gs-lead{color:var(--n-700);font-size:1.02rem;max-width:40ch;margin:0 auto}
+
+/* ---------- сетка: слева медиа, справа конфигуратор ---------- */
+.gs-grid{
+  display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);
+  gap:clamp(1.5rem,4vw,3.5rem);align-items:start;
+}
+.gs-media{position:sticky;top:calc(var(--header-h) + 1.5rem)}
+.gs-photo{
+  aspect-ratio:4/5;overflow:hidden;
+  border:2px solid var(--ink);background:var(--n-100);
+  box-shadow:6px 6px 0 var(--lime);
+}
+.gs-photo img{width:100%;height:100%;object-fit:cover}
+
+/* ---------- шаги ---------- */
+.gs-step{margin-bottom:clamp(1.8rem,3.5vw,2.6rem)}
+.gs-stephead{display:flex;align-items:baseline;gap:.8rem;margin-bottom:.45rem}
+.gs-stepnum{font-family:var(--font-mono);font-weight:700;font-size:1.05rem;color:var(--pink)}
+.gs-step h3{font-family:var(--font-display);font-size:clamp(1.25rem,2.2vw,1.6rem)}
+.gs-stepsub{font-size:.95rem;color:var(--n-700);margin-bottom:1.1rem;max-width:56ch}
+
+/* шаг 1 — три ряда свотчей с подписями продуктов */
+.gs-prod{margin-bottom:1.15rem}
+.gs-prod:last-child{margin-bottom:0}
+.gs-prod-label{
+  display:inline-flex;align-items:center;
+  font-family:var(--font-mono);font-size:.68rem;font-weight:700;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  background:var(--lime);border:1.5px solid var(--ink);
+  box-shadow:2px 2px 0 var(--ink);padding:.24rem .55rem;
+  margin-bottom:.6rem;
+}
+.gs-prod.is-locked .gs-scents{opacity:.4;filter:grayscale(.7);pointer-events:none}
+.gs-prod.is-locked .gs-prod-label{background:var(--n-200)}
+/* имя выбранного аромата под рядом */
+.gs-row-name{margin-top:.5rem;font-size:.92rem;line-height:1.45}
+.gs-row-name b{font-family:var(--font-display);font-weight:700}
+.gs-row-name span{color:var(--n-700)}
+
+/* свотчи: одна строка; на мобильном — горизонтальный скролл 44px */
+.gs-scents{
+  display:grid;grid-auto-flow:column;grid-auto-columns:1fr;
+  gap:clamp(4px,.5vw,8px);
+}
+/* короткие ряды (свеча/спрей): чипы того же размера, что у парфюма, не растягиваются */
+.gs-scents--few{grid-auto-columns:clamp(30px,2.55vw,40px);justify-content:start}
+.gs-scent{
+  width:100%;aspect-ratio:1/1;border-radius:6px;
+  border:1.5px solid var(--line);padding:0;
+  background-color:var(--n-100);background-size:cover;background-position:center;
+  transition:var(--press);position:relative;
+}
+.gs-scent:hover{border-color:var(--ink)}
+.gs-scent:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.gs-scent[aria-pressed="true"]{
+  border:2px solid var(--ink);
+  box-shadow:2px 2px 0 var(--ink);transform:translate(-1px,-1px);
+}
+.gs-scent--q{
+  display:flex;align-items:center;justify-content:center;
+  font-family:var(--font-mono);font-weight:700;
+  font-size:clamp(.75rem,1.5vw,1rem);color:var(--ink);
+  background-color:var(--n-100);
+}
+/* ---------- шаг 2 — способ покупки: спокойные карточки, крупный текст ---------- */
+.gs-plans{display:flex;flex-direction:column;gap:.75rem}
+.gs-plan{
+  position:relative;display:block;width:100%;text-align:left;
+  border:2px solid var(--line);background:transparent;padding:1rem 1.15rem;
+  transition:var(--press);
+}
+.gs-plan:hover{border-color:var(--ink)}
+.gs-plan:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.gs-plan[aria-pressed="true"]{
+  border-color:var(--ink);background:#fff;
+  box-shadow:4px 4px 0 var(--ink);transform:translate(-1px,-1px);
+}
+.gs-plan-top{display:flex;justify-content:space-between;align-items:center;gap:1rem}
+.gs-plan-title{font-family:var(--font-display);font-weight:700;font-size:1.08rem;display:block}
+.gs-plan-cad{
+  font-size:.9rem;color:var(--n-600);display:block;margin-top:.2rem;
+}
+.gs-plan[aria-pressed="true"] .gs-plan-cad{color:var(--n-700)}
+/* радио-индикатор: ink-точка, без цветного шума */
+.gs-plan-radio{
+  width:19px;height:19px;flex:none;border:2px solid var(--ink);border-radius:50%;
+  background:#fff;position:relative;
+}
+.gs-plan[aria-pressed="true"] .gs-plan-radio::after{
+  content:'';position:absolute;inset:3px;border-radius:50%;background:var(--ink);
+}
+/* бонусы: раскрываются у выбранного; простые чёрные галочки, крупный текст */
+.gs-perks{
+  list-style:none;display:flex;flex-direction:column;gap:.4rem;
+  max-height:0;opacity:0;overflow:hidden;margin:0;
+  transition:max-height .5s var(--ease),opacity .35s var(--ease),margin .5s var(--ease);
+}
+.gs-plan[aria-pressed="true"] .gs-perks{max-height:14rem;opacity:1;margin-top:.75rem}
+.gs-perks li{
+  position:relative;padding-left:1.5rem;
+  font-size:.92rem;line-height:1.5;color:var(--n-800);
+}
+.gs-perks li::before{
+  content:'✓';position:absolute;left:0;top:0;
+  font-family:var(--font-mono);font-weight:700;color:var(--ink);
+}
+.gs-perks li b{font-weight:700;color:var(--ink)}   /* якорное слово тезиса */
+.gs-perks li.once{color:var(--n-700)}
+.gs-perks li.once::before{content:'—'}
+/* лента хита: ink-фон + paper-текст (контраст ~15:1), как тёмная лента референса */
+.gs-plan-strip{
+  display:block;margin:.9rem -1.15rem -1rem;padding:.5rem .8rem;
+  background:var(--ink);color:var(--paper);
+  font-family:var(--font-mono);font-weight:700;font-size:.74rem;
+  letter-spacing:.09em;text-transform:uppercase;text-align:center;
+}
+
+/* ---------- панель покупки: светлая, воздух и разделители ---------- */
+.gs-panel{
+  border:2px solid var(--ink);background:#fff;color:var(--ink);
+  box-shadow:6px 6px 0 var(--lime);
+  padding:clamp(1.4rem,3vw,2.2rem);
+}
+.gs-panel-kicker{
+  font-family:var(--font-mono);font-size:.68rem;font-weight:700;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--n-600);
+  margin-bottom:1.1rem;
+}
+/* подарок — первая строка панели */
+.gs-gift{
+  display:grid;grid-template-columns:84px 1fr;gap:1.1rem;align-items:center;
+  padding-bottom:1.2rem;border-bottom:1px solid var(--line);margin-bottom:1.2rem;
+  transition:opacity .3s var(--ease),filter .3s var(--ease);
+}
+.gs-gift-media{
+  aspect-ratio:1/1;border:1.5px solid var(--ink);border-radius:8px;
+  background:var(--n-100);overflow:hidden;
+}
+.gs-gift-media img{width:100%;height:100%;object-fit:cover}
+.gs-gift-title{font-family:var(--font-display);font-weight:700;font-size:1rem;line-height:1.35}
+.gs-gift-note{font-size:.88rem;color:var(--n-700);margin-top:.3rem}
+.gs-gift.is-off{opacity:.4;filter:grayscale(1)}
+/* название набора и состав */
+.gs-panel-title{
+  font-family:var(--font-display);font-size:clamp(1.35rem,2.4vw,1.75rem);
+  letter-spacing:-.01em;margin-bottom:1rem;
+}
+.gs-items-label{font-weight:700;font-size:.92rem;margin-bottom:.5rem}
+.gs-items{list-style:none;display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.3rem}
+.gs-items li{
+  position:relative;padding-left:1.1rem;
+  font-size:.95rem;line-height:1.5;color:var(--n-800);
+}
+.gs-items li::before{
+  content:'';position:absolute;left:0;top:.62em;
+  width:.4rem;height:.4rem;background:var(--lime);border:1px solid var(--ink);
+}
+.gs-items li b{color:var(--ink);font-weight:600}
+/* цена */
+.gs-price-wrap{border-top:1px solid var(--line);padding-top:1.2rem}
+.gs-price{display:flex;align-items:baseline;flex-wrap:wrap;gap:.7rem}
+.gs-price-new{
+  font-family:var(--font-mono);font-weight:700;
+  font-size:clamp(1.7rem,3vw,2.2rem);color:var(--ink);letter-spacing:-.02em;
+}
+.gs-price-old{
+  font-family:var(--font-mono);font-size:1.05rem;color:var(--n-500);
+  text-decoration:line-through;text-decoration-color:var(--pink);
+  text-decoration-thickness:2px;
+}
+.gs-save{
+  font-family:var(--font-mono);font-weight:700;font-size:.7rem;
+  letter-spacing:.08em;text-transform:uppercase;
+  background:var(--lime);color:var(--ink);border:1.5px solid var(--ink);
+  padding:.2rem .5rem;
+}
+.gs-per{font-size:.88rem;color:var(--n-600);font-style:italic;margin-top:.35rem}
+.gs-next{font-size:.9rem;color:var(--n-700);margin-top:.3rem;min-height:1.2em}
+.gs-next b{color:var(--ink);font-weight:700}
+/* CTA */
+.gs-cta{
+  display:flex;align-items:center;justify-content:center;gap:.6rem;width:100%;
+  margin-top:1.3rem;padding:1.1rem 1.5rem;
+  font-family:var(--font-display);font-weight:700;font-size:.92rem;
+  letter-spacing:.12em;text-transform:uppercase;
+  background:var(--lime);color:var(--ink);border:2px solid var(--ink);
+  box-shadow:5px 5px 0 var(--ink);transition:var(--press);
+}
+.gs-cta:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--ink)}
+.gs-cta:active{transform:translate(3px,3px);box-shadow:1px 1px 0 var(--ink)}
+.gs-cta:focus-visible{outline:2px solid var(--pink);outline-offset:3px}
+.gs-cta.is-added{background:var(--pink);color:var(--paper)}
+.gs-cta.is-error{background:#fff;color:var(--ink);border-color:var(--pink);box-shadow:5px 5px 0 var(--pink)}
+/* доверие: три нейтральных факта, иконки ink */
+.gs-trust{
+  display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;
+  border-top:1px solid var(--line);margin-top:1.3rem;padding-top:1.3rem;
+}
+.gs-trust-item{
+  display:flex;flex-direction:column;align-items:center;gap:.45rem;
+  text-align:center;font-size:.8rem;font-weight:600;line-height:1.4;color:var(--ink);
+}
+.gs-trust-item svg{width:26px;height:26px;color:var(--ink)}
+/* аккордеон */
+.gs-acc{margin-top:1.3rem;border-top:1px solid var(--line)}
+.gs-acc details{border-bottom:1px solid var(--line)}
+.gs-acc summary{
+  display:flex;justify-content:space-between;align-items:center;gap:1rem;
+  cursor:pointer;list-style:none;padding:.9rem 0;
+  font-family:var(--font-display);font-weight:600;font-size:.95rem;color:var(--ink);
+}
+.gs-acc summary::-webkit-details-marker{display:none}
+.gs-acc summary::after{
+  content:'⌃';font-family:var(--font-mono);color:var(--pink);
+  transform:rotate(180deg);transition:transform .3s var(--ease);
+}
+.gs-acc details[open] summary::after{transform:none}
+.gs-acc p{font-size:.88rem;color:var(--n-700);padding:0 0 .95rem;max-width:60ch}
+/* тезисы внутри аккордеона */
+.gs-acc ul{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin:0;padding:0 0 .95rem}
+.gs-acc ul li{
+  position:relative;padding-left:1.4rem;
+  font-size:.88rem;line-height:1.5;color:var(--n-700);max-width:60ch;
+}
+.gs-acc ul li::before{
+  content:'✓';position:absolute;left:0;top:0;
+  font-family:var(--font-mono);font-weight:700;color:var(--ink);
+}
+
+/* ---------- reduced motion (в зоне блока) ---------- */
+@media (prefers-reduced-motion:reduce){
+  .gs-perks,.gs-gift,.gs-scent,.gs-plan,.gs-cta{transition:none}
+  .gs .reveal{opacity:1!important;transform:none!important;transition:none!important}
+}
+
+/* ---------- адаптив ---------- */
+@media (max-width:960px){
+  .gs-grid{grid-template-columns:1fr}
+  .gs-media{position:static;max-width:480px}
+}
+@media (max-width:640px){
+  /* свотчи: одна строка сохраняется, но чипы тапабельные 44px + скролл со снэпом */
+  .gs-scents{
+    grid-auto-columns:44px;gap:8px;
+    overflow-x:auto;scroll-snap-type:x mandatory;
+    padding:2px 2px 10px;margin:0 -2px;
+    -webkit-overflow-scrolling:touch;
+  }
+  .gs-scent{scroll-snap-align:start}
+  .gs-gift{grid-template-columns:72px 1fr}
+}

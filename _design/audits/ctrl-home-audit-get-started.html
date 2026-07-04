@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Аудит блока «Начни с CTRL» — CTRL home</title>
+<style>
+  :root{
+    --paper:#F7F5EF; --ink:#1A1916; --lime:#CCF400; --pink:#FF2D9E;
+    --muted:#6B6860; --line:rgba(26,25,22,.18); --white:#fff;
+    --mono:'Space Mono',ui-monospace,monospace; --disp:'Space Grotesk',system-ui,sans-serif; --body:'Manrope',system-ui,sans-serif;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:var(--body);background:var(--paper);color:var(--ink);line-height:1.6;padding:clamp(1.5rem,4vw,4rem)}
+  .doc{max-width:960px;margin:0 auto}
+  .kicker{font-family:var(--mono);font-size:.75rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.8rem}
+  h1{font-family:var(--disp);font-size:clamp(1.6rem,3.5vw,2.6rem);line-height:1.15;margin-bottom:.6rem}
+  h1 em{font-style:normal;background:var(--lime);padding:0 .3rem;box-shadow:2px 2px 0 var(--ink)}
+  .meta{font-size:.85rem;color:var(--muted);margin-bottom:2.2rem}
+  .verdict{border:2px solid var(--ink);background:var(--white);box-shadow:5px 5px 0 var(--lime);padding:1.2rem 1.4rem;margin-bottom:2.4rem;font-size:.95rem}
+  .verdict b{font-family:var(--disp)}
+  h2{font-family:var(--disp);font-size:1.25rem;margin:2.4rem 0 1rem;display:flex;align-items:center;gap:.6rem}
+  .sev{font-family:var(--mono);font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .5rem;border:1.5px solid var(--ink)}
+  .sev--crit{background:var(--pink);color:var(--white)}
+  .sev--maj{background:var(--lime)}
+  .sev--min{background:var(--white)}
+  .find{border:2px solid var(--ink);background:var(--white);margin-bottom:1rem;padding:1.1rem 1.2rem}
+  .find h3{font-family:var(--disp);font-size:1rem;margin-bottom:.5rem}
+  .find .row{display:grid;grid-template-columns:88px 1fr;gap:.35rem .8rem;font-size:.85rem}
+  .find .k{font-family:var(--mono);font-size:.66rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding-top:.15rem}
+  .find code{font-family:var(--mono);font-size:.78rem;background:var(--paper);border:1px solid var(--line);padding:.05rem .3rem}
+  .fix{border-left:3px solid var(--lime);padding-left:.7rem}
+  .good{border:2px dashed var(--ink);padding:1.1rem 1.2rem;margin-top:2.2rem;background:transparent}
+  .good h2{margin:0 0 .6rem}
+  .good ul{list-style:none}
+  .good li{position:relative;padding-left:1.2rem;font-size:.88rem;margin-bottom:.3rem}
+  .good li::before{content:'✓';position:absolute;left:0;font-family:var(--mono);font-weight:700;color:var(--ink);background:var(--lime);width:.9rem;height:.9rem;line-height:.9rem;text-align:center;font-size:.6rem;top:.3rem}
+  .count{font-family:var(--mono);font-weight:700;font-size:1rem;border:2px solid var(--ink);background:var(--ink);color:var(--paper);display:inline-block;padding:.5rem .9rem;margin-top:2.2rem}
+  .count b{color:var(--lime)}
+  .order{margin-top:1.2rem;font-size:.88rem}
+  .order ol{margin-left:1.2rem}
+  .order li{margin-bottom:.25rem}
+</style>
+</head>
+<body>
+<div class="doc">
+  <div class="kicker">⌃ CTRL home · hallmark audit + design-taste-frontend · 03.07.2026</div>
+  <h1>Аудит блока <em>«Начни с CTRL»</em> на главной</h1>
+  <p class="meta">Файлы: get-started.css (v5) · get-started.js (v5) · index.html §#get-started · Жанр: фирменный нео-брутализм CTRL home (paper/лайм/розовый) — оценка с поправкой на house style. Функциональные проверки (цены, корзина, оформление) — 46/46 jsdom ✓, здесь только дизайн/UX/a11y.</p>
+
+  <div class="verdict" style="box-shadow:5px 5px 0 var(--pink)"><b>Статус 04.07.2026:</b> все находки 1–9 и 11 исправлены в get-started.css/js v6 (№10 признан приемлемым); плюс правки Alex — компактная шапка, крупный текст, ink-галочки вместо цветных чипов, нейтральный trust-ряд, убраны микро-строка и бейджи фото. Проверено jsdom 53/53.</div>
+
+  <div class="verdict"><b>Вердикт:</b> структура блока здоровая — асимметричный сплит 5/7, липкое медиа, живой конфигуратор, честные тексты про оплату «менеджер подтвердит». Шаблонного AI-ритма нет. Главные проблемы: <b>свотчи на мобильном сжимаются до ~16px</b> (нетапабельно), <b>розовые плашки не проходят контраст</b>, и блок <b>повторяет одни и те же обещания до 5–6 раз</b> на одном экране. Всё чинится точечно, без пересборки.</div>
+
+  <h2><span class="sev sev--crit">Critical</span> Ошибки, с которыми нельзя на бой</h2>
+
+  <div class="find">
+    <h3>1 · Свотчи ароматов на мобильном — ~16 px, тапнуть невозможно</h3>
+    <div class="row">
+      <span class="k">Tell</span><span>tap-target ниже минимума (WCAG 2.5.8: ≥24 px; комфорт — 40+)</span>
+      <span class="k">Где</span><span><code>get-started.css:79–84</code> — «одна строка» жёсткая: 15 колонок при 320 px ширины дают (280−42)/15 ≈ <b>15,9 px</b> на чип, gap 3 px</span>
+      <span class="k">Fix</span><span class="fix">Оставить одну строку на ≥640 px; на мобильном — либо горизонтальный скролл со снэпом и чипами 40 px (<code>grid-auto-columns:40px; overflow-x:auto; scroll-snap-type:x mandatory</code>), либо две строки по 8/7. Тогда «одна строчка» сохраняется там, где она физически возможна.</span>
+    </div>
+  </div>
+
+  <div class="find">
+    <h3>2 · Розовый + светлый текст: контраст ≈ 2,7:1 — нечитаемо</h3>
+    <div class="row">
+      <span class="k">Tell</span><span>контраст ниже WCAG 4.5:1 (мелкий жирный текст на #FF2D9E)</span>
+      <span class="k">Где</span><span><code>get-started.css:49</code> бейдж <code>.gs-off</code> («−57% по подписке», paper на розовом) · <code>get-started.css:170</code> лента <code>.gs-plan-strip</code> («Самый популярный · −57%», 0.66rem paper на розовом)</span>
+      <span class="k">Fix</span><span class="fix">Перевести обе плашки на фирменную пару «лайм-фон + ink-текст» (контраст &gt;12:1) или оставить розовый фон, но текст — <code>var(--ink)</code> и размер ленты ↑ до .72rem. Розовый оставить для рамок/теней/акцентов, не для мелкого текста.</span>
+    </div>
+  </div>
+
+  <h2><span class="sev sev--maj">Major</span> Выглядит/работает хуже, чем должно</h2>
+
+  <div class="find">
+    <h3>3 · role="radio" без клавиатурной модели радиогруппы</h3>
+    <div class="row">
+      <span class="k">Tell</span><span>ARIA-паттерн заявлен, но не реализован (нет roving tabindex / стрелок)</span>
+      <span class="k">Где</span><span><code>get-started.js:135, 202</code> — кнопки планов с <code>role="radio"</code> внутри <code>role="radiogroup"</code></span>
+      <span class="k">Fix</span><span class="fix">Проще всего: заменить на <code>role="group"</code> + <code>aria-pressed</code> (та же модель, что у свотчей, — 4 обычные кнопки, Tab работает честно). Либо реализовать стрелки ←→ и roving tabindex.</span>
+    </div>
+  </div>
+
+  <div class="find">
+    <h3>4 · Одни обещания повторяются 4–6 раз на одном экране</h3>
+    <div class="row">
+      <span class="k">Tell</span><span>маркетинговый шум: ценность девальвируется повторением</span>
+      <span class="k">Где</span><span>«−57%» — 6 упоминаний одновременно (h2, лид, бейдж фото <code>js:182</code>, лента хита, перки выбранного плана, чип «выгода»); «бесплатная доставка» — 5 (h2, бейдж <code>js:185</code>, сабтайтл шага 2 <code>js:201</code>, перки, микрострока <code>js:317</code>); «пауза/отмена» — 4 (<code>js:131, 201, 314, 317</code>)</span>
+      <span class="k">Fix</span><span class="fix">Правило: каждое обещание живёт максимум в 2 местах — один раз в оффере (шапка блока), один раз в точке решения (панель/лента). Убрать: бейджи с фото (там хватит одного «Стартовый набор»), «пауза/отмена» из сабтайтла шага 2 и из gsNext (остаётся в перках + аккордеоне).</span>
+    </div>
+  </div>
+
+  <div class="find">
+    <h3>5 · Цифры и обещания, которых бизнес ещё не подтвердил</h3>
+    <div class="row">
+      <span class="k">Tell</span><span>honest-copy: «метрика на подтверждение» (hallmark discipline 2)</span>
+      <span class="k">Где</span><span><code>get-started.js:25</code> — стоимость дискавери-сета 4 900 ₽ (посчитана мной от цены 10 мл, не бизнесом) · <code>js:236–242</code> — «Крафт малыми партиями», «Без тестов на животных», «Обмен и возврат 14 дней» (страница «Доставка и возврат» конкретных 14 дней не обещает)</span>
+      <span class="k">Fix</span><span class="fix">Alex подтверждает/меняет три trust-пункта и цену подарка; «14 дней» синхронизировать с dostavka-i-vozvrat.html (или там прописать 14 дней явно).</span>
+    </div>
+  </div>
+
+  <div class="find">
+    <h3>6 · Три подписочных плана раскрывают идентичный список бонусов</h3>
+    <div class="row">
+      <span class="k">Tell</span><span>копипаст-перки: раскрытие не добавляет информации → зачем кликать</span>
+      <span class="k">Где</span><span><code>get-started.js:126–131</code> — один и тот же perks-массив у m1/m2/m3</span>
+      <span class="k">Fix</span><span class="fix">Первая строка перков — своя для каждого ритма («хватает на месяц…», «самый сбалансированный…», «для редких ритуалов…»), общие бонусы — строками 2–4. Раскрытие начинает отвечать на вопрос «чем этот ритм лучше».</span>
+    </div>
+  </div>
+
+  <h2><span class="sev sev--min">Minor</span> Мелочи вкуса</h2>
+
+  <div class="find">
+    <h3>7 · Два бейджа на одном фото-заглушке</h3>
+    <div class="row">
+      <span class="k">Где</span><span><code>js:182 + 185</code> — «−57% по подписке» сверху и «Бесплатная доставка» снизу</span>
+      <span class="k">Fix</span><span class="fix">Оставить один (решается вместе с находкой 4).</span>
+    </div>
+  </div>
+
+  <div class="find">
+    <h3>8 · У CTA нет фирменного focus-кольца</h3>
+    <div class="row">
+      <span class="k">Где</span><span><code>get-started.css:253–261</code> — у <code>.gs-scent</code> и <code>.gs-plan</code> розовое кольцо есть, у <code>.gs-cta</code> — дефолт браузера</span>
+      <span class="k">Fix</span><span class="fix">Добавить <code>.gs-cta:focus-visible{outline:2px solid var(--pink);outline-offset:3px}</code>.</span>
+    </div>
+  </div>
+
+  <div class="find">
+    <h3>9 · Кнопка рапортует «в корзине ✓», даже если localStorage недоступен</h3>
+    <div class="row">
+      <span class="k">Где</span><span><code>get-started.js: addToCart()</code> — try/catch глотает ошибку записи</span>
+      <span class="k">Fix</span><span class="fix">После записи перечитать паки; при неудаче — честное состояние ошибки на кнопке («Не получилось — попробуй ещё раз»).</span>
+    </div>
+  </div>
+
+  <div class="find">
+    <h3>10 · Имена ароматов на мобильном видны только после тапа</h3>
+    <div class="row">
+      <span class="k">Где</span><span>свотчи: <code>title</code> работает лишь с курсором; инфо-строка компенсирует, но выбирать «вслепую» неудобно</span>
+      <span class="k">Fix</span><span class="fix">Приемлемо как есть (цвет = превью настроения). Опционально: длинный тап/фокус показывает имя в инфо-строке до выбора.</span>
+    </div>
+  </div>
+
+  <div class="find">
+    <h3>11 · reveal-анимации блока не уважают prefers-reduced-motion</h3>
+    <div class="row">
+      <span class="k">Где</span><span>сайтовый паттерн <code>html.js-reveal .reveal</code> (styles.css) — вне зоны блока, но блок его использует</span>
+      <span class="k">Fix</span><span class="fix">Сайтовая задача: обернуть reveal-транзишены в <code>@media (prefers-reduced-motion:no-preference)</code>. В get-started.css свой guard уже стоит.</span>
+    </div>
+  </div>
+
+  <div class="good">
+    <h2>Что уже хорошо (не трогать)</h2>
+    <ul>
+      <li>Структура: асимметричный сплит 5/7 + sticky-медиа, никакого «hero → 3 карточки → CTA» шаблона</li>
+      <li>Панель светлая, группировка воздухом и разделителями, а не коробками; единственный тяжёлый элемент — CTA</li>
+      <li>Заголовки без курсива, эмфаза весом и плашкой; цифры — в моноширинном</li>
+      <li>Честная механика: «оплата позже, менеджер подтвердит», состав и цены фиксируются</li>
+      <li>Свёрнутые перки планов: место экономится, раскрытие по клику (как просил Alex)</li>
+      <li>Токены дизайн-системы везде, инлайновых цветов нет (кроме карты свотчей — это данные, не стиль)</li>
+      <li>Все 8 интерактивных состояний CTA/кнопок в живых стилях: default/hover/focus/active + is-added</li>
+      <li>Тесты: 46/46 jsdom — цены, автоподбор, корзина, оформление, история</li>
+    </ul>
+  </div>
+
+  <p class="count">Счёт: <b>2 critical</b> · 4 major · 5 minor</p>
+
+  <div class="order">
+    <b>Порядок починки (quick wins → вкус):</b>
+    <ol>
+      <li>№1 свотчи на мобильном (скролл-снэп 40 px) + №2 контраст плашек — полчаса, снимают оба critical</li>
+      <li>№3 role=group + №8 focus-кольцо CTA — 10 минут</li>
+      <li>№4+№7 санация повторов (решение о том, где живёт каждое обещание)</li>
+      <li>№6 перки под каждый ритм — нужен один абзац текста на план</li>
+      <li>№5 — решения Alex: цена подарка, trust-строка, «14 дней»</li>
+    </ol>
+  </div>
+</div>
+</body>
+</html>

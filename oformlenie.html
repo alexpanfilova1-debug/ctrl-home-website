@@ -23,8 +23,8 @@
 <div data-site-footer></div>
 
 <script src="site-chrome.js?v=2"></script>
-<script src="page-data.js?v=11"></script>
-<script src="cart.js?v=1"></script>
+<script src="page-data.js?v=12"></script>
+<script src="cart.js?v=2"></script>
 <script src="menu.js?v=8"></script>
 <script>
 (function () {
@@ -50,7 +50,8 @@
         '<span class="order-price">' + money(it.price) + '</span></div>';
     }).join('') + bundles.map(function (pk) {
       var n = pk.scents ? pk.scents.length : 6;
-      return '<div class="order-row"><div><b>' + (pk.title || 'Пробный набор CTRL home') + '</b><em>' + n + ' × 10 мл</em></div>' +
+      var sub = (pk.sub || (n + ' × 10 мл')) + (pk.plan ? ' · ' + pk.plan : '');
+      return '<div class="order-row"><div><b>' + (pk.title || 'Пробный набор CTRL home') + '</b><em>' + sub + '</em></div>' +
         '<span class="order-price">' + money(pk.price) + '</span></div>';
     }).join('');
     return '<h3>Ваш заказ</h3>' + rows +
@@ -188,7 +189,8 @@
             return { id: it.id, name: p.name || 'Товар', ml: it.ml, price: it.price };
           }),
           bundles: C.getBundles().map(function (pk) {
-            return { title: pk.title || 'Пробный набор CTRL home', price: pk.price, scents: pk.scents || [] };
+            return { title: pk.title || 'Пробный набор CTRL home', price: pk.price, scents: pk.scents || [],
+                     sub: pk.sub || '', plan: pk.plan || '', gift: pk.gift || '', kind: pk.kind || '' };
           }),
           total: C.total(),
           name: name, phone: phone, email: email, delivery: delivery, address: address

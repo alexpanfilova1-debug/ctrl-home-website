@@ -593,7 +593,9 @@
   }
 
   var key = root.getAttribute('data-page');
-  if (PAGES[key]) {
+  /* hasOwnProperty — иначе key='constructor' (промо-карточка на главной) достаёт
+     Object.prototype.constructor и роняет рендер TypeError'ом */
+  if (Object.prototype.hasOwnProperty.call(PAGES, key)) {
     if (PAGES[key].shelf) { renderShelf(PAGES[key]); }
     else { renderCommon(PAGES[key]); }
   }

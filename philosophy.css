@@ -109,19 +109,19 @@
 }
 .philo-keycap{
   flex:0 0 auto; display:inline-grid; place-items:center;
-  width:clamp(54px,5.5vw,78px); height:clamp(48px,5vw,68px);
+  width:clamp(44px,4.4vw,60px); height:clamp(38px,3.9vw,52px);
   background:var(--p-shell); color:var(--p-lime);
-  border-radius:12px; border:2px solid var(--p-lime);
-  box-shadow:inset 0 -7px 0 rgba(204,244,0,.14), 8px 8px 0 var(--p-lime);
-  font-family:var(--p-mono); font-size:clamp(24px,2.6vw,34px); line-height:1;
+  border-radius:10px; border:2px solid var(--p-lime);
+  box-shadow:inset 0 -5px 0 rgba(204,244,0,.14), 6px 6px 0 var(--p-lime);
+  font-family:var(--p-mono); font-size:clamp(19px,2vw,26px); line-height:1;
   transform:rotate(-2deg); transition:transform .3s var(--p-ease), box-shadow .3s var(--p-ease);
 }
-.philo-mark:hover .philo-keycap{transform:rotate(-2deg) translate(3px,3px); box-shadow:inset 0 -7px 0 rgba(204,244,0,.14), 4px 4px 0 var(--p-lime)}
+.philo-mark:hover .philo-keycap{transform:rotate(-2deg) translate(3px,3px); box-shadow:inset 0 -5px 0 rgba(204,244,0,.14), 3px 3px 0 var(--p-lime)}
 
 .philo-word{
   position:relative; display:inline-block;
-  font-family:var(--p-disp); font-weight:700; line-height:.9; letter-spacing:-.02em;
-  font-size:clamp(2.2rem,7.5vw,6.2rem); color:var(--p-text);
+  font-family:var(--p-disp); font-weight:700; line-height:.92; letter-spacing:-.02em;
+  font-size:clamp(1.9rem,4.8vw,4rem); color:var(--p-text);
 }
 .philo-word-a,.philo-word-b{display:block; transition:opacity .45s ease, transform .6s var(--p-ease)}
 .philo-word-b{opacity:0; transform:translateY(16px)}
@@ -142,7 +142,7 @@
   .philo{min-height:0}
   .philo-grid{grid-template-columns:repeat(3,1fr); grid-template-rows:none; grid-auto-rows:1fr; gap:10px}
   .philo-cell-square{flex:none; aspect-ratio:1/1}
-  .philo-word{font-size:clamp(2rem,12vw,3.4rem)}
+  .philo-word{font-size:clamp(1.7rem,8.5vw,2.6rem)}
 }
 
 /* ---------- REDUCED MOTION ---------- */
