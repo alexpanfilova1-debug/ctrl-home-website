@@ -1,25 +1,41 @@
 /* ============================================================================
-   PODPISKA.CSS — страница «Подписка» (заменила «Качество»).
-   Три набора с фиксированной структурой (CTRL+S / CTRL+A / CTRL+HOME),
-   ароматы каждой вещи выбирает клиент. Дизайн-система CTRL home:
-   Paper/Ink, лайм и розовый только как акценты, жёсткие тени, mono-лейблы.
-   Референс структуры — tallow-ash (один якорный CTA, loss-framing разовой).
+   PODPISKA.CSS v3 — страница «Подписка».
+   Хиро: фото ВО ВСЮ ШИРИНУ (от края до края), текст и CTA поверх фото —
+   по DNA .phero главной, но светлая версия (ink-текст на светлом фоне фото).
+   Конфигуратор: визуальные карточки наборов (полка с силуэтами продуктов),
+   плитки товаров вместо абстрактных свотчей, слоты «твой набор» в панели.
+   Дизайн-система CTRL home: Paper/Ink, лайм+розовый, жёсткие тени, mono.
    ========================================================================== */
 
-/* ---------- хиро: сплит по DNA референса (копия слева, продукт справа) ---------- */
-.pd-hero{padding-top:calc(var(--header-h) + clamp(2.2rem,5vw,3.6rem));padding-bottom:clamp(2.4rem,5vw,4rem)}
-.pd-hero-grid{
-  display:grid;grid-template-columns:minmax(0,11fr) minmax(0,9fr);
-  gap:clamp(2rem,5vw,4.5rem);align-items:center;
+/* ---------- ХИРО: полноширинное фото, текст поверх ---------- */
+body:not(.home) [data-site-chrome] + .pd-phero{margin-top:0}   /* гасим глобальный -header-h */
+.pd-phero{position:relative;min-height:clamp(430px,44vw,620px);overflow:hidden;background:#E9E2D4}
+.pd-phero-media{position:absolute;inset:0;overflow:hidden}
+.pd-phero-img{width:100%;height:100%;object-fit:cover;object-position:78% center;display:block}
+.pd-phero-scrim{position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(90deg,rgba(247,245,239,.82) 0%,rgba(247,245,239,.5) 26%,rgba(247,245,239,.14) 44%,rgba(247,245,239,0) 56%)}
+.pd-phero-text{
+  position:absolute;left:clamp(1.25rem,5vw,64px);top:0;bottom:0;z-index:2;
+  width:min(500px,46%);display:flex;flex-direction:column;justify-content:center;align-items:flex-start;
 }
-.pd-proof{
-  display:flex;flex-wrap:wrap;gap:.5rem 1.6rem;align-items:baseline;
-  font-family:var(--font-mono);font-size:.78rem;font-weight:700;
-  letter-spacing:.06em;color:var(--n-600);margin-bottom:1.3rem;
+.pd-phero-kicker{
+  display:inline-flex;align-items:center;gap:.6rem;margin:0 0 1.2rem;
+  font-family:var(--font-mono);font-size:.75rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--n-700);
 }
-.pd-proof span{display:inline-flex;align-items:baseline;gap:.4rem}
-.pd-proof b{color:var(--pink);font-size:1.15rem;line-height:1}
-.pd-hero .section-title{max-width:20ch;margin-bottom:1.6rem}
+.pd-phero-h1{
+  font-family:var(--font-display);font-weight:700;color:var(--ink);margin:0 0 1.1rem;
+  font-size:clamp(2.4rem,4.6vw,3.9rem);line-height:1.06;letter-spacing:-.03em;
+}
+.pd-phero-h1 .hl{
+  background:var(--lime);color:var(--ink);padding:0 .12em 3px;
+  -webkit-box-decoration-break:clone;box-decoration-break:clone;
+}
+.pd-phero-lead{max-width:38ch;color:var(--n-700);font-size:1.02rem;margin:0 0 1.7rem}
+.pd-phero .pd-keycap{transform:rotate(-2deg) translateY(-.04em)}
+.pd-phero-cta:focus-visible{outline-color:var(--ink) !important}
+
+/* клавиша CTRL в заголовке (как на главной/в философии) */
 .pd-keycap{
   display:inline-grid;place-items:center;vertical-align:baseline;
   padding:.02em .28em .08em;margin:0 .04em;
@@ -28,34 +44,6 @@
   box-shadow:inset 0 -.09em 0 rgba(204,244,0,.16),.09em .09em 0 var(--lime);
   font-family:var(--font-mono);font-size:.82em;line-height:1.25;
   transform:rotate(-2deg);white-space:nowrap;
-}
-.pd-hero-actions{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1.5rem}
-.pd-hero-actions .btn{margin-top:0}
-.pd-btn-hero{
-  display:inline-flex;align-items:center;gap:.7rem;
-  padding:1.05rem 2.1rem;cursor:pointer;
-  background:var(--lime);color:var(--ink);border:2px solid var(--ink);
-  box-shadow:5px 5px 0 var(--ink);
-  font-size:.82rem;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
-  transition:var(--press);text-decoration:none;
-}
-.pd-btn-hero:hover{transform:translate(-1px,-1px);box-shadow:6px 6px 0 var(--ink)}
-.pd-btn-hero:active{transform:translate(2px,2px);box-shadow:2px 2px 0 var(--ink)}
-.pd-lead{max-width:44ch;color:var(--ink-soft);font-size:1.02rem}
-.pd-hero-media{position:relative}
-.pd-hero-photo{
-  aspect-ratio:4/5;overflow:hidden;
-  border:2px solid var(--ink);background:var(--n-100);
-  box-shadow:8px 8px 0 var(--lime);
-}
-.pd-hero-photo img{width:100%;height:100%;object-fit:cover;display:block}
-.pd-hero-flag{
-  position:absolute;top:1.1rem;left:-.8rem;z-index:2;
-  font-family:var(--font-mono);font-size:.7rem;font-weight:700;
-  letter-spacing:.1em;text-transform:uppercase;
-  background:var(--pink);color:#fff;border:1.5px solid var(--ink);
-  box-shadow:2.5px 2.5px 0 var(--ink);padding:.35rem .6rem;
-  transform:rotate(-2deg);
 }
 
 /* маркиза-оффер под хиро — классы .marquee/.marquee--promo из styles.css */
@@ -67,11 +55,11 @@
 .pd-stephead h3{font-family:var(--font-display);font-size:clamp(1.25rem,2.2vw,1.6rem)}
 .pd-stepsub{font-size:.95rem;color:var(--n-700);margin-bottom:1.2rem;max-width:58ch}
 
-/* ---------- шаг 1: карточки наборов ---------- */
-.pd-sets{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem);margin-bottom:clamp(1.8rem,3.5vw,2.6rem)}
+/* ---------- шаг 1: карточки наборов с «полкой» продуктов ---------- */
+.pd-sets{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.7rem,1.5vw,1.1rem);margin-bottom:clamp(1.6rem,3vw,2.2rem)}
 .pd-set{
   position:relative;display:flex;flex-direction:column;text-align:left;
-  border:2px solid var(--line);background:transparent;
+  border:2px solid var(--line);background:transparent;border-radius:10px;
   padding:1.1rem 1.15rem 1.15rem;transition:var(--press);cursor:pointer;
 }
 .pd-set:hover{border-color:var(--ink)}
@@ -90,25 +78,23 @@
 }
 .pd-set[aria-pressed="true"] .pd-set-cap{transform:rotate(0deg)}
 .pd-set-count{font-family:var(--font-display);font-weight:700;font-size:clamp(1.3rem,2.4vw,1.7rem);line-height:1.1}
-.pd-set-mood{font-size:.9rem;color:var(--n-600);margin:.15rem 0 .8rem}
+.pd-set-mood{font-size:.9rem;color:var(--n-600);margin:.15rem 0 .85rem}
+/* полка: силуэты продуктов набора */
+.pd-set-shelf{
+  display:flex;align-items:flex-end;justify-content:center;gap:clamp(.15rem,.5vw,.4rem);
+  background:var(--n-100);border:1.5px solid var(--line);border-radius:8px;
+  padding:.75rem .55rem .6rem;margin-bottom:.9rem;min-height:86px;
+}
+.pd-set[aria-pressed="true"] .pd-set-shelf{background:var(--paper);border-color:var(--ink)}
+.pd-set-shelf svg{display:block;flex-shrink:1;min-width:0}
 .pd-set-price{font-family:var(--font-display);font-weight:700;font-size:1.15rem}
 .pd-set-price small{font-family:var(--font-body);font-weight:500;font-size:.78rem;color:var(--n-600)}
 .pd-set-per{
-  display:inline-block;align-self:flex-start;margin-top:.35rem;
+  display:inline-block;align-self:flex-start;margin-top:.4rem;
   font-family:var(--font-mono);font-size:.7rem;font-weight:700;letter-spacing:.05em;
   background:var(--lime);border:1.5px solid var(--ink);box-shadow:2px 2px 0 var(--ink);
   padding:.2rem .45rem;
 }
-.pd-set-icons{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.9rem}
-.pd-set-icons svg{
-  width:27px;height:27px;flex-shrink:0;
-  stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
-  background:var(--n-100);border:1.5px solid var(--line);border-radius:6px;padding:3px;
-}
-.pd-set[aria-pressed="true"] .pd-set-icons svg{background:#fff;border-color:var(--ink)}
-.pd-set-list{list-style:none;margin-top:.9rem;padding-top:.75rem;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:.3rem}
-.pd-set-list li{font-size:.88rem;color:var(--n-700);padding-left:1.05rem;position:relative}
-.pd-set-list li::before{content:'+';position:absolute;left:0;top:0;font-family:var(--font-mono);font-weight:700;color:var(--pink)}
 .pd-set-strip{
   position:absolute;top:-.85rem;right:.8rem;
   font-family:var(--font-mono);font-size:.66rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;
@@ -116,26 +102,24 @@
   box-shadow:2px 2px 0 var(--ink);padding:.22rem .5rem;
 }
 
-/* ---------- разовая покупка: через потери ---------- */
+/* ---------- разовая покупка: компактная строка ---------- */
 .pd-once{
-  display:flex;flex-wrap:wrap;align-items:center;gap:1rem 1.6rem;
-  border:2px dashed var(--n-300);background:var(--bg-soft);
-  padding:1rem 1.2rem;margin-bottom:clamp(2.2rem,4.5vw,3.2rem);
+  display:flex;flex-wrap:wrap;align-items:center;gap:.8rem 1.4rem;
+  border:2px dashed var(--n-300);background:var(--bg-soft);border-radius:10px;
+  padding:.85rem 1.2rem;margin-bottom:clamp(2rem,4vw,3rem);
 }
-.pd-once-title{font-family:var(--font-display);font-weight:700;font-size:.98rem;flex-basis:100%}
-.pd-once ul{list-style:none;display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;flex:1;min-width:min(100%,340px)}
-.pd-once li{font-size:.88rem;color:var(--n-600);padding-left:1.15rem;position:relative}
-.pd-once li::before{content:'✕';position:absolute;left:0;top:0;font-family:var(--font-mono);font-weight:700;color:var(--pink)}
+.pd-once p{flex:1;min-width:min(100%,340px);font-size:.92rem;color:var(--n-700)}
+.pd-once p b{color:var(--ink)}
 .pd-once .btn{margin:0;flex-shrink:0}
 
-/* ---------- конфигуратор: слева ароматы, справа панель ---------- */
+/* ---------- конфигуратор: слева товары, справа панель ---------- */
 .pd-config{
   display:grid;grid-template-columns:minmax(0,7fr) minmax(0,5fr);
   gap:clamp(1.5rem,4vw,3.5rem);align-items:start;
 }
 
-/* ряды выбора ароматов (по мотивам свотчей «Начни с CTRL») */
-.pd-prod{margin-bottom:1.15rem}
+/* ряды выбора: плитки-товары вместо абстрактных свотчей */
+.pd-prod{margin-bottom:1.35rem}
 .pd-prod:last-child{margin-bottom:0}
 .pd-prod-label{
   display:inline-flex;align-items:center;gap:.5rem;
@@ -143,36 +127,48 @@
   letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
   background:var(--lime);border:1.5px solid var(--ink);
   box-shadow:2px 2px 0 var(--ink);padding:.24rem .55rem;
-  margin-bottom:.6rem;
+  margin-bottom:.65rem;
 }
+.pd-prod-label.is-hint{animation:pdHint .5s var(--ease) 2}
+@keyframes pdHint{50%{transform:translateY(-3px)}}
 .pd-prod-need{font-family:var(--font-mono);font-size:.68rem;font-weight:700;color:var(--n-600);margin-left:.55rem;letter-spacing:.06em}
 .pd-prod-need.is-short{color:var(--pink)}
-.pd-scents{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;gap:clamp(4px,.5vw,8px)}
-.pd-scents--few{grid-auto-columns:clamp(30px,2.55vw,40px);justify-content:start}
-.pd-scent{
-  width:100%;aspect-ratio:1/1;border-radius:6px;
-  border:1.5px solid var(--line);padding:0;cursor:pointer;
-  background-color:var(--n-100);background-size:cover;background-position:center;
-  transition:var(--press);position:relative;
+.pd-tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(72px,1fr));gap:6px}
+.pd-tile{
+  position:relative;display:flex;flex-direction:column;align-items:center;gap:.55rem;
+  border:1.5px solid var(--line);border-radius:8px;background:#fff;
+  padding:.55rem .2rem .45rem;cursor:pointer;transition:var(--press);
 }
-.pd-scent:hover{border-color:var(--ink)}
-.pd-scent:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
-.pd-scent[aria-pressed="true"]{
-  border:2px solid var(--ink);
-  box-shadow:2px 2px 0 var(--ink);transform:translate(-1px,-1px);
+.pd-tile:hover{border-color:var(--ink)}
+.pd-tile:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.pd-tile[aria-pressed="true"]{
+  border:2px solid var(--ink);padding:calc(.55rem - .5px) calc(.2rem - .5px) calc(.45rem - .5px);
+  box-shadow:2.5px 2.5px 0 var(--ink);transform:translate(-1px,-1px);
 }
-.pd-scent[aria-pressed="true"]::after{
-  content:'';position:absolute;right:-4px;top:-4px;width:10px;height:10px;
+.pd-tile[aria-pressed="true"]::after{
+  content:'';position:absolute;right:-5px;top:-5px;width:11px;height:11px;
   background:var(--pink);border:1.5px solid var(--ink);border-radius:50%;
 }
-.pd-row-name{margin-top:.5rem;font-size:.92rem;line-height:1.45}
+.pd-tile svg{display:block}
+.pd-tile-num{
+  position:absolute;top:4px;left:5px;
+  font-family:var(--font-mono);font-size:.56rem;font-weight:700;color:var(--n-500);letter-spacing:0;
+}
+.pd-tile[aria-pressed="true"] .pd-tile-num{color:var(--pink)}
+.pd-tile-name{
+  font-size:.6rem;line-height:1.2;text-align:center;color:var(--n-700);font-weight:600;
+  display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;
+  padding:0 .15rem;min-height:1.44em;hyphens:auto;overflow-wrap:break-word;
+}
+.pd-tile[aria-pressed="true"] .pd-tile-name{color:var(--ink)}
+.pd-row-name{margin-top:.55rem;font-size:.9rem;line-height:1.45}
 .pd-row-name b{font-family:var(--font-display);font-weight:700}
 .pd-row-name span{color:var(--n-700)}
 
 /* ---------- панель итога ---------- */
 .pd-panel{
   position:sticky;top:calc(var(--header-h) + 1.5rem);
-  border:2px solid var(--ink);background:#fff;
+  border:2px solid var(--ink);background:#fff;border-radius:10px;
   box-shadow:6px 6px 0 var(--lime);
   padding:clamp(1.1rem,2vw,1.5rem);
 }
@@ -182,18 +178,42 @@
 }
 .pd-panel-title{font-family:var(--font-display);font-size:1.35rem;margin-bottom:.2rem}
 .pd-panel-sub{font-size:.88rem;color:var(--n-600);margin-bottom:1rem}
-.pd-items{list-style:none;display:flex;flex-direction:column;gap:.35rem;margin-bottom:1.1rem}
-.pd-items li{font-size:.9rem;padding-left:1.1rem;position:relative}
-.pd-items li::before{content:'⌃';position:absolute;left:0;top:.05rem;font-family:var(--font-mono);font-weight:700;color:var(--pink)}
-.pd-items li span{color:var(--n-600)}
+
+/* слоты «твой набор» — визуально видно, что уже выбрано и что осталось */
+.pd-slots-head{
+  display:flex;align-items:baseline;justify-content:space-between;gap:1rem;
+  font-family:var(--font-mono);font-size:.68rem;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--ink);margin-bottom:.55rem;
+}
+.pd-slots-count{color:var(--pink)}
+.pd-slots-count.is-full{color:var(--ink)}
+.pd-slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(56px,1fr));gap:6px;margin-bottom:1.15rem}
+.pd-slot{
+  display:flex;flex-direction:column;align-items:center;gap:.5rem;
+  border:1.5px solid var(--line);border-radius:8px;background:var(--paper);
+  padding:.5rem .15rem .4rem;min-height:88px;
+}
+.pd-slot svg{display:block}
+.pd-slot-name{
+  font-size:.55rem;line-height:1.15;text-align:center;color:var(--n-700);font-weight:600;
+  max-width:100%;overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;
+  padding:0 .1rem;hyphens:auto;overflow-wrap:break-word;
+}
+.pd-slot--empty{
+  border-style:dashed;border-color:var(--n-300);background:transparent;
+  cursor:pointer;transition:var(--press);
+}
+.pd-slot--empty:hover{border-color:var(--pink)}
+.pd-slot--empty:focus-visible{outline:2px solid var(--pink);outline-offset:2px}
+.pd-slot--empty .pd-slot-name{color:var(--pink);font-family:var(--font-mono);font-weight:700}
 
 /* подарок */
 .pd-gift{
   display:flex;gap:.8rem;align-items:center;
-  border:1.5px dashed var(--ink);background:var(--bg-soft);
+  border:1.5px dashed var(--ink);background:var(--bg-soft);border-radius:8px;
   padding:.6rem .7rem;margin-bottom:1.1rem;
 }
-.pd-gift img{width:52px;height:52px;object-fit:cover;border:1.5px solid var(--ink);flex-shrink:0}
+.pd-gift img{width:52px;height:52px;object-fit:cover;border:1.5px solid var(--ink);border-radius:6px;flex-shrink:0}
 .pd-gift-title{font-size:.86rem;font-weight:700}
 .pd-gift-note{font-size:.78rem;color:var(--n-600)}
 
@@ -201,7 +221,7 @@
 .pd-freq{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.15rem}
 .pd-freq-btn{
   font-family:var(--font-mono);font-size:.74rem;font-weight:700;letter-spacing:.05em;
-  border:1.5px solid var(--line);background:transparent;color:var(--ink);
+  border:1.5px solid var(--line);border-radius:6px;background:transparent;color:var(--ink);
   padding:.42rem .7rem;cursor:pointer;transition:var(--press);
 }
 .pd-freq-btn:hover{border-color:var(--ink)}
@@ -227,7 +247,7 @@
 .pd-cta{
   display:block;width:100%;text-align:center;cursor:pointer;
   font-family:var(--font-display);font-weight:700;font-size:1.02rem;
-  background:var(--ink);color:var(--paper);border:2px solid var(--ink);
+  background:var(--ink);color:var(--paper);border:2px solid var(--ink);border-radius:8px;
   padding:.95rem 1rem;box-shadow:4px 4px 0 var(--pink);
   transition:var(--press);
 }
@@ -245,13 +265,14 @@
   cursor:pointer;list-style:none;position:relative;
   font-size:.9rem;font-weight:700;padding:.7rem 1.6rem .7rem 0;
 }
+.pd-acc summary::-webkit-details-marker{display:none}
 .pd-acc summary::after{content:'+';position:absolute;right:.2rem;top:.55rem;font-family:var(--font-mono);font-weight:700;color:var(--pink)}
 .pd-acc details[open] summary::after{content:'−'}
 .pd-acc p{font-size:.86rem;color:var(--n-700);padding-bottom:.8rem}
 
 /* ---------- «как это работает» ---------- */
 .pd-how{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(.8rem,1.6vw,1.2rem)}
-.pd-how-card{border:2px solid var(--ink);background:#fff;padding:1.3rem 1.25rem;box-shadow:5px 5px 0 var(--n-200)}
+.pd-how-card{border:2px solid var(--ink);border-radius:10px;background:#fff;padding:1.3rem 1.25rem;box-shadow:5px 5px 0 var(--n-200)}
 .pd-how-ico{
   width:38px;height:38px;display:block;margin-bottom:.8rem;
   stroke:var(--ink);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;
@@ -265,7 +286,7 @@
 .pd-member{background:var(--ink);color:var(--paper);border-top:2px solid var(--ink)}
 .pd-member .philosophy-label{color:var(--lime);border-color:var(--lime)}
 .pd-member .section-title{color:var(--paper)}
-.pd-member .section-title em{color:var(--lime)}
+.pd-member .section-title em{color:var(--ink)}   /* на лаймовой плашке — ink, иначе лайм-на-лайме невидим */
 .pd-member-lead{color:var(--n-300);max-width:56ch;font-size:1.02rem;margin-bottom:2.2rem}
 .pd-member-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--ink-line);border:1px solid var(--ink-line)}
 .pd-member-card{background:var(--ink-surface);padding:1.4rem 1.3rem}
@@ -298,23 +319,45 @@
 .pd-final .section-title{margin-left:auto;margin-right:auto}
 .pd-final p{color:var(--ink-soft);max-width:44ch;margin:0 auto 2rem}
 
+/* ---------- reduced motion ---------- */
+@media (prefers-reduced-motion:reduce){
+  .pd-prod-label.is-hint{animation:none}
+}
+
 /* ---------- адаптив ---------- */
 @media(max-width:960px){
-  .pd-hero-grid{grid-template-columns:1fr;gap:1.8rem}
-  .pd-hero-media{max-width:480px}
   .pd-sets{grid-template-columns:1fr 1fr}
-  .pd-config{grid-template-columns:1fr}
+  .pd-config{grid-template-columns:minmax(0,1fr)}   /* minmax(0,…): лента плиток не распирает колонку */
+  .pd-steps{min-width:0}
   .pd-panel{position:static}
   .pd-member-grid{grid-template-columns:1fr 1fr}
   .pd-how{grid-template-columns:1fr}
+  .pd-slots{grid-template-columns:repeat(auto-fill,minmax(62px,1fr))}
+}
+@media(max-width:768px){
+  /* хиро: текст над фото (паттерн главной), фото ниже во всю ширину */
+  .pd-phero{display:flex;flex-direction:column;min-height:0;background:transparent}
+  .pd-phero-media{position:static;height:330px}
+  .pd-phero-img{object-position:100% center}   /* все три продукта в кадре */
+  .pd-phero-scrim{display:none}
+  .pd-phero-text{position:static;order:-1;width:auto;padding:1.15rem 1.25rem .4rem}
+  .pd-phero-kicker{margin-bottom:.7rem;font-size:.62rem;letter-spacing:.14em}
+  .pd-phero-h1{font-size:clamp(2rem,8.6vw,2.6rem);margin-bottom:.8rem}
+  .pd-phero-lead{font-size:.95rem;margin-bottom:1.15rem}
+  .pd-phero-cta{align-self:stretch;justify-content:center;margin-bottom:1.1rem;font-size:1.05rem;padding:15px 20px;box-shadow:4px 4px 0 var(--ink)}
 }
 @media(max-width:640px){
-  .pd-hero-photo{aspect-ratio:1/1}
-  .pd-btn-hero{width:100%;justify-content:center}
   .pd-sets{grid-template-columns:1fr}
   .pd-set-strip{top:-.8rem}
-  .pd-scents{grid-auto-columns:44px;overflow-x:auto;padding-bottom:.35rem;scrollbar-width:thin}
-  .pd-scents--few{grid-auto-columns:44px}
+  .pd-set-shelf{min-height:74px}
+  /* плитки: горизонтальная лента со снапом, тач-цели ≥64px */
+  .pd-tiles{
+    display:flex;overflow-x:auto;padding-bottom:.4rem;
+    scroll-snap-type:x proximity;scrollbar-width:thin;
+  }
+  .pd-tiles .pd-tile{flex:0 0 76px;scroll-snap-align:start}
+  .pd-slots{grid-template-columns:repeat(auto-fill,minmax(58px,1fr))}
   .pd-member-grid{grid-template-columns:1fr}
-  .pd-once ul{flex-direction:column;gap:.35rem}
+  .pd-once{flex-direction:column;align-items:stretch;text-align:left}
+  .pd-once .btn{align-self:flex-start}
 }

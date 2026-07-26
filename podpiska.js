@@ -1,11 +1,17 @@
 /* ============================================================================
-   PODPISKA.JS — конфигуратор наборов по подписке (страница podpiska.html).
+   PODPISKA.JS v3 — конфигуратор наборов по подписке (страница podpiska.html).
    ----------------------------------------------------------------------------
    • Три набора с фиксированной СТРУКТУРОЙ (решение Alex 04.07.2026):
        CTRL+S    — 3 вещи  — 6 900 ₽ за доставку
        CTRL+A    — 5 вещей — 10 000 ₽ за доставку (популярный)
        CTRL+HOME — 10 вещей — 17 900 ₽ за доставку
-     Ароматы КАЖДОЙ вещи выбирает клиент (свотчи, как в «Начни с CTRL»).
+     Ароматы КАЖДОЙ вещи выбирает клиент.
+   • v3 (запрос Alex 26.07.2026 — «меньше слов, больше визуала»):
+       — выбор ароматов = ПЛИТКИ-ТОВАРЫ (силуэт флакона/свечи/спрея в цвете
+         аромата, № и имя), а не абстрактные цветные квадратики;
+       — в панели — визуальные СЛОТЫ «твой набор»: видно, что уже выбрано
+         и что осталось; клик по пустому слоту ведёт к нужному ряду;
+       — карточки наборов показывают состав «полкой» силуэтов, без списков.
    • Частота: раз в 1 / 2 / 3 месяца. Подписка = членство: безлимит докупок
      по ценам подписчика −20% + дискавери-сет к первому заказу.
    • В корзину уходит бандл ctrlHomeSamplePacks (см. cart.js):
@@ -23,8 +29,9 @@
   var SPRAY_IDS  = [21, 22, 23, 24, 25, 26, 27];
   var GIFT_NAME  = 'Дискавери-сет: 14 пробников × 1,5 мл';
 
-  /* свотчи-цвета — как в get-started.js; у «Эры розы» (id 5) — паттерн */
+  /* цвета ароматов — как в get-started.js; у «Эры розы» (id 5) — розы на флаконе */
   var SW_P = {
+    5: '#F3C9D6',
     30: '#F2E7D6', 31: '#F2E88F', 32: '#8E2F44', 33: '#E3B75C', 34: '#F4C08A',
     35: '#F0E3C9', 36: '#C98A4B', 37: '#A9683C', 38: '#E8D3E8', 39: '#6E3B4B',
     40: '#F2F1EC', 41: '#D9D7D2', 42: '#CFE3C8'
@@ -33,18 +40,18 @@
   var SW_S = { 21: '#F5D8E8', 22: '#D9A566', 23: '#F4EAD7', 24: '#B08154', 25: '#F6B25E', 26: '#E8C39A', 27: '#C2597B' };
 
   var CATS = {
-    p30:    { ids: PARFUM_IDS, sw: SW_P, label: 'Парфюм · 30 мл',      unit: 'парфюм 30 мл',  ml: 30 },
-    p10:    { ids: PARFUM_IDS, sw: SW_P, label: 'Мини-парфюм · 10 мл', unit: 'мини 10 мл',    ml: 10 },
-    candle: { ids: CANDLE_IDS, sw: SW_C, label: 'Свеча',               unit: 'свеча' },
-    spray:  { ids: SPRAY_IDS,  sw: SW_S, label: 'Спрей · 50 мл',       unit: 'спрей' }
+    p30:    { ids: PARFUM_IDS, sw: SW_P, label: 'Парфюм · 30 мл',      unit: 'парфюм 30 мл',  slot: 'парфюм', ml: 30 },
+    p10:    { ids: PARFUM_IDS, sw: SW_P, label: 'Мини-парфюм · 10 мл', unit: 'мини 10 мл',    slot: 'мини',   ml: 10 },
+    candle: { ids: CANDLE_IDS, sw: SW_C, label: 'Свеча',               unit: 'свеча',         slot: 'свеча' },
+    spray:  { ids: SPRAY_IDS,  sw: SW_S, label: 'Спрей · 50 мл',       unit: 'спрей',         slot: 'спрей' }
   };
   var CAT_ORDER = ['p30', 'p10', 'candle', 'spray'];
 
   var SETS = [
-    { key: 's',    cap: 'CTRL+S',    mood: 'сохрани базу',        count: 3,  price: 6900,
+    { key: 's',    cap: 'CTRL+S',    mood: 'сохрани базу',           count: 3,  price: 6900,
       slots: { p30: 1, p10: 0, candle: 1, spray: 1 },
       sub: 'парфюм 30 мл + свеча + спрей' },
-    { key: 'a',    cap: 'CTRL+A',    mood: 'выбери всё нужное',   count: 5,  price: 10000, popular: true,
+    { key: 'a',    cap: 'CTRL+A',    mood: 'выбери всё нужное',      count: 5,  price: 10000, popular: true,
       slots: { p30: 1, p10: 1, candle: 1, spray: 2 },
       sub: 'парфюм 30 мл + мини 10 мл + свеча + 2 спрея' },
     { key: 'home', cap: 'CTRL+HOME', mood: 'весь дом под контролем', count: 10, price: 17900,
@@ -108,48 +115,103 @@
   }
   function freqText(f) { return f === 1 ? 'раз в месяц' : 'раз в ' + f + ' месяца'; }
 
-  /* ---------- пиктограммы состава (стиль stroke-иконок get-started) ---------- */
-  var ICONS = {
-    p30:    '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8" y="9" width="8" height="11" rx="1.5"/><rect x="10.4" y="5.2" width="3.2" height="3.4" rx="1"/><line x1="12" y1="5.2" x2="12" y2="3.8"/><line x1="8" y1="13" x2="16" y2="13"/></svg>',
-    p10:    '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9.8" y="8" width="4.4" height="12" rx="1.2"/><rect x="10.7" y="4.6" width="2.6" height="2.6" rx=".8"/></svg>',
-    candle: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="10.5" width="10" height="9.5" rx="1.5"/><line x1="12" y1="10.5" x2="12" y2="8.6"/><path d="M12 3.6c-1.5 1.7-.8 3.4 0 3.4s1.5-1.7 0-3.4z" fill="#FF2D9E" stroke="none"/></svg>',
-    spray:  '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="8.6" y="10" width="7" height="10" rx="1.5"/><rect x="9.8" y="6.4" width="3.4" height="3" rx=".8"/><path d="M13.2 7.4h2.2"/><circle cx="18.6" cy="5.6" r="1" fill="#FF2D9E" stroke="none"/><circle cx="20.2" cy="8" r=".9" fill="#FF2D9E" stroke="none"/></svg>'
-  };
-  function iconsRow(s) {
+  /* ============================================================
+     ГЛИФЫ ТОВАРОВ — силуэты продуктов в фирменном stroke-стиле.
+     cat: p30 | p10 | candle | spray;  o: {fill, h, ghost, rose}
+     ============================================================ */
+  var INK = '#1A1916';
+  function glyph(cat, o) {
+    o = o || {};
+    var h = o.h || 52;
+    var w = Math.round(h * 48 / 64);
+    var ghost = !!o.ghost;
+    var ink   = ghost ? '#A39F96' : INK;
+    var metal = ghost ? '#EFEDE6' : '#DFDCD3';
+    var lime  = ghost ? '#DDDAD0' : '#CCF400';
+    var pink  = ghost ? '#C8C5BC' : '#FF2D9E';
+    var fill  = o.fill || '#EFEDE6';
+    var sw = 2.2, inner = '';
+
+    if (cat === 'p30') {
+      inner =
+        '<rect x="18" y="9" width="12" height="12" rx="2" fill="' + metal + '" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        '<line x1="24" y1="9" x2="24" y2="5.5" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        '<rect x="9" y="21" width="30" height="38" rx="4" fill="' + fill + '" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        (o.rose ? rosebud(13.5, 26.5, ghost) : '') +
+        '<rect x="14.5" y="32" width="19" height="16" rx="1.5" fill="#fff" stroke="' + ink + '" stroke-width="1.5"/>' +
+        '<line x1="17.5" y1="36.5" x2="27" y2="36.5" stroke="' + lime + '" stroke-width="2"/>' +
+        (o.rose ? rosebud(31, 53, ghost) : '');
+    } else if (cat === 'p10') {
+      inner =
+        '<rect x="19.5" y="12" width="9" height="10" rx="2" fill="' + metal + '" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        '<rect x="15" y="22" width="18" height="37" rx="3.5" fill="' + fill + '" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        '<rect x="18.5" y="33" width="11" height="13" rx="1" fill="#fff" stroke="' + ink + '" stroke-width="1.4"/>' +
+        '<line x1="20.5" y1="36.5" x2="27" y2="36.5" stroke="' + lime + '" stroke-width="1.8"/>' +
+        (o.rose ? rosebud(21, 27, ghost) : '');
+    } else if (cat === 'candle') {
+      inner =
+        '<path d="M24 10.5 c-2.9 3.3 -1.5 7 0 7 s2.9 -3.7 0 -7 z" fill="' + pink + '" stroke="' + ink + '" stroke-width="1.4"/>' +
+        '<line x1="24" y1="19" x2="24" y2="24" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        '<rect x="8" y="24" width="32" height="35" rx="4" fill="' + fill + '" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        '<line x1="8" y1="30.5" x2="40" y2="30.5" stroke="' + ink + '" stroke-width="1.4"/>' +
+        '<rect x="13" y="36" width="22" height="15" rx="1.5" fill="#fff" stroke="' + ink + '" stroke-width="1.5"/>' +
+        '<line x1="16.5" y1="40.5" x2="27.5" y2="40.5" stroke="' + lime + '" stroke-width="2"/>';
+    } else { /* spray */
+      inner =
+        '<rect x="18" y="10" width="12" height="8" rx="2" fill="' + metal + '" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        '<path d="M30 13.5 h4.5" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        '<circle cx="38" cy="11" r="1.7" fill="' + pink + '"/>' +
+        '<circle cx="41" cy="15.5" r="1.4" fill="' + pink + '"/>' +
+        '<rect x="20" y="18" width="8" height="6" fill="' + metal + '" stroke="' + ink + '" stroke-width="1.6"/>' +
+        '<rect x="13" y="24" width="22" height="35" rx="4" fill="' + fill + '" stroke="' + ink + '" stroke-width="' + sw + '"/>' +
+        '<rect x="17" y="33" width="14" height="14" rx="1" fill="#fff" stroke="' + ink + '" stroke-width="1.4"/>' +
+        '<line x1="19.5" y1="37" x2="26.5" y2="37" stroke="' + lime + '" stroke-width="1.8"/>';
+    }
+    return '<svg viewBox="0 0 48 64" width="' + w + '" height="' + h + '" aria-hidden="true" ' +
+      'style="stroke-linecap:round;stroke-linejoin:round">' + inner + '</svg>';
+  }
+  /* маленькая роза для «Эры розы» */
+  function rosebud(x, y, ghost) {
+    var c = ghost ? '#B9B5AB' : '#C2597B';
+    return '<path d="M' + x + ' ' + y + ' a2.6 2.6 0 1 1 2.6 2.6 a1.6 1.6 0 1 1 -1.6 -1.6" ' +
+      'fill="none" stroke="' + c + '" stroke-width="1.5"/>';
+  }
+  /* нейтральные тона «полки» в карточках наборов */
+  var GHOST_FILL = { p30: '#E8E4D8', p10: '#EDEAE0', candle: '#E3DFD2', spray: '#EAE6DB' };
+  var SHELF_H = { s: 58, a: 47, home: 31 };
+  function shelfHtml(s) {
     var out = [];
     CAT_ORDER.forEach(function (cat) {
-      for (var i = 0; i < (s.slots[cat] || 0); i++) out.push(ICONS[cat]);
+      for (var i = 0; i < (s.slots[cat] || 0); i++) {
+        out.push(glyph(cat, { fill: GHOST_FILL[cat], h: SHELF_H[s.key] || 44 }));
+      }
     });
-    return '<span class="pd-set-icons" aria-hidden="true">' + out.join('') + '</span>';
+    return '<span class="pd-set-shelf" aria-hidden="true">' + out.join('') + '</span>';
   }
 
-  /* ---------- SVG-заглушка хиро: набор в коробке (фирменный стиль «фото скоро») ---------- */
+  /* ---------- SVG-заглушка широкого хиро (если нет ни одного фото) ---------- */
   function heroSvg() {
     var ink = '#0E0E0E';
     return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
-      '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">' +
-      '<rect width="800" height="1000" fill="#F1EFE8"/>' +
-      '<circle cx="400" cy="450" r="260" fill="#EAF0BE"/>' +
+      '<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="700" viewBox="0 0 1600 700">' +
+      '<rect width="1600" height="700" fill="#F1EFE8"/>' +
+      '<circle cx="1130" cy="360" r="250" fill="#EAF0BE"/>' +
       '<g fill="none" stroke="' + ink + '" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">' +
-      /* парфюм */
-      '<rect x="242" y="330" width="104" height="180" rx="14"/><rect x="276" y="294" width="34" height="38" rx="5"/>' +
-      '<line x1="293" y1="294" x2="293" y2="278"/><circle cx="293" cy="418" r="24" fill="#FF2D9E" stroke="' + ink + '"/>' +
-      /* свеча */
-      '<rect x="376" y="356" width="118" height="154" rx="16"/><line x1="376" y1="384" x2="494" y2="384"/>' +
-      '<line x1="435" y1="356" x2="435" y2="332"/>' +
-      '<path d="M435 280 C 403 314 419 346 435 346 C 451 346 468 318 435 280 Z" fill="#CCF400" stroke="' + ink + '"/>' +
-      /* спрей */
-      '<rect x="524" y="342" width="88" height="168" rx="18"/><rect x="544" y="310" width="48" height="34" rx="6"/>' +
-      '<path d="M612 318 h38 M612 332 h38"/>' +
-      '<circle cx="668" cy="314" r="8" fill="#FF2D9E" stroke="none"/><circle cx="688" cy="330" r="7" fill="#FF2D9E" stroke="none"/>' +
-      /* коробка, в которой стоит набор */
-      '<path d="M204 508 L 596 508 L 572 660 L 228 660 Z" fill="#F7F5EF" stroke="' + ink + '"/>' +
-      '<path d="M204 508 L 160 466 M596 508 L 640 466"/>' +
-      '<line x1="400" y1="508" x2="400" y2="660"/>' +
+      '<rect x="952" y="240" width="104" height="180" rx="14"/><rect x="986" y="204" width="34" height="38" rx="5"/>' +
+      '<line x1="1003" y1="204" x2="1003" y2="188"/><circle cx="1003" cy="328" r="24" fill="#FF2D9E" stroke="' + ink + '"/>' +
+      '<rect x="1086" y="266" width="118" height="154" rx="16"/><line x1="1086" y1="294" x2="1204" y2="294"/>' +
+      '<line x1="1145" y1="266" x2="1145" y2="242"/>' +
+      '<path d="M1145 190 C 1113 224 1129 256 1145 256 C 1161 256 1178 228 1145 190 Z" fill="#CCF400" stroke="' + ink + '"/>' +
+      '<rect x="1234" y="252" width="88" height="168" rx="18"/><rect x="1254" y="220" width="48" height="34" rx="6"/>' +
+      '<path d="M1322 228 h38 M1322 242 h38"/>' +
+      '<circle cx="1378" cy="224" r="8" fill="#FF2D9E" stroke="none"/><circle cx="1398" cy="240" r="7" fill="#FF2D9E" stroke="none"/>' +
+      '<path d="M914 418 L 1306 418 L 1282 570 L 938 570 Z" fill="#F7F5EF" stroke="' + ink + '"/>' +
+      '<path d="M914 418 L 870 376 M1306 418 L 1350 376"/>' +
+      '<line x1="1110" y1="418" x2="1110" y2="570"/>' +
       '</g>' +
-      '<text x="400" y="742" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="34" font-weight="700" letter-spacing="4" fill="' + ink + '">твой набор по подписке</text>' +
-      '<text x="400" y="906" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="5" fill="' + ink + '">CTRL home</text>' +
-      '<text x="400" y="946" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" letter-spacing="3" fill="#8C8C84">фото скоро</text>' +
+      '<text x="330" y="310" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="52" font-weight="700" letter-spacing="5" fill="' + ink + '">CTRL home</text>' +
+      '<text x="330" y="368" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="4" fill="' + ink + '">твой набор по подписке</text>' +
+      '<text x="330" y="416" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" letter-spacing="3" fill="#8C8C84">фото скоро</text>' +
       '</svg>');
   }
 
@@ -169,47 +231,32 @@
       '<text x="200" y="336" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" letter-spacing="2" fill="#8C8C84">фото скоро</text>' +
       '</svg>');
   }
-  function rosePattern() {
-    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(
-      '<svg xmlns="http://www.w3.org/2000/svg" width="92" height="92" viewBox="0 0 92 92">' +
-      '<rect width="92" height="92" fill="#F3C9D6"/>' +
-      '<g fill="none" stroke="#C2597B" stroke-width="3" stroke-linecap="round">' +
-      '<path d="M24 26 a8 8 0 1 1 8 8 a5 5 0 1 1 -5 -5"/>' +
-      '<path d="M62 56 a8 8 0 1 1 8 8 a5 5 0 1 1 -5 -5"/>' +
-      '<path d="M58 18 q6 4 2 10 M18 62 q6 4 2 10"/>' +
-      '</g>' +
-      '<g fill="#9BB864"><ellipse cx="40" cy="42" rx="4" ry="2" transform="rotate(35 40 42)"/>' +
-      '<ellipse cx="54" cy="74" rx="4" ry="2" transform="rotate(-25 54 74)"/></g>' +
-      '</svg>');
-  }
 
   /* ---------- рендер ---------- */
   function setCard(s) {
     var per = Math.round(s.price / s.count / 10) * 10;
-    var parts = [];
-    CAT_ORDER.forEach(function (cat) {
-      var n = s.slots[cat] || 0;
-      if (n) parts.push((n > 1 ? n + '× ' : '') + CATS[cat].unit);
-    });
     return '<button class="pd-set" type="button" aria-pressed="false" data-set="' + s.key + '">' +
       (s.popular ? '<span class="pd-set-strip">выбирают чаще</span>' : '') +
       '<span class="pd-set-cap">' + s.cap + '</span>' +
       '<span class="pd-set-count">' + s.count + ' ' + (s.count < 5 ? 'вещи' : 'вещей') + '</span>' +
       '<span class="pd-set-mood">' + s.mood + '</span>' +
+      shelfHtml(s) +
       '<span class="pd-set-price">' + money(s.price) + ' <small>за доставку</small></span>' +
       '<span class="pd-set-per">≈ ' + money(per) + ' за вещь</span>' +
-      iconsRow(s) +
-      '<ul class="pd-set-list">' + parts.map(function (t) { return '<li>' + t + '</li>'; }).join('') + '</ul>' +
     '</button>';
   }
 
-  function swatch(cat, id) {
+  function tile(cat, id) {
+    var p = P[id];
+    if (!p) return '';
     var label = catLabelName(cat, id);
-    var bg = (cat === 'p30' || cat === 'p10') && id === 5
-      ? 'background-image:url(&quot;' + rosePattern() + '&quot;)'
-      : 'background-color:' + (CATS[cat].sw[id] || '#EFEDE6');
-    return '<button class="pd-scent" type="button" aria-pressed="false" data-pick="' + cat + ':' + id + '" ' +
-      'title="' + label + '" aria-label="' + label + '" style="' + bg + '"></button>';
+    var isParf = (cat === 'p30' || cat === 'p10');
+    return '<button class="pd-tile" type="button" aria-pressed="false" data-pick="' + cat + ':' + id + '" ' +
+      'title="' + label + (p.note ? ' · ' + p.note : '') + '" aria-label="' + label + '">' +
+      (isParf ? '<span class="pd-tile-num">№' + num(p) + '</span>' : '') +
+      glyph(cat, { fill: CATS[cat].sw[id] || '#EFEDE6', h: 52, rose: isParf && id === 5 }) +
+      '<span class="pd-tile-name">' + (isParf ? shortName(p) : p.name) + '</span>' +
+    '</button>';
   }
 
   function rowsHtml() {
@@ -217,13 +264,12 @@
     return CAT_ORDER.map(function (cat) {
       var need = s.slots[cat] || 0;
       if (!need) return '';
-      var few = CATS[cat].ids.length <= 7;
       return '<div class="pd-prod" data-cat-row="' + cat + '">' +
         '<span class="pd-prod-label">' + CATS[cat].label +
           (need > 1 ? '<span class="pd-prod-need" data-need="' + cat + '">выбери ' + need + '</span>' : '') +
         '</span>' +
-        '<div class="pd-scents' + (few ? ' pd-scents--few' : '') + '" role="group" aria-label="' + CATS[cat].label + '">' +
-          CATS[cat].ids.map(function (id) { return swatch(cat, id); }).join('') +
+        '<div class="pd-tiles" role="group" aria-label="' + CATS[cat].label + '">' +
+          CATS[cat].ids.map(function (id) { return tile(cat, id); }).join('') +
         '</div>' +
         '<p class="pd-row-name" data-names="' + cat + '"></p>' +
       '</div>';
@@ -233,23 +279,18 @@
   function render() {
     root.innerHTML =
       '<div class="pd-stephead reveal"><span class="pd-stepnum">1/</span><h3>Выбери размер набора</h3></div>' +
-      '<p class="pd-stepsub reveal">Структура и цена фиксированные — платишь одну и ту же сумму за каждую доставку. Чем больше набор, тем дешевле каждая вещь.</p>' +
+      '<p class="pd-stepsub reveal">Цена фиксированная за каждую доставку: чем больше набор, тем дешевле вещь.</p>' +
       '<div class="pd-sets reveal">' + SETS.map(setCard).join('') + '</div>' +
 
       '<div class="pd-once reveal">' +
-        '<div class="pd-once-title">Можно и без подписки — но тогда:</div>' +
-        '<ul>' +
-          '<li>обычные цены каталога, без выгоды набора</li>' +
-          '<li>без дискавери-сета в подарок</li>' +
-          '<li>без цен подписчика −20% на докупки</li>' +
-        '</ul>' +
+        '<p><b>Можно и без подписки</b> — разово, но без выгоды набора, без дискавери-сета и без −20% на докупки.</p>' +
         '<a class="btn btn--ghost" href="sobrat-nabor.html">Собрать разово</a>' +
       '</div>' +
 
       '<div class="pd-config">' +
         '<div class="pd-steps">' +
           '<div class="pd-stephead reveal"><span class="pd-stepnum">2/</span><h3>Выбери ароматы — на каждую вещь</h3></div>' +
-          '<p class="pd-stepsub reveal">В этом и смысл: набор один, а ароматы каждый раз твои. Перед следующей доставкой их можно поменять.</p>' +
+          '<p class="pd-stepsub reveal">Жми на товар — он встаёт в слот твоего набора. Перед следующей доставкой всё можно поменять.</p>' +
           '<div id="pdRows">' + rowsHtml() + '</div>' +
         '</div>' +
 
@@ -257,7 +298,8 @@
           '<div class="pd-panel-kicker">⌃ подписка ctrl home</div>' +
           '<h3 class="pd-panel-title" id="pdTitle"></h3>' +
           '<p class="pd-panel-sub" id="pdSub"></p>' +
-          '<ul class="pd-items" id="pdItems"></ul>' +
+          '<div class="pd-slots-head"><span>Твой набор</span><span class="pd-slots-count" id="pdSlotsCount"></span></div>' +
+          '<div class="pd-slots" id="pdSlots"></div>' +
           '<div class="pd-gift">' +
             '<img src="images/nabor-probnikov.png" alt="Дискавери-сет в подарок" loading="lazy" ' +
                  'onerror="this.onerror=null;this.src=this.getAttribute(\'data-ph\')" data-ph="' + vialsSvg() + '">' +
@@ -300,6 +342,23 @@
       b.addEventListener('click', function () { state.freq = Number(b.getAttribute('data-freq')); update(); });
     });
     document.getElementById('pdCta').addEventListener('click', addToCart);
+
+    /* клик по пустому слоту — подводим к нужному ряду */
+    document.getElementById('pdSlots').addEventListener('click', function (e) {
+      var b = e.target.closest('[data-goto]');
+      if (!b) return;
+      var row = root.querySelector('[data-cat-row="' + b.getAttribute('data-goto') + '"]');
+      if (!row) return;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      row.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' });
+      var label = row.querySelector('.pd-prod-label');
+      if (label) {
+        label.classList.remove('is-hint');
+        void label.offsetWidth;
+        label.classList.add('is-hint');
+        setTimeout(function () { label.classList.remove('is-hint'); }, 1200);
+      }
+    });
   }
 
   function bindSets() {
@@ -337,6 +396,36 @@
         update();
       });
     });
+  }
+
+  /* ---------- слоты «твой набор» в панели ---------- */
+  function slotsHtml() {
+    var s = setObj();
+    var out = [];
+    CAT_ORDER.forEach(function (cat) {
+      var need = s.slots[cat] || 0;
+      if (!need) return;
+      var q = state.picks[cat] || [];
+      var isParf = (cat === 'p30' || cat === 'p10');
+      for (var i = 0; i < need; i++) {
+        var id = q[i];
+        if (id && P[id]) {
+          var p = P[id];
+          var caption = isParf ? '№ ' + num(p) : p.name;
+          out.push('<div class="pd-slot" title="' + CATS[cat].unit + ' — ' + catLabelName(cat, id) + '">' +
+            glyph(cat, { fill: CATS[cat].sw[id] || '#EFEDE6', h: 44, rose: isParf && id === 5 }) +
+            '<span class="pd-slot-name">' + caption + '</span>' +
+          '</div>');
+        } else {
+          out.push('<button class="pd-slot pd-slot--empty" type="button" data-goto="' + cat + '" ' +
+            'aria-label="Выбрать: ' + CATS[cat].unit + '">' +
+            glyph(cat, { fill: 'none', h: 44, ghost: true }) +
+            '<span class="pd-slot-name">+ ' + CATS[cat].slot + '</span>' +
+          '</button>');
+        }
+      }
+    });
+    return out.join('');
   }
 
   /* ---------- обновление состояния ---------- */
@@ -381,17 +470,16 @@
       }
     });
 
-    /* панель */
+    /* панель: заголовок + визуальные слоты */
     document.getElementById('pdTitle').textContent = 'Набор ' + s.cap;
     document.getElementById('pdSub').textContent = s.count + ' ' + (s.count < 5 ? 'вещи' : 'вещей') + ' · ' + s.sub;
 
-    document.getElementById('pdItems').innerHTML = CAT_ORDER.map(function (cat) {
-      var need = s.slots[cat] || 0;
-      if (!need) return '';
-      var q = state.picks[cat] || [];
-      var names = q.map(function (id) { return catLabelName(cat, id); }).join(' · ');
-      return '<li>' + need + '× <b>' + CATS[cat].unit + '</b><br><span>' + (names || '—') + '</span></li>';
-    }).join('');
+    var picked = 0;
+    CAT_ORDER.forEach(function (cat) { picked += (state.picks[cat] || []).length; });
+    var cnt = document.getElementById('pdSlotsCount');
+    cnt.textContent = ok ? picked + ' из ' + s.count + ' ✓' : picked + ' из ' + s.count;
+    cnt.classList.toggle('is-full', ok);
+    document.getElementById('pdSlots').innerHTML = slotsHtml();
 
     var save = base - s.price;
     var pct = base ? Math.round(save / base * 100) : 0;
@@ -426,7 +514,7 @@
       sub: s.count + ' ' + (s.count < 5 ? 'вещи' : 'вещей') + ' · ' + s.sub,
       plan: 'Доставка ' + freqText(state.freq) + ' · безлимит докупок −20% · пауза и отмена в любой момент',
       gift: GIFT_NAME,
-      img: 'images/podpiska-nabor.jpg'
+      img: 'images/nabor-ritual.jpg'
     };
 
     var saved = false;
@@ -459,13 +547,17 @@
   render();
   update();
 
-  /* ---------- хиро: фирменный фоллбек, пока нет фото ---------- */
+  /* ---------- хиро: цепочка фолбэков, пока нет своего фото ----------
+     podpiska-hero-wide.jpg → hero.jpg (реальное фото главной) → SVG-заглушка */
   var heroImg = document.getElementById('pdHeroImg');
   if (heroImg) {
-    var ph = heroSvg();
-    var toPh = function () { if (heroImg.src !== ph) heroImg.src = ph; };
-    heroImg.addEventListener('error', toPh);
-    if (heroImg.complete && !heroImg.naturalWidth) toPh();
+    var chain = ['images/hero.jpg', heroSvg()];
+    var onErr = function () {
+      if (chain.length) heroImg.src = chain.shift();
+      else heroImg.removeEventListener('error', onErr);
+    };
+    heroImg.addEventListener('error', onErr);
+    if (heroImg.complete && !heroImg.naturalWidth && heroImg.src) onErr();
   }
 
   /* ---------- маркиза: дублируем контент для бесшовной прокрутки ---------- */
