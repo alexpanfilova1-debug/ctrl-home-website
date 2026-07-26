@@ -22,11 +22,11 @@
       gallery: ['images/aromat-3.png']
     },
     4: {
-      name: 'CTRL № 4 — Полночь', price: 9100, note: 'уд · ваниль · чёрный перец', img: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop',
+      name: 'CTRL № 4 — Полночь', price: 9100, note: 'уд · ваниль · чёрный перец', img: 'images/aromat-4.png',
       type: 'Eau de Parfum', gender: 'унисекс', longevity: '10–12 ч', article: 'CTL-04', badge: 'NEW', mood: 'night', moodLabel: 'CTRL+NIGHT',
       desc: 'Уд, ваниль и чёрный перец: плотный вечерний шлейф с характером. Для свиданий, выходов и уверенного входа в комнату.',
       volumes: [ { ml: 30, price: 5700 }, { ml: 50, price: 9100 }, { ml: 100, price: 15000 } ],
-      gallery: ['https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop']
+      gallery: ['images/aromat-4.png']
     },
     5: {
       name: 'CTRL № 1 — Эра розы', price: 7900, note: 'малина · дамасская роза · пачули', img: 'images/aromat-1.png', href: 'era-rozy.html',
@@ -216,83 +216,42 @@
   window.CTRL_PRODUCTS = PRODUCTS;
 
   var PAGES = {
+    catalog: {
+      kicker: 'Каталог',
+      title: 'Все <em>ароматы</em>',
+      sections: [
+        { key: 'parfumeriya', label: 'Парфюмерия', href: 'parfumeriya.html', kind: 'bottle', ids: [5, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42] },
+        { key: 'svechi', label: 'Свечи', href: 'svechi.html', kind: 'candle', ids: [11, 12, 13, 14, 15] },
+        { key: 'sprei', label: 'Спреи для тела', href: 'sprei-dlya-tela.html', kind: 'spray', ids: [21, 22, 23, 24, 25, 26, 27] }
+      ]
+    },
     novinki: {
       kicker: 'Новинки',
       title: 'Новые запуски <em>CTRL home</em>',
-      lead: 'Свежие ароматы, лимитированные форматы и первые партии, которые стоит смотреть раньше, чем они уйдут в общий каталог.',
-      tags: ['новые форматы', 'лимитированные партии', 'сезонные сочетания'],
-      cards: [
-        { title: 'Эра розы', text: 'Цветочный старт коллекции: чистая роза без нафталина и театральной пыли.', img: 'images/aromat-1.png', href: 'parfumeriya.html' },
-        { title: 'Сахарный вихрь', text: 'Спрей для тела с мягкой сладостью, когда хочется легкого облака, а не парфюмерного заявления.', img: 'images/aromat-2.png', href: 'sprei-dlya-tela.html' },
-        { title: 'Взбитые сливки', text: 'Уходовая текстура и уютный аромат для вечернего ритуала после длинного дня.', img: 'images/aromat-3.png', href: 'uhod-za-telom.html' }
-      ],
-      splitTitle: 'Как развивать раздел дальше',
-      splitText: 'Когда появятся реальные SKU, сюда логично добавить дату запуска, бейдж “скоро”, количество в наличии и быстрый сбор waitlist.',
-      list: [
-        ['Первый экран', 'Новинки должны продавать ощущение свежего запуска, а не просто повторять каталог.'],
-        ['Карточки', 'Для каждого товара стоит добавить статус: новый, скоро, лимитка или вернулся в продажу.'],
-        ['Конверсия', 'Хорошая следующая кнопка — “Сообщить о запуске”, если товара еще нет.']
-      ],
-      cta: ['Смотреть каталог', 'catalog.html']
+      lead: 'Свежие ароматы и первые партии — раньше, чем они разойдутся по общему каталогу.',
+      tags: ['NEW', 'первые партии', 'лимитки'],
+      shelf: [5, 30, 32, 35, 42]
     },
     parfumeriya: {
       kicker: 'Парфюмерия',
       title: 'Парфюмерия <em>настроения</em>',
       lead: 'Основная линейка CTRL home: ароматы как переключатели состояния — от чистого утра до глубокого вечернего шлейфа.',
       tags: ['30 мл', '10 мл', 'пробники', 'наборы'],
-      shelf: [5, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42],
-      cards: [
-        { title: 'Фруктовые и цветочные', text: 'Легкие, понятные, но не плоские композиции для дневного звучания.', img: 'images/aromat-1.png', href: 'catalog.html' },
-        { title: 'Сладкие и теплые', text: 'Ваниль, карамель, мед и мягкие гурманские ноты без липкой перегрузки.', img: 'https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
-        { title: 'Чистота и комфорт', text: 'Белый мускус, хлопок, чай и свежесть — когда нужно звучать спокойно.', img: 'images/aromat-3.png', href: 'catalog.html' }
-      ],
-      splitTitle: 'Смысл раздела',
-      splitText: 'Парфюмерия должна быть главным продающим разделом: здесь нужен фильтр по настроению, стойкости, нотам и формату.',
-      list: [
-        ['По настроению', 'утро, день, вечер, шлейф'],
-        ['По нотам', 'цитрус, цветы, древесные, гурманика, мускус'],
-        ['По формату', 'полный флакон, миниатюра, пробник, набор']
-      ],
-      cta: ['Перейти в общий каталог', 'catalog.html']
+      shelf: [5, 30, 31, 32, 33, 34, 35, 36, 37, 38, 39, 40, 41, 42]
     },
     sprei: {
       kicker: 'Спреи для тела',
       title: 'Легкие спреи <em>для тела</em>',
       lead: 'Ароматы для быстрых ежедневных сценариев: после душа, перед выходом, в сумку, в спортзал, в жизнь без лишней драмы.',
       tags: ['50 мл', '100 мл', 'бандлы', 'после душа', 'в сумку'],
-      shelf: [21, 22, 23, 24, 25, 26, 27],
-      cards: [
-        { title: 'Сахарный вихрь', text: 'Сладкий, мягкий, воздушный. Не спорит с парфюмом, если хочется наслаивания.', img: 'images/aromat-2.png', href: 'catalog.html' },
-        { title: 'Фруктовый коктейль', text: 'Более яркий дневной сценарий: сочность, чистота и настроение отпуска.', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
-        { title: 'Солнечный загар', text: 'Теплый телесный аромат для лета, кожи и белой рубашки.', img: 'https://images.unsplash.com/photo-1592842232655-e5d345cbc2d0?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' }
-      ],
-      splitTitle: 'Что важно покупателю',
-      splitText: 'Спрей покупают за легкость. Тут лучше не обещать стойкость парфюма, а честно продавать частоту использования и комфорт.',
-      list: [
-        ['Наслаивание', 'Покажи, с какими духами спрей сочетается.'],
-        ['Сценарии', 'После душа, перед сном, после тренировки, в поездку.'],
-        ['По типу', '50 мл, 100 мл и бандлы должны быть видны сразу.']
-      ],
-      cta: ['Смотреть ароматы', 'catalog.html']
+      shelf: [21, 22, 23, 24, 25, 26, 27]
     },
     super: {
       kicker: 'Супер-ароматы',
       title: 'Супер-ароматы <em>с характером</em>',
-      lead: 'Раздел для более ярких композиций: плотнее, заметнее, смелее. Не для всех — и в этом как раз смысл.',
-      tags: ['яркий шлейф', 'вечер', 'акцент', 'лимитки'],
-      cards: [
-        { title: 'Полночь', text: 'Уд, ваниль и черный перец: теплый шлейф для вечера и уверенного входа.', img: 'https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
-        { title: 'Ванильный порок', text: 'Гурманская сладость, которую нужно держать в балансе, а не лить ведром.', img: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
-        { title: 'Медовый люкс', text: 'Теплый медовый профиль для тех, кто хочет звучать дороже, чем “просто сладко”.', img: 'images/aromat-3.png', href: 'catalog.html' }
-      ],
-      splitTitle: 'Позиционирование',
-      splitText: 'Эти продукты лучше продавать через характер и повод: вечер, свидание, мероприятие, образ, подарок.',
-      list: [
-        ['Не всем', 'Это нормально. Разделу нужна более смелая подача.'],
-        ['Сильный текст', 'Тут работают названия, описания и визуальная драматургия.'],
-        ['Пробники', 'Для ярких ароматов пробник снижает страх покупки.']
-      ],
-      cta: ['Подобрать аромат', 'catalog.html']
+      lead: 'Плотнее, заметнее, смелее. Не для всех — и в этом смысл.',
+      tags: ['яркий шлейф', 'вечер', 'акцент'],
+      shelf: [32, 33, 35, 36, 39]
     },
     uhod: {
       kicker: 'Уход за телом',
@@ -301,7 +260,7 @@
       tags: ['кремы', 'бальзам-масло', 'после душа', 'наборы'],
       cards: [
         { title: 'Взбитые сливки', text: 'Мягкая текстура и сливочный аромат для ухода без ощущения тяжести.', img: 'images/aromat-3.png', href: 'catalog.html' },
-        { title: 'Коко-шайн', text: 'Теплый кокосовый профиль: отпуск, кожа, сияние, но без пляжного клише.', img: 'https://images.unsplash.com/photo-1596755389378-c31d21fd1273?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
+        { title: 'Коко-шайн', text: 'Теплый кокосовый профиль: отпуск, кожа, сияние, но без пляжного клише.', img: 'images/uhod-koko.jpg', href: 'catalog.html' },
         { title: 'Бережная забота', text: 'Нейтральный уходовый продукт для тех, кому важна текстура и спокойствие.', img: 'images/aromat-1.png', href: 'catalog.html' }
       ],
       splitTitle: 'Логика раздела',
@@ -320,9 +279,9 @@
       tags: ['основная коллекция', 'лимитки', 'мини 6 oz', 'классика 8.5 oz', 'подарочные наборы'],
       shelf: [11, 12, 13, 14, 15],
       cards: [
-        { title: 'Мгновенная перезагрузка', text: 'Основная свеча для быстрого переключения атмосферы: зажгла — и комната уже не спорит с нервной системой.', img: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
-        { title: 'Сладкий дым', text: 'Теплый, плотный, чуть соблазнительный профиль для вечера и режима “я сегодня не объясняюсь”.', img: 'https://images.unsplash.com/photo-1602874801006-e26e8be3e8f4?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
-        { title: 'Вне сети', text: 'Свеча для паузы без уведомлений, лишнего шума и попыток мира срочно что-то от вас получить.', img: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' }
+        { title: 'Мгновенная перезагрузка', text: 'Основная свеча для быстрого переключения атмосферы: зажгла — и комната уже не спорит с нервной системой.', img: 'images/svecha-perezagruzka.png', href: 'catalog.html' },
+        { title: 'Сладкий дым', text: 'Теплый, плотный, чуть соблазнительный профиль для вечера и режима “я сегодня не объясняюсь”.', img: 'images/svecha-sladkiy-dym.png', href: 'catalog.html' },
+        { title: 'Вне сети', text: 'Свеча для паузы без уведомлений, лишнего шума и попыток мира срочно что-то от вас получить.', img: 'images/svecha-vne-seti.png', href: 'catalog.html' }
       ],
       splitTitle: 'Коллекция свечей',
       splitText: 'Раздел лучше держать не просто списком товаров, а системой выбора: основная линейка, сезонные лимитки и форматы под разные сценарии покупки.',
@@ -339,8 +298,8 @@
       lead: 'Средства, наборы и арома-усилители для белья, шкафа и дома под контролем: чисто, свежо, спокойно, без бытового хаоса.',
       tags: ['стартовые наборы', 'гели для стирки', 'арома-усилители', 'свежий шкаф', 'дом под контролем'],
       cards: [
-        { title: 'Первый ритуал чистоты', text: 'Стартовый набор для знакомства с линейкой: всё нужное, чтобы бельё и шкаф начали звучать как CTRL home.', img: 'https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
-        { title: 'Тихая роскошь', text: 'Гель или усилитель с чистым, дорогим и спокойным ощущением. Без крика, но с характером.', img: 'https://images.unsplash.com/photo-1517677208171-0bc6725a3e60?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
+        { title: 'Первый ритуал чистоты', text: 'Стартовый набор для знакомства с линейкой: всё нужное, чтобы бельё и шкаф начали звучать как CTRL home.', img: 'images/stirka-nabor.jpg', href: 'catalog.html' },
+        { title: 'Тихая роскошь', text: 'Гель или усилитель с чистым, дорогим и спокойным ощущением. Без крика, но с характером.', img: 'images/stirka-gel.jpg', href: 'catalog.html' },
         { title: 'После дождя', text: 'Свежий профиль для повседневной стирки: воздух, ткань, чистота и ощущение открытого окна.', img: 'images/aromat-1.png', href: 'catalog.html' }
       ],
       splitTitle: 'Линейка для стирки',
@@ -358,8 +317,8 @@
       lead: 'Аксессуары бренда: косметички, мини-флаконы, travel-атомайзеры и вещи, которые поддерживают ритуал, а не просто несут логотип.',
       tags: ['атомайзеры', 'косметички', 'travel', 'подарки'],
       cards: [
-        { title: 'Travel-атомайзер', text: 'Формат для сумки и поездок: удобно брать любимый аромат без большого флакона.', img: 'https://images.unsplash.com/photo-1594035910387-fea47794261f?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
-        { title: 'Косметичка CTRL', text: 'Спокойный аксессуар для ухода, миниатюр и пробников.', img: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
+        { title: 'Travel-атомайзер', text: 'Формат для сумки и поездок: удобно брать любимый аромат без большого флакона.', img: 'images/merch-atomayzer.jpg', href: 'catalog.html' },
+        { title: 'Косметичка CTRL', text: 'Спокойный аксессуар для ухода, миниатюр и пробников.', img: 'images/merch-kosmetichka.jpg', href: 'catalog.html' },
         { title: 'Подарочный мешочек', text: 'Деталь, которая делает покупку более подарочной без лишней упаковочной суеты.', img: 'images/aromat-2.png', href: 'catalog.html' }
       ],
       splitTitle: 'Зачем разделу жить',
@@ -396,7 +355,7 @@
       lead: 'Скидки, последние экземпляры, сезонные наборы и продукты, которые уходят из линейки.',
       tags: ['последние штуки', 'сезонные наборы', 'минус процент', 'лимитки'],
       cards: [
-        { title: 'Последний шанс', text: 'Товары, которые скоро уйдут из продажи или меняют формат.', img: 'https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
+        { title: 'Последний шанс', text: 'Товары, которые скоро уйдут из продажи или меняют формат.', img: 'images/rasprodazha-1.jpg', href: 'catalog.html' },
         { title: 'Сет недели', text: 'Готовые сочетания по более мягкой цене.', img: 'images/aromat-2.png', href: 'sobrat-nabor.html' },
         { title: 'Пробники', text: 'Хороший способ познакомить нового покупателя с брендом без большого входного чека.', img: 'images/aromat-1.png', href: 'catalog.html' }
       ],
@@ -415,8 +374,8 @@
       lead: 'Служебная страница, которая должна отвечать на скучные, но важные вопросы до того, как они сорвут покупку.',
       tags: ['доставка', 'оплата', 'возврат', 'поддержка'],
       cards: [
-        { title: 'Доставка', text: 'Курьером или в пункт выдачи. Сроки и стоимость лучше привязать к городу на следующем этапе.', img: 'https://images.unsplash.com/photo-1580674285054-bed31e145f59?w=900&q=75&auto=format&fit=crop', href: 'catalog.html' },
-        { title: 'Оплата', text: 'Банковской картой на сайте. Позже можно добавить оплату частями или подарочные карты.', img: 'https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=900&q=75&auto=format&fit=crop', href: 'podarochnye-karty.html' },
+        { title: 'Доставка', text: 'Курьером или в пункт выдачи. Сроки и стоимость лучше привязать к городу на следующем этапе.', img: 'images/dostavka-kurer.jpg', href: 'catalog.html' },
+        { title: 'Оплата', text: 'Банковской картой на сайте. Позже можно добавить оплату частями или подарочные карты.', img: 'images/dostavka-oplata.jpg', href: 'podarochnye-karty.html' },
         { title: 'Возврат', text: 'Косметику и парфюмерию важно описывать аккуратно: правила зависят от состояния товара и упаковки.', img: 'images/aromat-3.png', href: 'kachestvo.html' }
       ],
       splitTitle: 'Что обязательно уточнить',
@@ -455,12 +414,14 @@
   /* Корзина (выезжающая панель, счётчик, страница korzina) — целиком в cart.js */
 
   function renderCommon(page) {
+    var kind = phKind(page);
     var tags = page.tags.map(function (tag) { return '<span>' + tag + '</span>'; }).join('');
     var cards = page.cards.map(function (card, i) {
+      var ph = phData(kind, i, 600);
       return '<article class="page-card reveal" data-delay="' + Math.min(i, 3) + '">' +
         '<a class="page-card-link" href="' + card.href + '" aria-label="' + card.title + '"></a>' +
         '<div class="page-card-media">' +
-          '<img src="' + card.img + '" alt="' + card.title + '" loading="lazy" onerror="this.onerror=null;this.src=\'https://picsum.photos/seed/ctrl-page-' + i + '/900/700\'">' +
+          '<img src="' + card.img + '" alt="' + card.title + '" loading="lazy" data-ph="' + ph + '" onerror="this.onerror=null;this.src=this.getAttribute(\'data-ph\')">' +
         '</div>' +
         '<div class="page-card-body">' +
           '<h3>' + card.title + '</h3>' +
@@ -487,8 +448,10 @@
       '</div>';
   }
 
-  // Фирменная заглушка-плитка (бренд-цвета, формат 4:5) — пока нет реального фото.
-  function phSvg(kind, wash, pop) {
+  // Фирменная заглушка-плитка (бренд-цвета) — пока нет реального фото.
+  // h = высота холста: 1000 (4:5, товарные полки) или 600 (4:3, редакционные карточки).
+  function phSvg(kind, wash, pop, h) {
+    h = h || 1000;
     var paper = '#F1EFE8', ink = '#0E0E0E', muted = '#8C8C84', icon;
     if (kind === 'candle') {
       icon = '<g fill="none" stroke="' + ink + '" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">' +
@@ -506,6 +469,23 @@
         '<circle cx="520" cy="416" r="7" fill="' + pop + '" stroke="none"/>' +
         '<circle cx="506" cy="434" r="6" fill="' + pop + '" stroke="none"/>' +
         '</g>';
+    } else if (kind === 'jar') {
+      icon = '<g fill="none" stroke="' + ink + '" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="330" y="452" width="140" height="120" rx="18"/>' +
+        '<rect x="322" y="414" width="156" height="38" rx="12"/>' +
+        '<circle cx="400" cy="512" r="20" fill="' + pop + '" stroke="' + ink + '"/>' +
+        '</g>';
+    } else if (kind === 'drop') {
+      icon = '<g fill="none" stroke="' + ink + '" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">' +
+        '<path d="M400 356 C 362 424 350 462 350 496 A 50 50 0 0 0 450 496 C 450 462 438 424 400 356 Z"/>' +
+        '<path d="M366 508 q 11 -13 23 0 q 11 -13 22 0 q 11 -13 23 0" stroke="' + pop + '"/>' +
+        '</g>';
+    } else if (kind === 'box') {
+      icon = '<g fill="none" stroke="' + ink + '" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">' +
+        '<rect x="332" y="440" width="136" height="132" rx="12"/>' +
+        '<line x1="400" y1="440" x2="400" y2="572"/>' +
+        '<path d="M400 440 c -14 -32 -48 -34 -50 -12 c -2 20 26 18 50 12 c 24 6 52 8 50 -12 c -2 -22 -36 -20 -50 12 z" fill="' + pop + '"/>' +
+        '</g>';
     } else {
       icon = '<g fill="none" stroke="' + ink + '" stroke-width="12" stroke-linecap="round" stroke-linejoin="round">' +
         '<rect x="350" y="436" width="100" height="156" rx="14"/>' +
@@ -514,23 +494,28 @@
         '<circle cx="400" cy="512" r="22" fill="' + pop + '" stroke="' + ink + '"/>' +
         '</g>';
     }
-    return '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="1000" viewBox="0 0 800 1000">' +
-      '<rect width="800" height="1000" fill="' + paper + '"/>' +
-      '<circle cx="400" cy="430" r="196" fill="' + wash + '"/>' +
-      icon +
-      '<text x="400" y="892" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="5" fill="' + ink + '">CTRL home</text>' +
-      '<text x="400" y="932" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" letter-spacing="3" fill="' + muted + '">фото скоро</text>' +
+    var cy = Math.round(h * 0.43);                 // центр вош-круга
+    var dy = Math.round((h - 1000) * 0.43);        // смещение иконки (нарисована под h=1000)
+    return '<svg xmlns="http://www.w3.org/2000/svg" width="800" height="' + h + '" viewBox="0 0 800 ' + h + '">' +
+      '<rect width="800" height="' + h + '" fill="' + paper + '"/>' +
+      '<circle cx="400" cy="' + cy + '" r="' + (h === 1000 ? 196 : 170) + '" fill="' + wash + '"/>' +
+      '<g transform="translate(0,' + dy + ')">' + icon + '</g>' +
+      '<text x="400" y="' + (h - 108) + '" text-anchor="middle" font-family="Space Grotesk, Arial, sans-serif" font-size="30" font-weight="700" letter-spacing="5" fill="' + ink + '">CTRL home</text>' +
+      '<text x="400" y="' + (h - 68) + '" text-anchor="middle" font-family="Arial, sans-serif" font-size="22" letter-spacing="3" fill="' + muted + '">фото скоро</text>' +
       '</svg>';
   }
-  function phData(kind, i) {
+  function phData(kind, i, h) {
     var combos = [['#EAF0BE', '#FF2D9E'], ['#F6CFE0', '#CCF400']]; // [фон-вош, акцент], чередуем
     var c = combos[i % combos.length];
-    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(phSvg(kind, c[0], c[1]));
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(phSvg(kind, c[0], c[1], h));
   }
   function phKind(page) {
     var k = (page && page.kicker) || '';
     if (/Свеч/i.test(k)) return 'candle';
     if (/Спре/i.test(k)) return 'spray';
+    if (/Уход/i.test(k)) return 'jar';
+    if (/стирк/i.test(k)) return 'drop';
+    if (/Мерч|Подароч/i.test(k)) return 'box';
     return 'bottle';
   }
 
@@ -576,6 +561,67 @@
       '</div>';
   }
 
+  // Мини-глифы категорий (штриховой стиль фирменных заглушек) для чипов-якорей каталога
+  function chipGlyph(kind) {
+    var s;
+    if (kind === 'candle') {
+      s = '<rect x="4.5" y="9.5" width="13" height="10" rx="1.6"/>' +
+          '<line x1="4.5" y1="12" x2="17.5" y2="12"/>' +
+          '<line x1="11" y1="9.5" x2="11" y2="7.6"/>' +
+          '<path d="M11 3 C 9.2 5.1 10.1 6.9 11 6.9 C 11.9 6.9 12.8 5.2 11 3 Z"/>';
+    } else if (kind === 'spray') {
+      s = '<rect x="6.4" y="8.2" width="8.2" height="11.8" rx="1.6"/>' +
+          '<rect x="8.2" y="5.2" width="4.6" height="3"/>' +
+          '<path d="M12.8 6 h3.2 M12.8 7.3 h3.2"/>' +
+          '<circle cx="18" cy="4.6" r=".8" fill="currentColor" stroke="none"/>' +
+          '<circle cx="19.3" cy="6.4" r=".65" fill="currentColor" stroke="none"/>';
+    } else {
+      s = '<rect x="6.6" y="8.4" width="8.8" height="11.6" rx="1.4"/>' +
+          '<rect x="9.3" y="5.2" width="3.4" height="3.2" rx=".6"/>' +
+          '<line x1="11" y1="5.2" x2="11" y2="3.9"/>' +
+          '<circle cx="11" cy="14.4" r="2.1"/>';
+    }
+    return '<svg viewBox="0 0 22 22" width="20" height="20" aria-hidden="true">' +
+      '<g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">' + s + '</g></svg>';
+  }
+
+  // ОБЩИЙ КАТАЛОГ: весь ассортимент секциями + чипы-якоря по категориям
+  function renderCatalog(page) {
+    var chips = page.sections.map(function (s) {
+      return '<a class="cat-chip" href="#cat-' + s.key + '" data-key="' + s.key + '">' +
+        chipGlyph(s.kind) + '<span>' + s.label + '</span><b>' + s.ids.length + '</b></a>';
+    }).join('');
+    var sections = page.sections.map(function (s) {
+      return '<section class="cat-sec" id="cat-' + s.key + '" data-key="' + s.key + '">' +
+        '<div class="cat-sec-head">' +
+          '<h2>' + s.label + ' <b>' + s.ids.length + '</b></h2>' +
+          '<a class="cat-sec-all" href="' + s.href + '">Весь раздел <span aria-hidden="true">→</span></a>' +
+        '</div>' +
+        '<div class="products">' + shelfCardsHTML(s.ids, s.kind) + '</div>' +
+      '</section>';
+    }).join('');
+    root.innerHTML =
+      '<div class="philosophy-label">' + page.kicker + '</div>' +
+      '<h1 class="section-title">' + page.title + '</h1>' +
+      '<nav class="cat-nav" aria-label="Категории каталога">' + chips + '</nav>' +
+      sections;
+
+    // подсветка чипа текущей секции при скролле
+    if ('IntersectionObserver' in window) {
+      var chipMap = {};
+      root.querySelectorAll('.cat-chip').forEach(function (c) { chipMap[c.getAttribute('data-key')] = c; });
+      var secObs = new IntersectionObserver(function (entries) {
+        entries.forEach(function (en) {
+          if (!en.isIntersecting) return;
+          Object.keys(chipMap).forEach(function (k) { chipMap[k].classList.remove('is-active'); });
+          var key = en.target.getAttribute('data-key');
+          if (chipMap[key]) chipMap[key].classList.add('is-active');
+        });
+      }, { rootMargin: '-25% 0px -65% 0px' });
+      root.querySelectorAll('.cat-sec').forEach(function (sec) { secObs.observe(sec); });
+    }
+  }
+
   function initPage() {
     var header = document.getElementById('header');
     if (header) {
@@ -602,7 +648,8 @@
   /* hasOwnProperty — иначе key='constructor' (промо-карточка на главной) достаёт
      Object.prototype.constructor и роняет рендер TypeError'ом */
   if (Object.prototype.hasOwnProperty.call(PAGES, key)) {
-    if (PAGES[key].shelf) { renderShelf(PAGES[key]); }
+    if (PAGES[key].sections) { renderCatalog(PAGES[key]); }
+    else if (PAGES[key].shelf) { renderShelf(PAGES[key]); }
     else { renderCommon(PAGES[key]); }
   }
   initPage();

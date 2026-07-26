@@ -22,7 +22,7 @@
         { label: '50 мл', img: 'images/aromat-1.png' },
         { label: '100 мл', img: 'images/aromat-2.png' },
         { label: '10 мл', img: 'images/aromat-3.png' },
-        { label: 'Наборы', img: 'https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=220&q=70&auto=format&fit=crop' }
+        { label: 'Наборы', img: 'images/nabor-ritual.jpg' }
       ]
     },
     {
@@ -37,7 +37,7 @@
       sizes: [
         { label: '50 мл', img: 'images/aromat-2.png' },
         { label: '100 мл', img: 'images/aromat-3.png' },
-        { label: 'Бандлы', img: 'https://images.unsplash.com/photo-1523293182086-7651a899d37f?w=220&q=70&auto=format&fit=crop' }
+        { label: 'Бандлы', img: 'images/nabor-ritual.jpg' }
       ]
     },
     {
@@ -52,7 +52,7 @@
     },
     {
       trigger: 'Свечи', id: 'subCandles',
-      feature: 'Мгновенная перезагрузка', kicker: 'свеча', img: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?w=900&q=75&auto=format&fit=crop',
+      feature: 'Мгновенная перезагрузка', kicker: 'свеча', img: 'images/svecha-perezagruzka.png',
       allHref: 'svechi.html', allLabel: 'Посмотреть все свечи',
       groups: [
         { title: 'Основная коллекция свечей', items: ['Мгновенная перезагрузка', 'Сладкий дым', 'Вне сети', 'Тихий лес', 'Ветер в комнате'] },
@@ -63,7 +63,7 @@
     },
     {
       trigger: 'Для стирки', id: 'subLaundry',
-      feature: 'Первый ритуал чистоты', kicker: 'для стирки', img: 'https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?w=900&q=75&auto=format&fit=crop',
+      feature: 'Первый ритуал чистоты', kicker: 'для стирки', img: 'images/stirka-nabor.jpg',
       allHref: 'dlya-stirki.html', allLabel: 'Посмотреть всё для стирки',
       groups: [
         { title: 'Стартовые наборы для стирки', items: ['Первый ритуал чистоты', 'Набор “Дом под контролем”', 'Стирка без хаоса', 'Чистый старт', 'Набор для свежего шкафа', 'Средство для стирки + усилитель аромата'] },

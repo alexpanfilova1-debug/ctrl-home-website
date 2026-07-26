@@ -1,0 +1,76 @@
+/* ============ КАТАЛОГ (catalog.html): весь ассортимент секциями ============ */
+/* Подключается только на catalog.html поверх styles.css */
+
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+/* --- чипы-якоря категорий --- */
+.cat-nav{
+  display:flex;flex-wrap:wrap;gap:.8rem;
+  margin:-1.6rem 0 clamp(2.4rem,5vw,3.4rem);
+}
+.cat-chip{
+  display:inline-flex;align-items:center;gap:.55rem;
+  padding:.6rem .85rem;
+  border:2px solid var(--ink);border-radius:8px;
+  background:#fff;color:var(--ink);
+  box-shadow:3px 3px 0 var(--ink);
+  font-family:var(--font-display);font-weight:600;font-size:.88rem;letter-spacing:.02em;
+  transition:transform .15s var(--ease),box-shadow .15s var(--ease),background .2s;
+}
+.cat-chip svg{flex:none}
+.cat-chip b{
+  font-family:var(--font-mono);font-weight:700;font-size:.72rem;line-height:1;
+  padding:.18rem .32rem;
+  background:var(--lime);border:1.5px solid var(--ink);border-radius:4px;
+  box-shadow:2px 2px 0 var(--ink);
+}
+.cat-chip:hover{transform:translate(-2px,-2px);box-shadow:5px 5px 0 var(--ink)}
+.cat-chip:active{transform:translate(1px,1px);box-shadow:1px 1px 0 var(--ink)}
+.cat-chip.is-active{background:var(--lime)}
+.cat-chip.is-active b{background:#fff}
+
+/* --- секции категорий --- */
+.cat-sec{scroll-margin-top:calc(var(--header-h) + 1.2rem)}
+.cat-sec + .cat-sec{
+  margin-top:clamp(3.5rem,7vw,5.5rem);
+  border-top:1px solid var(--line);
+  padding-top:clamp(2.4rem,4.5vw,3.2rem);
+}
+.cat-sec-head{
+  display:flex;align-items:baseline;justify-content:space-between;
+  gap:1rem;flex-wrap:wrap;
+  margin-bottom:clamp(1.4rem,3vw,2rem);
+}
+.cat-sec-head h2{
+  font-family:var(--font-display);
+  font-size:clamp(1.35rem,2.6vw,2rem);line-height:1.1;margin:0;
+}
+.cat-sec-head h2 b{
+  font-family:var(--font-mono);font-weight:700;font-size:.58em;
+  color:var(--pink);
+  position:relative;top:-.55em;margin-left:.15rem;
+}
+.cat-sec-all{
+  font-family:var(--font-mono);font-weight:700;font-size:.76rem;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--ink);
+  padding:.15rem .3rem;border-bottom:2px solid var(--ink);
+  transition:background .2s;white-space:nowrap;
+}
+.cat-sec-all span{display:inline-block;transition:transform .25s var(--ease)}
+.cat-sec-all:hover{background:var(--lime)}
+.cat-sec-all:hover span{transform:translateX(3px)}
+
+/* --- мобилка: чипы горизонтальной лентой со снапом --- */
+@media (max-width:560px){
+  .cat-nav{
+    flex-wrap:nowrap;overflow-x:auto;
+    scroll-snap-type:x proximity;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+    margin-inline:-1rem;padding-inline:1rem;
+    padding-bottom:6px; /* место под офсет-тень */
+  }
+  .cat-nav::-webkit-scrollbar{display:none}
+  .cat-chip{flex:none;scroll-snap-align:start}
+}

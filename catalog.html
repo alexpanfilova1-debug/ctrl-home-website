@@ -4,137 +4,21 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Каталог — CTRL home</title>
-<meta name="description" content="Каталог ароматов CTRL home — парфюмерия настроения.">
+<meta name="description" content="Весь каталог CTRL home: парфюмерия, свечи и спреи для тела — ароматы как переключатели состояния.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Space+Mono:wght@400;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css?v=24">
+<link rel="stylesheet" href="catalog.css?v=1">
 <link rel="icon" href="favicon.svg" type="image/svg+xml">
 </head>
 <body>
-
 <div data-site-chrome></div>
-
-<!-- КАТАЛОГ -->
-<section class="section container" style="padding-top:calc(var(--header-h) + 4rem)">
-  <div class="philosophy-label reveal">Каталог</div>
-  <h1 class="section-title reveal" data-delay="1">Все <em>ароматы</em></h1>
-  <div class="products">
-    <article class="product reveal" data-id="1">
-        <span class="product-badge" data-state="focus">CTRL+FOCUS</span>
-        <a class="product-link" href="product.html?id=1" aria-label="CTRL № 1 — Рассвет"></a>
-      <div class="product-img">
-        <img src="images/aromat-1.png" alt="CTRL № 1 — Рассвет" loading="eager" fetchpriority="high"
-             onerror="this.src='https://picsum.photos/seed/ctrl1/900/1200'">
-        <img class="img-alt" src="https://images.unsplash.com/photo-1615634260167-c8cdede054de?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl1b/900/1200'">
-        <button class="product-add" data-add="1" aria-label="В корзину">В корзину</button>
-      </div>
-      <div class="product-info">
-        <div>
-          <div class="product-name">CTRL № 1 — Рассвет</div>
-          <div class="product-note">бергамот · нероли · белый чай</div>
-        </div>
-        <div class="product-price">6 900 ₽</div>
-      </div>
-    </article>
-    <article class="product reveal" data-delay="1" data-id="2">
-        <span class="product-badge" data-state="energy">CTRL+ENERGY</span>
-        <a class="product-link" href="product.html?id=2" aria-label="CTRL № 2 — Полдень"></a>
-      <div class="product-img">
-        <img src="images/aromat-2.png" alt="CTRL № 2 — Полдень" loading="eager" fetchpriority="high"
-             onerror="this.src='https://picsum.photos/seed/ctrl2/900/1200'">
-        <img class="img-alt" src="https://images.unsplash.com/photo-1557170334-a9632e77c6e4?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl2b/900/1200'">
-        <button class="product-add" data-add="2" aria-label="В корзину">В корзину</button>
-      </div>
-      <div class="product-info">
-        <div>
-          <div class="product-name">CTRL № 2 — Полдень</div>
-          <div class="product-note">инжир · кедр · морская соль</div>
-        </div>
-        <div class="product-price">7 400 ₽</div>
-      </div>
-    </article>
-    <article class="product reveal" data-delay="2" data-id="3">
-        <span class="product-badge" data-state="calm">CTRL+CALM</span>
-        <a class="product-link" href="product.html?id=3" aria-label="CTRL № 3 — Сумерки"></a>
-      <div class="product-img">
-        <img src="images/aromat-3.png" alt="CTRL № 3 — Сумерки" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl3/900/1200'">
-        <img class="img-alt" src="https://images.unsplash.com/photo-1547887538-e3a2f32cb1cc?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl3b/900/1200'">
-        <button class="product-add" data-add="3" aria-label="В корзину">В корзину</button>
-      </div>
-      <div class="product-info">
-        <div>
-          <div class="product-name">CTRL № 3 — Сумерки</div>
-          <div class="product-note">ирис · сандал · амбра</div>
-        </div>
-        <div class="product-price">8 200 ₽</div>
-      </div>
-    </article>
-    <article class="product reveal" data-delay="3" data-id="4">
-        <span class="product-badge" data-state="night">CTRL+NIGHT</span>
-        <a class="product-link" href="product.html?id=4" aria-label="CTRL № 4 — Полночь"></a>
-      <div class="product-img">
-        <img src="https://images.unsplash.com/photo-1588405748880-12d1d2a59f75?w=900&q=75&auto=format&fit=crop" alt="CTRL № 4 — Полночь" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl4/900/1200'">
-        <img class="img-alt" src="https://images.unsplash.com/photo-1592842232655-e5d345cbc2d0?w=900&q=75&auto=format&fit=crop" alt="" loading="lazy"
-             onerror="this.src='https://picsum.photos/seed/ctrl4b/900/1200'">
-        <button class="product-add" data-add="4" aria-label="В корзину">В корзину</button>
-      </div>
-      <div class="product-info">
-        <div>
-          <div class="product-name">CTRL № 4 — Полночь</div>
-          <div class="product-note">уд · ваниль · чёрный перец</div>
-        </div>
-        <div class="product-price">9 100 ₽</div>
-      </div>
-    </article>
-  </div>
-</section>
-
-<!-- ФУТЕР -->
-<footer class="footer">
-  <div class="container">
-    <div class="footer-grid">
-      <div><div class="footer-logo">CTRL <span>home</span></div></div>
-      <div>
-        <h5>Навигация</h5>
-        <nav class="footer-nav">
-          <a href="catalog.html">Все ароматы</a>
-          <a href="sobrat-nabor.html">Собрать набор</a>
-          <a href="o-nas.html">О нас</a>
-          <a href="podpiska.html">Подписка</a>
-          <a href="soobshestvo.html">Сообщество</a>
-        </nav>
-      </div>
-      <div>
-        <h5>Подпишитесь на новости</h5>
-        <form class="subscribe" onsubmit="return false">
-          <input type="email" placeholder="ваш@email.ru" aria-label="Email">
-          <button type="submit">Отправить</button>
-        </form>
-        <div class="subscribe-msg"></div>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <div>© 2026 CTRL home. Все права защищены.</div>
-      <div>Политика конфиденциальности · Оферта</div>
-    </div>
-  </div>
-</footer>
-
+<main class="section container page-shell" data-page="catalog"></main>
+<div data-site-footer></div>
 <script src="site-chrome.js?v=3"></script>
-<script src="page-data.js?v=12"></script>
+<script src="page-data.js?v=14"></script>
 <script src="cart.js?v=2"></script>
-<script src="menu.js?v=8"></script>
-<script>
-  var h=document.getElementById('header');
-  if(h){var f=function(){h.classList.toggle('scrolled',window.scrollY>40);};window.addEventListener('scroll',f,{passive:true});f();}
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target);}});},{threshold:.15});
-  document.querySelectorAll('.reveal').forEach(function(el){io.observe(el);});
-</script>
+<script src="menu.js?v=9"></script>
 </body>
 </html>
